@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
 
+import com.store.kiwi.kiwistore.adapter.TheLoaiAdapter;
 import com.store.kiwi.kiwistore.model.TheLoai;
 
 import java.util.ArrayList;
@@ -14,6 +14,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private List<TheLoai> mListTheLoai;
     private RecyclerView mRecyclerViewTheLoai;
+    private TheLoaiAdapter mTheLoaiAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,14 +25,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void addControls() {
         mListTheLoai=new ArrayList<>();
-        mListTheLoai.add(new TheLoai("tất cả","0",R.drawable.game,"1"));
-        mListTheLoai.add(new TheLoai("giải trí","0",R.drawable.game,"2"));
-        mListTheLoai.add(new TheLoai("trò chơi","0",R.drawable.game,"3"));
-        mListTheLoai.add(new TheLoai("giáo dục và sức khỏe","0",R.drawable.game,"4"));
+        mListTheLoai.add(new TheLoai("tất cả","750",R.drawable.ic_play,"1",true));
+        mListTheLoai.add(new TheLoai("giải trí","200",R.drawable.game,"2",false));
+        mListTheLoai.add(new TheLoai("trò chơi","300",R.drawable.ic_play,"3",false));
+        mListTheLoai.add(new TheLoai("giáo dục và sức khỏe","250",R.drawable.game,"4",false));
+
         mRecyclerViewTheLoai = (RecyclerView) findViewById(R.id.list_the_loai);
         mRecyclerViewTheLoai.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        mRecyclerViewTheLoai.setHasFixedSize(true);
-        mRecyclerViewTheLoai.setAdapter();
+        mRecyclerViewTheLoai.setHasFixedSize(false);
+        mTheLoaiAdapter = new TheLoaiAdapter(this,mListTheLoai);
+        mRecyclerViewTheLoai.setAdapter(mTheLoaiAdapter);
         /*List<ApplicationInfo> listApplicationInfo = getPackageManager().getInstalledApplications(PackageManager.GET_META_DATA);
         String label = (String) getPackageManager().getApplicationLabel(listApplicationInfo.get(2));
         Drawable icon = getPackageManager().getApplicationIcon(listApplicationInfo.get(2));

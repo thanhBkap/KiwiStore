@@ -11,7 +11,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view_the_loai"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    card_view:cardBackgroundColor="@color/cardview_dark_background">
     >
 
     <RelativeLayout
