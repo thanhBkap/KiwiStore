@@ -173,4 +173,14 @@
         </android.support.v7.widget.RecyclerView>
 
     </RelativeLayout>
+    <RelativeLayout
+        android:layout_below="@+id/layout_header"
+        android:layout_toRightOf="@+id/layout_the_loai"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!--
+                <include layout="@layout/fragment_the_loai"/>
+        -->
+
+    </RelativeLayout>
 </RelativeLayout>

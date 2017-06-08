@@ -322,25 +322,28 @@ public class LunarCalendar {
     public static Map<String, String> getTodayInfo() {
         double GMT = 7.0;
         Map<String, String> today = new HashMap<>();
-        int daySolar, monthSolar, yearSolar, dayLunar, monthLunar, yearLunar;
-        String can,chi,thu;
+        int daySolar, monthSolar, yearSolar, dayLunar, monthLunar, yearLunar, hour, minute, second;
+        String can, chi, thu;
         //instantiates a calendar using the current time in the specified timezone
         Calendar calendarToday = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
 //change the timezone
         calendarToday.setTimeZone(TimeZone.getTimeZone("Asia/Saigon"));
 //get the current hour of the day in the new timezone
         daySolar = calendarToday.get(Calendar.DAY_OF_MONTH);
-        monthSolar = calendarToday.get(Calendar.MONTH)+1;
+        monthSolar = calendarToday.get(Calendar.MONTH) + 1;
         yearSolar = calendarToday.get(Calendar.YEAR);
+        hour = calendarToday.get(Calendar.HOUR_OF_DAY);
+        minute = calendarToday.get(Calendar.MINUTE);
+        second = calendarToday.get(Calendar.SECOND);
 
         int[] lunar = LunarCalendar.convertSolar2Lunar(daySolar, monthSolar, yearSolar, GMT);
         dayLunar = lunar[0];
         monthLunar = lunar[1];
         yearLunar = lunar[2];
 // trả về can, chi, thứ
-        can=print_can((yearSolar+6)%10);
-        chi=print_chi((yearSolar+8)%12);
-        thu=print_thu(jdFromDate(daySolar,monthSolar,yearSolar)%7);
+        can = print_can((yearSolar + 6) % 10);
+        chi = print_chi((yearSolar + 8) % 12);
+        thu = print_thu(jdFromDate(daySolar, monthSolar, yearSolar) % 7);
         // set values
         today.put("daySolar", daySolar + "");
         today.put("monthSolar", monthSolar + "");
@@ -348,9 +351,13 @@ public class LunarCalendar {
         today.put("dayLunar", dayLunar + "");
         today.put("monthLunar", monthLunar + "");
         today.put("yearLunar", yearLunar + "");
+        today.put("hour", hour + "");
+        today.put("minute", minute + "");
+        today.put("second", second + "");
         today.put("can", can);
         today.put("chi", chi);
         today.put("thu", thu);
+
 
         return today;
     }

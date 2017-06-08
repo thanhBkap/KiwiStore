@@ -6,6 +6,9 @@
     <color name="text_search_color">#101623</color>
     <color name="white">#ffffff</color>
     <color name="light_green">#a4d466</color>
+    <color name="light_green_v3">#a0d638</color>
+    <color name="light_green_v2">#729746</color>
+    <color name="light_blue">#30394b</color>
 
 
 </resources>

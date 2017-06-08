@@ -5,10 +5,10 @@ package com.store.kiwi.kiwistore.model;
  */
 
 public class TheLoai {
+    private String id;
     private String ten;
     private String soLuong;
     private int icon;
-    private String id;
     private  boolean checked;
 
     public TheLoai() {

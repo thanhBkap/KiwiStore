@@ -10,10 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.store.kiwi.kiwistore.R;
+import com.store.kiwi.kiwistore.database.DatabaseHelper;
 import com.store.kiwi.kiwistore.model.TheLoai;
+import com.store.kiwi.kiwistore.model.UngDung;
 
 import java.util.List;
 
@@ -22,13 +23,22 @@ import java.util.List;
  */
 
 public class TheLoaiAdapter extends RecyclerView.Adapter<TheLoaiAdapter.ViewHolder> {
-    Context mContext;
-    List<TheLoai> mListTheLoai;
+    private Context mContext;
+    private List<TheLoai> mListTheLoai;
+    private View mFragmentTheLoai;
+    private View mUngDungChiTietFragment;
+    private List<UngDung> mListUngDung;
+    private UngDungAdapter mUngDungAdapter;
 
 
-    public TheLoaiAdapter(Context context, List<TheLoai> listTheLoai) {
+    public TheLoaiAdapter(Context context, List<TheLoai> listTheLoai, View fragmentTheLoai, View mUngDungChiTietFragment,
+                          List<UngDung> listUngDung, UngDungAdapter ungDungAdapter) {
         mContext = context;
         mListTheLoai = listTheLoai;
+        mFragmentTheLoai = fragmentTheLoai;
+        this.mUngDungChiTietFragment = mUngDungChiTietFragment;
+        mListUngDung = listUngDung;
+        mUngDungAdapter = ungDungAdapter;
     }
 
     @Override
@@ -42,16 +52,18 @@ public class TheLoaiAdapter extends RecyclerView.Adapter<TheLoaiAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        TheLoai theLoai=mListTheLoai.get(position);
+        TheLoai theLoai = mListTheLoai.get(position);
         Drawable icon = mContext.getResources().getDrawable(theLoai.getIcon());
         holder.mIcon.setImageDrawable(icon);
-        holder.mTenVaSoLuong.setText(theLoai.getTen()+" ("+theLoai.getSoLuong()+")");
+        holder.mTenVaSoLuong.setText(theLoai.getTen() + " (" + theLoai.getSoLuong() + ")");
         holder.mCardView.setCardElevation(0);
 
-        if (theLoai.isChecked()){
-            holder.mCardView.setRadius(15);
+        if (theLoai.isChecked()) {
+            holder.mCardView.setRadius(2);
             holder.mCardView.setCardBackgroundColor(mContext.getResources().getColor(R.color.light_green));
-        }else{
+            holder.mAnhTheLoai.setImageDrawable(mContext.getResources().getDrawable(theLoai.getIcon()));
+            holder.mTxtTenVaSoLuong.setText(theLoai.getTen() + " (" + theLoai.getSoLuong() + ")");
+        } else {
             holder.mCardView.setRadius(0);
             holder.mCardView.setCardBackgroundColor(Color.TRANSPARENT);
         }
@@ -67,22 +79,35 @@ public class TheLoaiAdapter extends RecyclerView.Adapter<TheLoaiAdapter.ViewHold
         ImageView mIcon;
         TextView mTenVaSoLuong;
         CardView mCardView;
-        ViewHolder( View itemView) {
+        ImageView mAnhTheLoai;
+        TextView mTxtTenVaSoLuong;
+        DatabaseHelper databaseHelper;
+
+        ViewHolder(View itemView) {
             super(itemView);
             mIcon = (ImageView) itemView.findViewById(R.id.anh_the_loai);
             mTenVaSoLuong = (TextView) itemView.findViewById(R.id.txtTenVaSoLuong);
-            mCardView= (CardView) itemView.findViewById(R.id.card_view_the_loai);
+            mCardView = (CardView) itemView.findViewById(R.id.card_view_the_loai);
+            mAnhTheLoai = (ImageView) mFragmentTheLoai.findViewById(R.id.anh_the_loai);
+            mTxtTenVaSoLuong = (TextView) mFragmentTheLoai.findViewById(R.id.txt_ten_so_luong_the_loai);
+            databaseHelper = new DatabaseHelper(mContext);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mContext,getPosition()+"",Toast.LENGTH_LONG).show();
-                    for (int i=0;i<getItemCount();i++){
-                        if (mListTheLoai.get(i).isChecked()){
+                    mUngDungChiTietFragment.setVisibility(View.GONE);
+                    mFragmentTheLoai.setVisibility(View.VISIBLE);
+                    for (int i = 0; i < getItemCount(); i++) {
+                        if (mListTheLoai.get(i).isChecked()) {
                             mListTheLoai.get(i).setChecked(false);
                             break;
                         }
                     }
-                    mListTheLoai.get(getPosition()).setChecked(true);
+                    TheLoai theLoaiHienTai = mListTheLoai.get(getPosition());
+                    theLoaiHienTai.setChecked(true);
+                    mListUngDung.clear();
+                    mListUngDung.addAll(databaseHelper.getListUngDung(theLoaiHienTai));
+
+                    mUngDungAdapter.notifyDataSetChanged();
                     notifyDataSetChanged();
                 }
             });

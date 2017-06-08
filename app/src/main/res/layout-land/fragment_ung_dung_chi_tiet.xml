@@ -1,0 +1,180 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/chi_tiet_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="20dp"
+    tools:context="com.store.kiwi.kiwistore.TheLoaiFragment">
+
+    <RelativeLayout
+        android:id="@+id/layout_the_loai"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@+id/layout_lien_quan">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/anh_quang_cao"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@drawable/ad"
+            app:riv_border_color="@color/light_blue"
+            app:riv_border_width="0.1dp"
+            app:riv_corner_radius_top_right="5dp"
+            app:riv_corner_radius_top_left="5dp"
+            app:riv_mutate_background="true" />
+
+        <RelativeLayout
+            android:id="@+id/layout_show_info"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/anh_quang_cao"
+            android:background="@color/light_blue"
+            android:padding="8dp">
+
+            <RelativeLayout
+                android:id="@+id/layout_show_info_sub"
+                android:layout_width="match_parent"
+                android:layout_height="96dp">
+
+                <ImageView
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/anh_icon"
+                    android:layout_width="96dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_vtv"
+                    />
+
+                <TextView
+                    android:id="@+id/txt_ten"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_toRightOf="@+id/anh_icon"
+                    android:text="VTV Go"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/txt_dac_ta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_ten"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@+id/anh_icon"
+                    android:text="Ứng dụng được phát triển bởi VTVGo .Gồm 9 kênh VTV : vtv1, vtv2, vtv3, vtv4, vtv5, vtv6, vtv7"
+                    android:textColor="@color/white"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/txt_luot_cai"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_toRightOf="@+id/anh_icon"
+                    android:text="(1,500 kiwier cài đặt ứng dụng này)"
+                    android:textColor="@color/light_green_v3"
+                    android:textSize="12dp" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_cai_dat_ung_dung"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/bo_vien_cai_dat"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="8dp">
+
+                    <ImageView
+                        android:id="@+id/anh_icon_cai_ung_dung"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_centerVertical="true"
+                        android:scaleX="0.5"
+                        android:scaleY="0.5"
+                        android:src="@drawable/down" />
+
+                    <TextView
+                        android:id="@+id/txt_cai_dat_ung_dung"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/anh_icon_cai_ung_dung"
+                        android:text="Cài ứng dụng"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="12dp" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/layout_show_info_sub"
+                android:layout_marginTop="20dp"
+                android:paddingRight="5dp">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/list_anh_ung_dung"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true">
+
+                </android.support.v7.widget.RecyclerView>
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_lien_quan"
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_below="@+id/layout_the_loai"
+        android:paddingLeft="16dp">
+
+        <RelativeLayout
+            android:id="@+id/layout_lien_quan_tieu_de"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:paddingLeft="4dp">
+
+            <ImageView
+                android:id="@+id/anh_lien_quan"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/random" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/anh_lien_quan"
+                android:paddingLeft="4dp"
+                android:text="Ứng dụng liên quan"
+                android:textAllCaps="true"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list_ung_dung_lien_quan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/layout_lien_quan_tieu_de">
+
+        </android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+
+</RelativeLayout>

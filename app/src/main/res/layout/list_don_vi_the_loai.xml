@@ -29,7 +29,7 @@
             android:layout_centerVertical="true"
             android:scaleX="1.5"
             android:scaleY="1.5"
-            android:src="@drawable/game" />
+            android:src="@drawable/ic_trochoi" />
 
         <TextView
             android:id="@+id/txtTenVaSoLuong"

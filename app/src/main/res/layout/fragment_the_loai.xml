@@ -1,20 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?><!--<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">-->
-
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/card_view_the_loai"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
+    android:layout_height="match_parent"
+    android:id="@+id/list_ung_dung_fragment"
+    tools:context="com.store.kiwi.kiwistore.TheLoaiFragment">
 
     <RelativeLayout
+        android:id="@+id/layout_the_loai"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:paddingBottom="2dp"
@@ -32,7 +24,7 @@
             android:src="@drawable/ic_trochoi" />
 
         <TextView
-            android:id="@+id/txtTenVaSoLuong"
+            android:id="@+id/txt_ten_so_luong_the_loai"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -46,7 +38,11 @@
 
     </RelativeLayout>
 
-</android.support.v7.widget.CardView><!--
-</LinearLayout>
--->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list_ung_dung"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_the_loai">
 
+    </android.support.v7.widget.RecyclerView>
+</RelativeLayout>
