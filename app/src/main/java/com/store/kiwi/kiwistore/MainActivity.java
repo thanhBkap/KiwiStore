@@ -23,7 +23,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -55,6 +54,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.store.kiwi.kiwistore.xuly.DuLieu.checkInstalledApplication;
+
 public class MainActivity extends AppCompatActivity {
     public final static String APIKEY = "1fd660e2a27afad8b71405f654997a62";
     private List<TheLoai> mListTheLoai;
@@ -69,11 +70,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView mNgayDuongTxt, mNgayAmTxt, mTxtSearch, mTxtTinh, mTxtNhietDo, mTxtTenUngDung, mTxtDacTa, mTxtLuotCai, mTxtCaiDatUngDung;
     private RelativeLayout mLayoutCauHinh, mLayoutHeader, mLayoutLogo, mLayoutSearch, mLayoutTheLoai, mLayoutLienQuan, mLayoutCaiDat, mLayouCaiDatUngDung;
     private ImageButton mButtonSearch;
-    ImageView mAnhIcon;
+    private ImageView mAnhIcon;
     private RoundedImageView mAnhQuangCao;
     private int height;
     private int width;
-    private String destination;
     private DatabaseHelper mDatabaseHelper;
     private ProgressDialog dialog;
 
@@ -88,15 +88,20 @@ public class MainActivity extends AppCompatActivity {
     private void addControls() {
         SharedPreferences sharedPreferences = getSharedPreferences("thoitiet", MODE_PRIVATE);
         String idThoiTiet = sharedPreferences.getString("idthoitiet", "24");
+
+        haveStoragePermission();
         mDatabaseHelper = new DatabaseHelper(this);
         mDatabaseHelper.checkDatabase(this);
 
-        haveStoragePermission();
         mListTheLoai = new ArrayList<>();
+        mListUngDung = new ArrayList<>();
+        mListAnh = new ArrayList<>();
         mListTheLoai = mDatabaseHelper.getListTheLoai();
+        mListUngDung = mDatabaseHelper.getListUngDung(mListTheLoai.get(0));
 
         mUngDungFragment = findViewById(R.id.list_ung_dung_fragment);
         mUngDungChiTietFragment = findViewById(R.id.chi_tiet_fragment);
+
         mNgayDuongTxt = (TextView) findViewById(R.id.txt_ngay_duong);
         mNgayAmTxt = (TextView) findViewById(R.id.txt_ngay_am);
         mTxtSearch = (TextView) findViewById(R.id.txt_search);
@@ -126,12 +131,8 @@ public class MainActivity extends AppCompatActivity {
 
         setWidthAnhHeight();
 
-        mListUngDung = new ArrayList<>();
-        mListAnh = new ArrayList<>();
-
-        mListUngDung = mDatabaseHelper.getListUngDung(mListTheLoai.get(0));
         // load quảng cáo
-        Glide.with(this).load(DuLieu.URL_IMAGE + "/" + mDatabaseHelper.getLinkQuangCao()).asBitmap().into(new SimpleTarget<Bitmap>() {
+        Glide.with(this).load(DuLieu.URL_IMAGE + "/" + mDatabaseHelper.getLinkAnhQuangCao()).asBitmap().into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                 Drawable ad = new BitmapDrawable(resource);
@@ -173,8 +174,15 @@ public class MainActivity extends AppCompatActivity {
         dialog = new ProgressDialog(this);
         dialog.setTitle("Đang tải");
         dialog.setMessage("Vui lòng đợi ứng dụng tải dữ liệu");
-
-        String url2 = DuLieu.URL+"/first_request_store.php";
+        List<UngDung> ungDungList=mDatabaseHelper.getLissAppName();
+        for (int i=0;i<ungDungList.size();i++){
+            if (checkInstalledApplication(ungDungList.get(i).getName(),this)){
+                mDatabaseHelper.updateApp(1,ungDungList.get(i).getId());
+            }else{
+                mDatabaseHelper.updateApp(0,ungDungList.get(i).getId());
+            }
+        }
+        String url2 = DuLieu.URL + "/first_request_store.php";
         StringRequest stringRequest2 = new StringRequest(Request.Method.POST, url2, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -191,9 +199,19 @@ public class MainActivity extends AppCompatActivity {
                             switch (loaiCapNhat) {
                                 case "quangcao":
                                     JSONArray rootQC = capnhat.getJSONArray("value");
-                                    JSONObject quangCao = rootQC.getJSONObject(0);
-                                    mDatabaseHelper.insertQuangCao(quangCao.getString("id"), quangCao.getString("noidung"), quangCao.getString("loaiquangcaoid"));
-                                      Toast.makeText(getApplicationContext(), mDatabaseHelper.getMaxQuangCaoId() + " == max quang cao", Toast.LENGTH_SHORT).show();
+                                    mDatabaseHelper.deleteQuangCao();
+                                    for (int j = 0; j < rootQC.length(); j++) {
+                                        JSONObject app = rootQC.getJSONObject(j);
+                                        mDatabaseHelper.insertQuangCao(app.getString("id"), app.getString("noidung"), app.getString("loaiquangcaoid"));
+                                    }
+                                    Glide.with(MainActivity.this).load(DuLieu.URL_IMAGE + "/" + mDatabaseHelper.getLinkAnhQuangCao()).asBitmap().into(new SimpleTarget<Bitmap>() {
+                                        @Override
+                                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                                            Drawable ad = new BitmapDrawable(resource);
+                                            mAnhQuangCao.setBackground(ad);
+                                        }
+                                    });
+                                  //    Toast.makeText(getApplicationContext(), mDatabaseHelper.getMaxQuangCaoId() + " == max quang cao", Toast.LENGTH_SHORT).show();
                                     break;
                                 case "ungdung":
                                     JSONArray rootApp = capnhat.getJSONArray("value");
@@ -201,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
                                     for (int j = 0; j < rootApp.length(); j++) {
                                         JSONObject app = rootApp.getJSONObject(j);
                                         int install = 0;
-                                        if (DuLieu.checkInstalledApplication(app.getString("ten"), MainActivity.this)) {
+                                        if (checkInstalledApplication(app.getString("ten"), MainActivity.this)) {
                                             install = 1;
                                         }
                                         mDatabaseHelper.insertApp(app.getString("id"), app.getString("ten"),
@@ -255,11 +273,10 @@ public class MainActivity extends AppCompatActivity {
                                     mDatabaseHelper.deleteCapNhat();
                                     JSONObject app = rootCapNhat.getJSONObject(0);
                                     mDatabaseHelper.insertCapNhat(app.getString("id"), app.getString("id"));
-                                   // Toast.makeText(getApplicationContext(), mDatabaseHelper.testCapNhat() + " == test cap nhat ", Toast.LENGTH_SHORT).show();
+                                    // Toast.makeText(getApplicationContext(), mDatabaseHelper.testCapNhat() + " == test cap nhat ", Toast.LENGTH_SHORT).show();
                                     break;
                                 default:
                                     break;
-
                             }
                         }
                     }
@@ -278,6 +295,7 @@ public class MainActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> values = new HashMap<>();
                 values.put("capnhatid", mDatabaseHelper.getIdCapNhat());
+               // values.put("capnhatid", "1");
                 return values;
             }
         };
@@ -322,63 +340,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         requestQueue.add(stringRequest);
-
         mTxtTinh.setText(thoiTiet.getTen());
-
-        // Toast.makeText(this, mDatabaseHelper.getMaxCapNhatId() + "", Toast.LENGTH_SHORT).show();
     }
 
     private void addEvents() {
-        /*mLayoutCaiDat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //get url of app on server
-                String url = "http://phonecase.890m.com/files/case.zip";
-                String fileName = DuLieu.getFileZipName(url);
-                //Delete update file if exists
-                File file = new File(Environment.getExternalStorageDirectory() + "/KiwiStore/download/" + fileName);
-                if (file.exists()) {
-                    file.delete();
-
-                } else {
-                    file.mkdirs();
-                    file.delete();
-                }
-                final Uri uri = Uri.fromFile(file);
-
-                final String destination = file.getAbsolutePath();
-
-                //set downloadmanager
-                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
-                request.setDescription(getString(R.string.hello_blank_fragment));
-                request.setTitle(getString(R.string.app_name));
-
-                //set destination
-                request.setDestinationUri(uri);
-
-                // get download service and enqueue file
-                final DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-                final long downloadId = manager.enqueue(request);
-
-                //set BroadcastReceiver to install app when .apk is downloaded
-                BroadcastReceiver onComplete = new BroadcastReceiver() {
-                    public void onReceive(Context ctxt, Intent intent) {
-                        ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
-                        progressDialog.setTitle("Đang cài đặt");
-                        progressDialog.setMessage("Ứng dụng đang được cài đặt ...");
-                        progressDialog.setIndeterminate(true);
-                        progressDialog.show();
-                        String apkFileName = unzip(destination);
-                        progressDialog.dismiss();
-                        DuLieu.installApp(MainActivity.this, apkFileName);
-                        unregisterReceiver(this);
-                    }
-                };
-
-                //register receiver for when .apk download is compete
-                registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-            }
-        });*/
         mLayoutCauHinh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -404,53 +369,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
             }
         });
-
-
-       /* mLayoutLogo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String url = "http://phonecase.890m.com/files/case.zip";
-                //  String fileName = "f1.zip";
-                String fileName = DuLieu.getFileZipName(url);
-                //Delete update file if exists
-                File file = new File(Environment.getExternalStorageDirectory() + "/KiwiStore/download/" + fileName);
-                if (file.exists()) {
-                    file.delete();
-                } else {
-                    file.mkdirs();
-                    file.delete();
-                }
-                final Uri uri = Uri.fromFile(file);
-
-                //get url of app on server
-                destination = file.getAbsolutePath();
-                //set downloadmanager
-                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
-                request.setDescription(MainActivity.this.getString(R.string.hello_blank_fragment));
-                request.setTitle(MainActivity.this.getString(R.string.app_name));
-
-                //set destination
-                request.setDestinationUri(uri);
-
-                // get download service and enqueue file
-                final DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-                final long downloadId = manager.enqueue(request);
-
-                //set BroadcastReceiver to install app when .apk is downloaded
-                BroadcastReceiver onComplete = new BroadcastReceiver() {
-                    public void onReceive(Context ctxt, Intent intent) {
-                        Toast.makeText(getApplicationContext(), "download finished !!!", Toast.LENGTH_SHORT).show();
-                        String apkFileName = unzip(destination);
-                        DuLieu.installApp(MainActivity.this, apkFileName);
-                        unregisterReceiver(this);
-                        Toast.makeText(MainActivity.this, "Cài đặt thành công", Toast.LENGTH_SHORT).show();
-                    }
-                };
-
-                //register receiver for when .apk download is compete
-                registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-            }
-        });*/
     }
 
 

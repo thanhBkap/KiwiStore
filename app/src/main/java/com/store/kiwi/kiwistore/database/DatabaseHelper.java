@@ -261,25 +261,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public String getMaxQuangCaoId() {
         String id = "0";
         String nd = "";
+        int count = 0;
         openDatabase();
         Cursor cursor;
-        cursor = mDatabase.rawQuery("SELECT id,noidung FROM quangcao ORDER BY id DESC LIMIT 1", null);
-
+        cursor = mDatabase.rawQuery("SELECT id,noidung FROM quangcao WHERE loaiquangcao = 2  ORDER BY id DESC", null);
+        count = cursor.getCount();
         if (cursor.moveToFirst()) {
             id = cursor.getString(0);
             nd = cursor.getString(1);
         }
         cursor.close();
         closeDatabase();
-        return id + "," + nd;
+        return id + "," + nd + "," + count;
     }
 
-    public String getLinkQuangCao() {
+    public String getLinkAnhQuangCao() {
         String nd = "";
         openDatabase();
         Cursor cursor;
-        cursor = mDatabase.rawQuery("SELECT noidung FROM quangcao ORDER BY id DESC LIMIT 1", null);
-
+        cursor = mDatabase.rawQuery("SELECT noidung FROM quangcao WHERE loaiquangcao = 2 ORDER BY id DESC", null);
         if (cursor.moveToFirst()) {
             nd = cursor.getString(0);
         }
@@ -294,9 +294,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("noidung", noiDung);
         values.put("loaiquangcao", Integer.parseInt(loaiQuangCaoId));
         openDatabase();
-        mDatabase.delete("quangcao", "1", null);
         mDatabase.insert("quangcao", null, values);
         closeDatabase();
+    }
+
+    public void deleteQuangCao() {
+        openDatabase();
+        mDatabase.delete("quangcao", "1", null);
+        closeDatabase();
+    }
+
+    public List<UngDung> getLissAppName() {
+        List<UngDung> ungDungList = new ArrayList<>();
+        String id = "0";
+        String ten = "0";
+        int count = 0;
+        openDatabase();
+        Cursor cursor;
+        cursor = mDatabase.rawQuery("SELECT id,ten FROM ungdung", null);
+        count = cursor.getCount();
+        if (cursor.moveToFirst()) {
+            id = cursor.getString(0);
+            ten = cursor.getString(1);
+            UngDung ungDung = new UngDung();
+            ungDung.setId(id);
+            ungDung.setName(ten);
+            ungDungList.add(ungDung);
+        }
+        while (cursor.moveToNext()){
+            id = cursor.getString(0);
+            ten = cursor.getString(1);
+            UngDung ungDung = new UngDung();
+            ungDung.setId(id);
+            ungDung.setName(ten);
+            ungDungList.add(ungDung);
+        }
+        cursor.close();
+        closeDatabase();
+        return ungDungList;
     }
 
     public void insertApp(String id, String ten, int installed, String icon, String luotcai, String versions, String des, String linkcai) {
@@ -315,27 +350,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         closeDatabase();
     }
 
+    public void updateApp(int installed, String id) {
+        ContentValues values = new ContentValues();
+        values.put("installed", installed);
+        openDatabase();
+        mDatabase.update("ungdung", values, "id = " + id, null);
+        closeDatabase();
+    }
+
     public void deleteListApp() {
         openDatabase();
         mDatabase.delete("ungdung", "1", null);
         closeDatabase();
     }
 
+    // UPDATE "main"."ungdung" SET "installed" = ?1 WHERE  "id" = 3
     public String testInsertApp() {
         String id = "0";
         String ten = "0";
+        String in = "3";
         int count = 0;
         openDatabase();
         Cursor cursor;
-        cursor = mDatabase.rawQuery("SELECT id,ten FROM ungdung ORDER BY id DESC ", null);
+        cursor = mDatabase.rawQuery("SELECT id,ten,installed FROM ungdung ORDER BY id DESC ", null);
         count = cursor.getCount();
         if (cursor.moveToFirst()) {
             id = cursor.getString(0);
             ten = cursor.getString(1);
+            in = cursor.getString(2);
         }
         cursor.close();
         closeDatabase();
-        return id + "," + ten + "count" + count;
+        return id + "," + ten + in + "count" + count;
     }
 
     public void insertTheLoaiUngDung(String id, String theloaiid, String ungdungid) {
@@ -454,6 +500,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         mDatabase.delete("capnhat", "1", null);
         closeDatabase();
     }
+
     public String getIdCapNhat() {
         String value = "0";
         openDatabase();
@@ -464,8 +511,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         closeDatabase();
-        return  value;
+        return value;
     }
+
     public String testCapNhat() {
         String id = "0";
         String value = "0";
@@ -482,5 +530,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         closeDatabase();
         return id + "," + value + "," + "count" + count;
     }
-
 }

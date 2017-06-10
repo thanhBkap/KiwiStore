@@ -40,7 +40,7 @@ public class DuLieu {
         applicationInfoList = getListInstalledApplication(context);
         for (int i = 0; i < applicationInfoList.size(); i++) {
             String appLabel = (String) context.getPackageManager().getApplicationLabel(applicationInfoList.get(i));
-            if (appLabel.equals(label)) {
+            if (appLabel.trim().toLowerCase().replace(" ","").equals(label.trim().toLowerCase().replace(" ",""))) {
                 return true;
             }
         }
@@ -51,7 +51,8 @@ public class DuLieu {
         String packageName = "";
         List<ApplicationInfo> listApplicationInfo = context.getPackageManager().getInstalledApplications(PackageManager.GET_META_DATA);
         for (int i = 0; i < listApplicationInfo.size(); i++) {
-            if (context.getPackageManager().getApplicationLabel(listApplicationInfo.get(i)).toString().trim().toLowerCase().equals(label.trim().toLowerCase())) {
+            if (context.getPackageManager().getApplicationLabel(listApplicationInfo.get(i)).toString().trim().toLowerCase().replace(" ","").equals(
+                    label.trim().toLowerCase().replace(" ",""))) {
                 packageName = context.getPackageManager().getInstalledPackages(PackageManager.GET_META_DATA).get(i).packageName;
                 //Toast.makeText(context, "Ok-" + packageName, Toast.LENGTH_LONG).show();
                 break;
