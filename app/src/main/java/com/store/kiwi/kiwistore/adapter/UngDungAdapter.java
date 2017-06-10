@@ -27,6 +27,7 @@ import com.store.kiwi.kiwistore.xuly.DuLieu;
 import java.io.File;
 import java.util.List;
 
+import static com.store.kiwi.kiwistore.xuly.DuLieu.checkInstalledApplication;
 import static com.store.kiwi.kiwistore.xuly.DuLieu.unzip;
 
 /**
@@ -119,9 +120,16 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
                         if (file.exists()) {
                             file.delete();
                         }
-
                         //  DuLieu.uninstallApp("com.att.attcase", mContext);
                         DuLieu.uninstallApp(DuLieu.getPackageName(checkedUngDung.getName(), mContext), mContext);
+                        List<UngDung> ungDungList=databaseHelper.getLissAppName();
+                        for (int i=0;i<ungDungList.size();i++){
+                            if (checkInstalledApplication(ungDungList.get(i).getName(),mContext)){
+                                databaseHelper.updateApp(1,ungDungList.get(i).getId());
+                            }else{
+                                databaseHelper.updateApp(0,ungDungList.get(i).getId());
+                            }
+                        }
                         //DuLieu.uninstallApp(DuLieu.getPackageName(mListUngDung.get(getPosition()).getName(),mContext), mContext);
 
                     } else if (v.getId() == R.id.layout_cai_dat) {
@@ -145,6 +153,9 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
                                 public void onClick(View v) {
                                     //get url of app on server
                                     // String url = "http://phonecase.890m.com/files/case.zip";
+                                    if(DuLieu.checkInstalledApplication(checkedUngDung.getName(),mContext)){
+
+                                    }
                                     mLayouCaiDatUngDung.setClickable(false);
                                     String url = checkedUngDung.getLinkCai();
                                     String fileName = DuLieu.getFileZipName(url);
@@ -184,6 +195,14 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
                                             progressDialog.dismiss();
                                             DuLieu.installApp(mContext, apkFileName);
                                             mLayouCaiDatUngDung.setClickable(true);
+                                            List<UngDung> ungDungList=databaseHelper.getLissAppName();
+                                            for (int i=0;i<ungDungList.size();i++){
+                                                if (checkInstalledApplication(ungDungList.get(i).getName(),mContext)){
+                                                    databaseHelper.updateApp(1,ungDungList.get(i).getId());
+                                                }else{
+                                                    databaseHelper.updateApp(0,ungDungList.get(i).getId());
+                                                }
+                                            }
                                             mContext.unregisterReceiver(this);
                                         }
                                     };
