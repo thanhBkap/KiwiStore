@@ -9,6 +9,6 @@
     <color name="light_green_v3">#a0d638</color>
     <color name="light_green_v2">#729746</color>
     <color name="light_blue">#30394b</color>
-
+    <color name="none">#0030394b</color>
 
 </resources>

@@ -17,9 +17,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -69,13 +69,18 @@ public class MainActivity extends AppCompatActivity {
     private Map<String, String> today;
     private TextView mNgayDuongTxt, mNgayAmTxt, mTxtSearch, mTxtTinh, mTxtNhietDo, mTxtTenUngDung, mTxtDacTa, mTxtLuotCai, mTxtCaiDatUngDung;
     private RelativeLayout mLayoutCauHinh, mLayoutHeader, mLayoutLogo, mLayoutSearch, mLayoutTheLoai, mLayoutLienQuan, mLayoutCaiDat, mLayouCaiDatUngDung;
+
     private ImageButton mButtonSearch;
     private ImageView mAnhIcon;
+
     private RoundedImageView mAnhQuangCao;
     private int height;
     private int width;
     private DatabaseHelper mDatabaseHelper;
     private ProgressDialog dialog;
+    List<View> listMap;
+    int didindex = 0, main = 3, indexchoose;
+    boolean chooseUngDung = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         addControls();
         addEvents();
+        addListMap();
     }
 
     private void addControls() {
@@ -118,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
         mLayoutTheLoai = (RelativeLayout) findViewById(R.id.layout_the_loai);
         mLayouCaiDatUngDung = (RelativeLayout) mUngDungChiTietFragment.findViewById(R.id.layout_cai_dat_ung_dung);
 
-        mButtonSearch = (ImageButton) findViewById(R.id.btn_seach);
+        mButtonSearch = (ImageView) findViewById(R.id.btn_seach);
         mAnhIcon = (ImageView) mUngDungChiTietFragment.findViewById(R.id.anh_icon);
         mAnhQuangCao = (RoundedImageView) mUngDungChiTietFragment.findViewById(R.id.anh_quang_cao);
         mLayoutLienQuan = (RelativeLayout) mUngDungChiTietFragment.findViewById(R.id.layout_lien_quan);
@@ -174,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
         dialog = new ProgressDialog(this);
         dialog.setTitle("Đang tải");
         dialog.setMessage("Vui lòng đợi ứng dụng tải dữ liệu");
+
         List<UngDung> ungDungList=mDatabaseHelper.getLissAppName();
         for (int i=0;i<ungDungList.size();i++){
             if (checkInstalledApplication(ungDungList.get(i).getName(),this)){
@@ -182,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
                 mDatabaseHelper.updateApp(0,ungDungList.get(i).getId());
             }
         }
+
         String url2 = DuLieu.URL + "/first_request_store.php";
         StringRequest stringRequest2 = new StringRequest(Request.Method.POST, url2, new Response.Listener<String>() {
             @Override
@@ -212,6 +220,7 @@ public class MainActivity extends AppCompatActivity {
                                         }
                                     });
                                   //    Toast.makeText(getApplicationContext(), mDatabaseHelper.getMaxQuangCaoId() + " == max quang cao", Toast.LENGTH_SHORT).show();
+
                                     break;
                                 case "ungdung":
                                     JSONArray rootApp = capnhat.getJSONArray("value");
@@ -465,4 +474,109 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     }
+
+    public void addListMap() {
+        listMap = new ArrayList<>();
+        listMap.add(mTxtSearch);
+        listMap.add(mButtonSearch);
+        listMap.add(mLayoutCauHinh);
+        listMap.get(0).setBackgroundResource(R.drawable.border_pick);
+
+        for (TheLoai t : mListTheLoai) {
+            listMap.add(mLayoutCauHinh);
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+                if (didindex < main) {
+                    listMap.get(didindex).setBackgroundResource(R.drawable.none);
+                    didindex = main;
+                    mRecyclerViewTheLoai.getChildAt(0).callOnClick();
+                } else if( didindex >= main && didindex < main - 1 + mListTheLoai.size()) {
+                    didindex++;
+                    mRecyclerViewTheLoai.getChildAt(didindex - main).callOnClick();
+                } else if ( didindex > main - 1 + mListTheLoai.size() && didindex <= main - 4 + mListTheLoai.size() + mListUngDung.size()) {
+                    mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.none);
+                    didindex = didindex + 3;
+                    mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.border_pick);
+                }
+                break;
+
+            case KeyEvent.KEYCODE_DPAD_UP:
+                if (didindex > main && didindex < main + mListTheLoai.size()) {
+                    didindex--;
+                    mRecyclerViewTheLoai.getChildAt(didindex - main).callOnClick();
+                } else if (didindex == main) {
+                    didindex = 0;
+                    listMap.get(didindex).setBackgroundResource(R.drawable.border_pick);
+                } else if (didindex > main + mListTheLoai.size() + 2 && didindex <= main - 1 + mListTheLoai.size() + mListUngDung.size()) {
+                    mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.none);
+                    didindex = didindex - 3;
+                    mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.border_pick);
+                }
+                break;
+
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+                if (didindex > 0 && didindex <= main) {
+                    if (didindex != main) {
+                        listMap.get(didindex).setBackgroundResource(R.drawable.none);
+                    }
+                    didindex--;
+                    listMap.get(didindex).setBackgroundResource(R.drawable.border_pick);
+                    if (didindex == 1) {
+                        listMap.get(didindex).setBackgroundResource(R.color.colorPrimaryDark);
+                    }
+                } else if (didindex > main + mListTheLoai.size() && didindex <= main - 1 + mListTheLoai.size() + mListUngDung.size()) {
+                    mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.none);
+                    didindex--;
+                    mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.border_pick);
+                } /*else if (didindex == main + mListTheLoai.size()) {
+                    mRecyclerViewUngDung.getChildAt(0).setBackgroundResource(R.drawable.none);
+                    didindex = indexchoose;
+                }*/
+                break;
+
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                if (didindex < main - 1) {
+                    listMap.get(didindex).setBackgroundResource(R.drawable.none);
+                    didindex++;
+                    listMap.get(didindex).setBackgroundResource(R.drawable.border_pick);
+                    if (didindex == 1) {
+                        listMap.get(didindex).setBackgroundResource(R.color.colorPrimaryDark);
+                    }
+                } else if (didindex >= main && didindex < main + mListTheLoai.size()) {
+                    indexchoose = didindex;
+                    didindex = main + mListTheLoai.size();
+                    mRecyclerViewUngDung.getChildAt(0).setBackgroundResource(R.drawable.border_pick);
+                    chooseUngDung = true;
+                } else {
+                    if (chooseUngDung == true) {
+                        if (didindex >= main + mListTheLoai.size() && didindex < main - 1 + mListTheLoai.size() + mListUngDung.size()) {
+                            mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.none);
+                            didindex++;
+                            mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.border_pick);
+                        }
+                    }
+                }
+                break;
+
+            case KeyEvent.KEYCODE_DPAD_CENTER:
+            case KeyEvent.KEYCODE_ENTER:
+            case KeyEvent.KEYCODE_NUMPAD_ENTER:
+                if (didindex < main) {
+                    listMap.get(didindex).callOnClick();
+                } else if (didindex >= main + mListTheLoai.size() && didindex < main - 1 + mListTheLoai.size() + mListUngDung.size()) {
+                    if (chooseUngDung == true)
+                    mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).callOnClick();
+                }
+                return true;
+            default:
+                return super.onKeyUp(keyCode, event);
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }
+

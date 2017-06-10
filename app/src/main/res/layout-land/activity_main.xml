@@ -54,14 +54,14 @@
                     android:layout_alignParentTop="true"
                     android:layout_centerInParent="true" />
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/btn_seach"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/txt_search"
-                    android:background="@drawable/search"
-                    android:paddingRight="15dp" />
+                    android:scaleType="fitXY"
+                    android:src="@drawable/search" />
             </RelativeLayout>
 
             <RelativeLayout
