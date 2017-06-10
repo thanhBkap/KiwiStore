@@ -244,7 +244,12 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
 
                 }
             };
-            itemView.setOnClickListener(listener);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mLayoutCaiDat.callOnClick();
+                }
+            });
             mLayoutCaiDat.setOnClickListener(listener);
             mLayoutGoCaiDat.setOnClickListener(listener);
         }
