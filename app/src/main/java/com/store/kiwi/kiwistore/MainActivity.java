@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog dialog;
     List<View> listMap;
     int didindex = 0, main = 3, indexchoose;
-    boolean chooseUngDung = false;
+    boolean chooseUngDung = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -575,17 +575,15 @@ public class MainActivity extends AppCompatActivity {
                 } else if( didindex >= main && didindex < main - 1 + mListTheLoai.size()) {
                     didindex++;
                     mRecyclerViewTheLoai.getChildAt(didindex - main).callOnClick();
-                } else if ( didindex >= main - 1 + mListTheLoai.size() && didindex <= main - 4 + mListTheLoai.size() + mListUngDung.size()) {
-                    if (chooseUngDung == true) {
-                        mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.none);
-                        didindex = didindex + 3;
-                        mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.border_pick);
-                    }
+                } else if ( didindex > main - 1 + mListTheLoai.size() && didindex <= main - 4 + mListTheLoai.size() + mListUngDung.size()) {
+                    mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.none);
+                    didindex = didindex + 3;
+                    mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.border_pick);
                 }
                 break;
 
             case KeyEvent.KEYCODE_DPAD_UP:
-                if (didindex > main && didindex <= main + mListTheLoai.size()) {
+                if (didindex > main && didindex < main + mListTheLoai.size()) {
                     didindex--;
                     mRecyclerViewTheLoai.getChildAt(didindex - main).callOnClick();
                 } else if (didindex == main) {
@@ -612,10 +610,10 @@ public class MainActivity extends AppCompatActivity {
                     mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.none);
                     didindex--;
                     mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.border_pick);
-                } else if (didindex == main + mListTheLoai.size()) {
+                } /*else if (didindex == main + mListTheLoai.size()) {
                     mRecyclerViewUngDung.getChildAt(0).setBackgroundResource(R.drawable.none);
                     didindex = indexchoose;
-                }
+                }*/
                 break;
 
             case KeyEvent.KEYCODE_DPAD_RIGHT:
@@ -631,10 +629,14 @@ public class MainActivity extends AppCompatActivity {
                     didindex = main + mListTheLoai.size();
                     mRecyclerViewUngDung.getChildAt(0).setBackgroundResource(R.drawable.border_pick);
                     chooseUngDung = true;
-                } else if (didindex >= main + mListTheLoai.size() && didindex < main - 1 + mListTheLoai.size() + mListUngDung.size()) {
-                    mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.none);
-                    didindex++;
-                    mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.border_pick);
+                } else {
+                    if (chooseUngDung == true) {
+                        if (didindex >= main + mListTheLoai.size() && didindex < main - 1 + mListTheLoai.size() + mListUngDung.size()) {
+                            mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.none);
+                            didindex++;
+                            mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.border_pick);
+                        }
+                    }
                 }
                 break;
 
@@ -644,6 +646,7 @@ public class MainActivity extends AppCompatActivity {
                 if (didindex < main) {
                     listMap.get(didindex).callOnClick();
                 } else if (didindex >= main + mListTheLoai.size() && didindex < main - 1 + mListTheLoai.size() + mListUngDung.size()) {
+                    if (chooseUngDung == true)
                     mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).callOnClick();
                 }
                 return true;
