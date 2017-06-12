@@ -39,38 +39,30 @@
             android:textColor="@color/light_green"
             android:textSize="12dp" />
 
-        <RelativeLayout
-            android:id="@+id/layout_go_cai_dat"
+        <RatingBar
+            style="?android:attr/ratingBarStyleSmall"
+            android:numStars="5"
+            android:rating="3"
+            android:id="@+id/rating_app"
+            android:layout_below="@+id/txt_ten"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@+id/anh_ung_dung"
+            android:text="VTV go for Android TV"
+            android:textColor="@color/light_green"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/txt_installed_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/layout_cai_dat"
-            android:layout_marginBottom="6dp"
+            android:layout_marginTop="2dp"
             android:layout_toRightOf="@+id/anh_ung_dung"
-            android:background="@drawable/bo_vien_go_cai_dat"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp">
-
-            <ImageView
-                android:id="@+id/anh_no_checked"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_centerVertical="true"
-                android:layout_margin="4dp"
-                android:src="@drawable/check" />
-
-            <TextView
-                android:id="@+id/txt_go_cai_dat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/anh_no_checked"
-                android:minWidth="120dp"
-                android:text="Gỡ ứng dụng"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textSize="11dp" />
-        </RelativeLayout>
-
+            android:text="Đã có 45 lượt cài"
+            android:textColor="@color/light_green"
+            android:textSize="11dp"
+            android:layout_below="@+id/rating_app"/>
         <RelativeLayout
             android:id="@+id/layout_cai_dat"
             android:layout_width="wrap_content"
@@ -81,6 +73,7 @@
             android:background="@drawable/bo_vien_cai_dat"
             android:paddingLeft="4dp"
             android:paddingRight="4dp">
+
 
             <ImageView
                 android:id="@+id/anh_checked"

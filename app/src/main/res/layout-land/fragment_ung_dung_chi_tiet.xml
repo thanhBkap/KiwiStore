@@ -18,6 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/border_pick">
+
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/anh_quang_cao"
                 android:layout_width="match_parent"
@@ -25,8 +26,8 @@
                 android:background="@drawable/ad"
                 app:riv_border_color="@color/light_blue"
                 app:riv_border_width="0.1dp"
-                app:riv_corner_radius_top_right="5dp"
                 app:riv_corner_radius_top_left="5dp"
+                app:riv_corner_radius_top_right="5dp"
                 app:riv_mutate_background="true" />
         </RelativeLayout>
 
@@ -41,15 +42,14 @@
             <RelativeLayout
                 android:id="@+id/layout_show_info_sub"
                 android:layout_width="match_parent"
-                android:layout_height="96dp">
+                android:layout_height="128dp">
 
                 <ImageView
-                    android:layout_marginRight="10dp"
                     android:id="@+id/anh_icon"
-                    android:layout_width="96dp"
+                    android:layout_width="128dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_vtv"
-                    />
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_vtv" />
 
                 <TextView
                     android:id="@+id/txt_ten"
@@ -61,11 +61,35 @@
                     android:textColor="@color/white"
                     android:textSize="16dp" />
 
+                <RatingBar
+                    android:id="@+id/rating_app"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_below="@+id/txt_ten"
+                    android:layout_marginTop="2dp"
+                    android:layout_toRightOf="@+id/anh_icon"
+                    android:numStars="5"
+                    android:rating="3"
+                    android:text="VTV go for Android TV"
+                    android:textColor="@color/light_green" />
+
+                <TextView
+                    android:id="@+id/txt_version"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_ten"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@+id/rating_app"
+                    android:text=" Phiên bản 5.6.3"
+                    android:textColor="@color/white"
+                    android:textSize="10dp" />
+
                 <TextView
                     android:id="@+id/txt_dac_ta"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/txt_ten"
+                    android:layout_below="@+id/txt_version"
                     android:layout_marginTop="5dp"
                     android:layout_toRightOf="@+id/anh_icon"
                     android:text="Ứng dụng được phát triển bởi VTVGo .Gồm 9 kênh VTV : vtv1, vtv2, vtv3, vtv4, vtv5, vtv6, vtv7"

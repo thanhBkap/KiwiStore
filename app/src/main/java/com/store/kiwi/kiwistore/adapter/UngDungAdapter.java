@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -42,11 +43,14 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
     private DanhSachAnhUngDungAdapter mDanhSachAnhUngDungAdapter;
     private TextView mTxtTenUngDung, mTxtDacTa, mTxtLuotCai, mTxtCaiDatUngDung;
     private ImageView mAnhIcon;
-    RelativeLayout mLayouCaiDatUngDung;
+    private TextView mTxtVersion;
+    private RatingBar mRatingApp;
+    private RelativeLayout mLayouCaiDatUngDung;
 
     public UngDungAdapter(Context mContext, List<UngDung> mListUngDung, View mUngDungFragment, View mUngDungChiTietFragment,
                           List<String> listAnh, DanhSachAnhUngDungAdapter danhSachAnhUngDungAdapter, TextView txtTenUngDung,
-                          TextView txtDacTa, TextView txtLuotCai, ImageView anhIcon, RelativeLayout layouCaiDatUngDung, TextView txtCaiDatUngDung) {
+                          TextView txtDacTa, TextView txtLuotCai, ImageView anhIcon, RelativeLayout layouCaiDatUngDung, TextView txtCaiDatUngDung,
+                          TextView txtVersion, RatingBar rating) {
         this.mContext = mContext;
         this.mListUngDung = mListUngDung;
         this.mUngDungFragment = mUngDungFragment;
@@ -59,6 +63,8 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
         mAnhIcon = anhIcon;
         mLayouCaiDatUngDung = layouCaiDatUngDung;
         mTxtCaiDatUngDung = txtCaiDatUngDung;
+        mTxtVersion = txtVersion;
+        mRatingApp = rating;
     }
 
     @Override
@@ -74,13 +80,17 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
         UngDung ungDung = mListUngDung.get(position);
         if (ungDung.isInstalled()) {
             holder.mCaiDat.setText("đã cài đặt");
-            holder.mLayoutGoCaiDat.setVisibility(View.VISIBLE);
             holder.mChecked.setImageDrawable(mContext.getResources().getDrawable(R.drawable.check));
+            //mLayouCaiDatUngDung.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bo_vien_cai_dat));
+            holder.mLayoutCaiDat.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bo_vien_cai_dat));
         } else {
-            holder.mCaiDat.setText("Cài đặt");
+            holder.mCaiDat.setText("chưa cài đặt");
             holder.mChecked.setImageDrawable(mContext.getResources().getDrawable(R.drawable.check));
-            holder.mLayoutGoCaiDat.setVisibility(View.INVISIBLE);
+            //mLayouCaiDatUngDung.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bo_vien_go_cai_dat));
+            holder.mLayoutCaiDat.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bo_vien_go_cai_dat));
         }
+        holder.mRating.setRating(Float.parseFloat(ungDung.getRating()));
+        holder.mInstalledNum.setText("Đã có " + ungDung.getLuotCai() + " lượt cài");
         holder.mTen.setText(ungDung.getName());
         Glide.with(mContext).load(ungDung.getIcon()).into(holder.mIcon);
         holder.mCardViewUngDung.setCardBackgroundColor(Color.TRANSPARENT);
@@ -93,10 +103,11 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView mIcon, mChecked;
-        TextView mTen;
-        TextView mCaiDat;
-        RelativeLayout mLayoutCaiDat, mLayoutGoCaiDat;
+        TextView mTen, mCaiDat, mInstalledNum;
+        RelativeLayout mLayoutCaiDat;
         CardView mCardViewUngDung;
+        RatingBar mRating;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -104,15 +115,16 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
             mChecked = (ImageView) itemView.findViewById(R.id.anh_checked);
             mTen = (TextView) itemView.findViewById(R.id.txt_ten);
             mCaiDat = (TextView) itemView.findViewById(R.id.txt_cai_dat);
+            mInstalledNum = (TextView) itemView.findViewById(R.id.txt_installed_num);
+            mRating = (RatingBar) itemView.findViewById(R.id.rating_app);
             mLayoutCaiDat = (RelativeLayout) itemView.findViewById(R.id.layout_cai_dat);
-            mLayoutGoCaiDat = (RelativeLayout) itemView.findViewById(R.id.layout_go_cai_dat);
             mCardViewUngDung = (CardView) itemView.findViewById(R.id.card_view_ung_dung);
             final DatabaseHelper databaseHelper = new DatabaseHelper(mContext);
             View.OnClickListener listener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     final UngDung checkedUngDung = mListUngDung.get(getPosition());
-                    if (v.getId() == R.id.layout_go_cai_dat) {
+                    /*if (v.getId() == R.id.layout_go_cai_dat) {
                         String url = checkedUngDung.getLinkCai();
                         String fileName = DuLieu.getFileZipName(url);
                         //Delete update file if exists
@@ -132,7 +144,8 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
                         }
                         //DuLieu.uninstallApp(DuLieu.getPackageName(mListUngDung.get(getPosition()).getName(),mContext), mContext);
 
-                    } else if (v.getId() == R.id.layout_cai_dat) {
+                    } else*/
+                    if (v.getId() == R.id.layout_cai_dat) {
                         mUngDungFragment.setVisibility(View.GONE);
                         mUngDungChiTietFragment.setVisibility(View.VISIBLE);
 
@@ -142,18 +155,28 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
 
                         Glide.with(mContext).load(checkedUngDung.getIcon()).into(mAnhIcon);
                         mTxtTenUngDung.setText(checkedUngDung.getName());
+                        mRatingApp.setRating(Float.parseFloat(checkedUngDung.getRating()));
+                        mTxtVersion.setText(" Phiên bản " + checkedUngDung.getVersion());
                         mTxtDacTa.setText(checkedUngDung.getDes());
                         mTxtLuotCai.setText("Đã có " + checkedUngDung.getLuotCai() + " lượt cài");
-                        if (checkedUngDung.isInstalled()){
+                        if (checkedUngDung.isInstalled() && checkedUngDung.getUpdate().equals("0")) {
                             mTxtCaiDatUngDung.setText("Đã cài đặt");
-                        }else{
-                            mTxtCaiDatUngDung.setText("Cài ứng dụng");
+                            mLayouCaiDatUngDung.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bo_vien_go_cai_dat));
+                            mLayouCaiDatUngDung.setClickable(false);
+                        } else {
+                            mLayouCaiDatUngDung.setClickable(true);
+                            if (checkedUngDung.isInstalled()) {
+                                mTxtCaiDatUngDung.setText("Cập nhật");
+                            } else {
+                                mTxtCaiDatUngDung.setText("Cài ứng dụng");
+                            }
+                            mLayouCaiDatUngDung.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bo_vien_cai_dat));
                             mLayouCaiDatUngDung.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     //get url of app on server
                                     // String url = "http://phonecase.890m.com/files/case.zip";
-                                    if(DuLieu.checkInstalledApplication(checkedUngDung.getName(),mContext)){
+                                    if (DuLieu.checkInstalledApplication(checkedUngDung.getName(), mContext)) {
 
                                     }
                                     mLayouCaiDatUngDung.setClickable(false);
@@ -195,12 +218,12 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
                                             progressDialog.dismiss();
                                             DuLieu.installApp(mContext, apkFileName);
                                             mLayouCaiDatUngDung.setClickable(true);
-                                            List<UngDung> ungDungList=databaseHelper.getLissAppName();
-                                            for (int i=0;i<ungDungList.size();i++){
-                                                if (checkInstalledApplication(ungDungList.get(i).getName(),mContext)){
-                                                    databaseHelper.updateApp(1,ungDungList.get(i).getId());
-                                                }else{
-                                                    databaseHelper.updateApp(0,ungDungList.get(i).getId());
+                                            List<UngDung> ungDungList = databaseHelper.getLissAppName();
+                                            for (int i = 0; i < ungDungList.size(); i++) {
+                                                if (checkInstalledApplication(ungDungList.get(i).getName(), mContext)) {
+                                                    databaseHelper.updateApp(1, ungDungList.get(i).getId());
+                                                } else {
+                                                    databaseHelper.updateApp(0, ungDungList.get(i).getId());
                                                 }
                                             }
                                             mContext.unregisterReceiver(this);
@@ -270,7 +293,6 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
                 }
             });
             mLayoutCaiDat.setOnClickListener(listener);
-            mLayoutGoCaiDat.setOnClickListener(listener);
         }
     }
 }

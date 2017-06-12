@@ -16,8 +16,12 @@ public class UngDung {
     String version;
     String linkCai;
     String luotCai;
+    String rating;
+    String versionCode;
+    String update;
 
-    public UngDung(String id, String name, boolean installed, String icon, List<String> anh, String des, String version, String linkCai, String luotCai) {
+    public UngDung(String id, String name, boolean installed, String icon, List<String> anh, String des,
+                   String version, String linkCai, String luotCai, String rating, String versionCode, String update) {
         this.id = id;
         this.name = name;
         this.installed = installed;
@@ -27,6 +31,33 @@ public class UngDung {
         this.version = version;
         this.linkCai = linkCai;
         this.luotCai = luotCai;
+        this.rating = rating;
+        this.versionCode = versionCode;
+        this.update = update;
+    }
+
+    public String getUpdate() {
+        return update;
+    }
+
+    public void setUpdate(String update) {
+        this.update = update;
+    }
+
+    public String getVersionCode() {
+        return versionCode;
+    }
+
+    public void setVersionCode(String versionCode) {
+        this.versionCode = versionCode;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
     }
 
     public String getDes() {

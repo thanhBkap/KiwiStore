@@ -151,11 +151,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         listAnh = new ArrayList<>();
         Cursor cursor;
         if (theLoai.getIcon() == R.drawable.ic_tatca) {
-            cursor = mDatabase.rawQuery("SELECT ungdung.id,ungdung.ten,ungdung.installed,ungdung.icon,ungdung.luotcai,ungdung.version,ungdung.des,ungdung.linkcai" +
+            cursor = mDatabase.rawQuery("SELECT ungdung.id,ungdung.ten,ungdung.installed,ungdung.icon,ungdung.luotcai" +
+                    ",ungdung.version,ungdung.des,ungdung.linkcai,ungdung.rating,ungdung.version_code,ungdung.capnhat" +
                     " FROM ungdung", null);
         } else {
             cursor = mDatabase.rawQuery("SELECT ungdung.id,ungdung.ten,ungdung.installed,ungdung.icon,ungdung.luotcai," +
-                    "ungdung.version,ungdung.des,ungdung.linkcai FROM ungdung JOIN theloai_ungdung ON ungdung.id=theloai_ungdung.ungdungid WHERE theloai_ungdung.theloaiid=" + maTheLoai, null);
+                    "ungdung.version,ungdung.des,ungdung.linkcai ,ungdung.rating,ungdung.version_code,ungdung.capnhat FROM ungdung JOIN theloai_ungdung ON ungdung.id=theloai_ungdung.ungdungid WHERE theloai_ungdung.theloaiid=" + maTheLoai, null);
         }
         if (cursor.moveToFirst()) {
             UngDung ungDung = new UngDung();
@@ -168,9 +169,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
             ungDung.setIcon(cursor.getString(3));
             ungDung.setLuotCai(cursor.getString(4));
-            ungDung.setLinkCai(cursor.getString(7));
             ungDung.setVersion(cursor.getString(5));
             ungDung.setDes(cursor.getString(6));
+            ungDung.setLinkCai(cursor.getString(7));
+            ungDung.setRating(cursor.getString(8));
+            ungDung.setVersionCode(cursor.getString(9));
+            ungDung.setUpdate(cursor.getString(10));
             ungDung.setAnh(listAnh);
             listUngDung.add(ungDung);
         }
@@ -185,13 +189,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
             ungDung.setIcon(cursor.getString(3));
             ungDung.setLuotCai(cursor.getString(4));
-            ungDung.setLinkCai(cursor.getString(7));
             ungDung.setVersion(cursor.getString(5));
             ungDung.setDes(cursor.getString(6));
+            ungDung.setLinkCai(cursor.getString(7));
+            ungDung.setRating(cursor.getString(8));
+            ungDung.setVersionCode(cursor.getString(9));
+            ungDung.setUpdate(cursor.getString(10));
             ungDung.setAnh(listAnh);
             listUngDung.add(ungDung);
         }
-
         cursor.close();
         closeDatabase();
 
@@ -334,7 +340,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return ungDungList;
     }
 
-    public void insertApp(String id, String ten, int installed, String icon, String luotcai, String versions, String des, String linkcai) {
+    public void insertApp(String id, String ten, int installed, String icon, String luotcai, String versions, String des,
+                          String linkcai,String rating,String versionCode,int update) {
         ContentValues values = new ContentValues();
         values.put("id", Integer.parseInt(id));
         values.put("ten", ten);
@@ -344,6 +351,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("version", versions);
         values.put("des", des);
         values.put("linkcai", linkcai);
+        values.put("rating", rating);
+        values.put("version_code", versionCode);
+        values.put("capnhat", update);
         openDatabase();
         //mDatabase.delete("ungdung", "1", null);
         mDatabase.insert("ungdung", null, values);

@@ -3,6 +3,7 @@ package com.store.kiwi.kiwistore.xuly;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
@@ -24,7 +25,7 @@ import java.util.zip.ZipInputStream;
 
 public class DuLieu {
 
-  //  public static String URL = "http://phonecase.890m.com";
+    //  public static String URL = "http://phonecase.890m.com";
     public static String URL = "http://phone.websumo.vn";
     public static String URL_IMAGE = "http://phone.websumo.vn/images";
     public static String URL_FILE = "http://phone.websumo.vn/files";
@@ -40,10 +41,25 @@ public class DuLieu {
         applicationInfoList = getListInstalledApplication(context);
         for (int i = 0; i < applicationInfoList.size(); i++) {
             String appLabel = (String) context.getPackageManager().getApplicationLabel(applicationInfoList.get(i));
-            if (appLabel.trim().toLowerCase().replace(" ","").equals(label.trim().toLowerCase().replace(" ",""))) {
+            if (appLabel.trim().toLowerCase().replace(" ", "").equals(label.trim().toLowerCase().replace(" ", ""))) {
                 return true;
             }
         }
+        return false;
+    }
+
+    public static boolean capNhatVersion(String packageName, int versionCode, Context context) {
+        PackageManager pm = context.getPackageManager();
+        try {
+            PackageInfo pi = pm.getPackageInfo(packageName, PackageManager.GET_META_DATA);
+            if (pi.versionCode < versionCode) {
+                return true;
+            }
+            return false;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
         return false;
     }
 
@@ -51,8 +67,8 @@ public class DuLieu {
         String packageName = "";
         List<ApplicationInfo> listApplicationInfo = context.getPackageManager().getInstalledApplications(PackageManager.GET_META_DATA);
         for (int i = 0; i < listApplicationInfo.size(); i++) {
-            if (context.getPackageManager().getApplicationLabel(listApplicationInfo.get(i)).toString().trim().toLowerCase().replace(" ","").equals(
-                    label.trim().toLowerCase().replace(" ",""))) {
+            if (context.getPackageManager().getApplicationLabel(listApplicationInfo.get(i)).toString().trim().toLowerCase().replace(" ", "").equals(
+                    label.trim().toLowerCase().replace(" ", ""))) {
                 packageName = context.getPackageManager().getInstalledPackages(PackageManager.GET_META_DATA).get(i).packageName;
                 //Toast.makeText(context, "Ok-" + packageName, Toast.LENGTH_LONG).show();
                 break;

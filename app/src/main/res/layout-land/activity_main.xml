@@ -72,84 +72,96 @@
                 android:layout_toRightOf="@+id/layout_search"
                 android:gravity="center">
 
-                <ImageView
-                    android:id="@+id/anh_lich"
-                    android:layout_width="32dp"
-                    android:layout_height="match_parent"
-                    android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@+id/layout_ngay"
-                    android:scaleX="3"
-                    android:scaleY="3"
-                    android:src="@drawable/calendar" />
-
                 <RelativeLayout
-                    android:id="@+id/layout_ngay"
+                    android:id="@+id/layout_calendar"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@+id/anh_thoi_tiet">
+                    android:layout_height="match_parent"
+                    android:layout_toLeftOf="@+id/layout_weather">
 
-                    <TextView
-                        android:id="@+id/txt_ngay_duong"
+                    <ImageView
+                        android:id="@+id/anh_lich"
+                        android:layout_width="32dp"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:scaleX="3"
+                        android:scaleY="3"
+                        android:src="@drawable/calendar" />
+
+                    <RelativeLayout
+                        android:layout_toRightOf="@+id/anh_lich"
+                        android:id="@+id/layout_ngay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:text="THỨ BA, 20/11/2017"
-                        android:textAllCaps="true"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/textTitle" />
+                        android:layout_centerVertical="true">
 
-                    <TextView
-                        android:id="@+id/txt_ngay_am"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/txt_ngay_duong"
-                        android:layout_marginLeft="5dp"
-                        android:text="20/3 Bính dần"
-                        android:textAllCaps="true"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/textTitle" />
+                        <TextView
+                            android:id="@+id/txt_ngay_duong"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="THỨ BA, 20/11/2017"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/textTitle" />
+
+                        <TextView
+                            android:id="@+id/txt_ngay_am"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/txt_ngay_duong"
+                            android:layout_marginLeft="5dp"
+                            android:text="20/3 Bính dần"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/textTitle" />
+                    </RelativeLayout>
                 </RelativeLayout>
 
-
-                <ImageView
-                    android:id="@+id/anh_thoi_tiet"
-                    android:layout_width="32dp"
-                    android:layout_height="match_parent"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toLeftOf="@+id/layout_thoi_tiet"
-                    android:scaleX="3"
-                    android:scaleY="3"
-                    android:src="@drawable/rain" />
-
                 <RelativeLayout
-                    android:id="@+id/layout_thoi_tiet"
+                    android:id="@+id/layout_weather"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
+                    android:layout_height="match_parent"
                     android:layout_toLeftOf="@+id/layout_cau_hinh">
 
-                    <TextView
-                        android:id="@+id/txt_tinh"
+                    <ImageView
+                        android:id="@+id/anh_thoi_tiet"
+                        android:layout_width="32dp"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:scaleX="3"
+                        android:scaleY="3"
+                        android:src="@drawable/rain" />
+
+                    <RelativeLayout
+                        android:layout_toRightOf="@+id/anh_thoi_tiet"
+                        android:id="@+id/layout_thoi_tiet"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:text="HÀ NỘI"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/textTitle" />
+                        android:layout_centerVertical="true">
 
-                    <TextView
-                        android:id="@+id/txt_nhiet_do"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/txt_tinh"
-                        android:layout_marginLeft="5dp"
-                        android:text="15"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/textTitle" />
+                        <TextView
+                            android:id="@+id/txt_tinh"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="HÀ NỘI"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/textTitle" />
 
+                        <TextView
+                            android:id="@+id/txt_nhiet_do"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/txt_tinh"
+                            android:layout_marginLeft="5dp"
+                            android:text="15"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/textTitle" />
+
+                    </RelativeLayout>
                 </RelativeLayout>
+
 
                 <RelativeLayout
                     android:id="@+id/layout_cau_hinh"

@@ -2,14 +2,18 @@ package com.store.kiwi.kiwistore;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -21,8 +25,10 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -50,6 +56,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,10 +74,10 @@ public class MainActivity extends AppCompatActivity {
     private UngDungAdapter mUngDungAdapter;
     private View mUngDungFragment, mUngDungChiTietFragment;
     private Map<String, String> today;
-    private TextView mNgayDuongTxt, mNgayAmTxt, mTxtSearch, mTxtTinh, mTxtNhietDo, mTxtTenUngDung, mTxtDacTa, mTxtLuotCai, mTxtCaiDatUngDung;
-    private RelativeLayout mLayoutCauHinh, mLayoutHeader, mLayoutLogo, mLayoutSearch, mLayoutTheLoai, mLayoutLienQuan, mLayoutCaiDat, mLayouCaiDatUngDung;
-
-    private ImageButton mButtonSearch;
+    private TextView mNgayDuongTxt, mNgayAmTxt, mTxtSearch, mTxtTinh, mTxtNhietDo, mTxtTenUngDung, mTxtDacTa, mTxtLuotCai, mTxtCaiDatUngDung, mTxtVersion;
+    private RelativeLayout mLayoutCauHinh, mLayoutHeader, mLayoutLogo, mLayoutSearch, mLayoutTheLoai, mLayoutLienQuan, mLayoutCaiDat, mLayouCaiDatUngDung, mLayoutCalendar, mLayouWeather;
+    private RatingBar mRating;
+    private ImageView mButtonSearch;
     private ImageView mAnhIcon;
 
     private RoundedImageView mAnhQuangCao;
@@ -117,11 +124,14 @@ public class MainActivity extends AppCompatActivity {
         mTxtDacTa = (TextView) mUngDungChiTietFragment.findViewById(R.id.txt_dac_ta);
         mTxtLuotCai = (TextView) mUngDungChiTietFragment.findViewById(R.id.txt_luot_cai);
         mTxtCaiDatUngDung = (TextView) mUngDungChiTietFragment.findViewById(R.id.txt_cai_dat_ung_dung);
-
+        mTxtVersion = (TextView) mUngDungChiTietFragment.findViewById(R.id.txt_version);
+        mRating = (RatingBar) mUngDungChiTietFragment.findViewById(R.id.rating_app);
         mLayoutHeader = (RelativeLayout) findViewById(R.id.layout_header);
         mLayoutLogo = (RelativeLayout) findViewById(R.id.layout_logo);
         mLayoutSearch = (RelativeLayout) findViewById(R.id.layout_search);
         mLayoutTheLoai = (RelativeLayout) findViewById(R.id.layout_the_loai);
+        mLayoutCalendar = (RelativeLayout) findViewById(R.id.layout_calendar);
+        mLayouWeather = (RelativeLayout) findViewById(R.id.layout_weather);
         mLayouCaiDatUngDung = (RelativeLayout) mUngDungChiTietFragment.findViewById(R.id.layout_cai_dat_ung_dung);
 
         mButtonSearch = (ImageView) findViewById(R.id.btn_seach);
@@ -156,7 +166,8 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerViewUngDung.setHasFixedSize(true);
         mUngDungAdapter = new UngDungAdapter(this, mListUngDung, mUngDungFragment,
                 mUngDungChiTietFragment, mListAnh, mDanhSachAnhAdapter, mTxtTenUngDung,
-                mTxtDacTa, mTxtLuotCai, mAnhIcon, mLayouCaiDatUngDung, mTxtCaiDatUngDung);
+                mTxtDacTa, mTxtLuotCai, mAnhIcon, mLayouCaiDatUngDung, mTxtCaiDatUngDung,
+                mTxtVersion, mRating);
         mRecyclerViewUngDung.setAdapter(mUngDungAdapter);
 
         mRecyclerViewUngDungLienQuan.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -181,12 +192,12 @@ public class MainActivity extends AppCompatActivity {
         dialog.setTitle("Đang tải");
         dialog.setMessage("Vui lòng đợi ứng dụng tải dữ liệu");
 
-        List<UngDung> ungDungList=mDatabaseHelper.getLissAppName();
-        for (int i=0;i<ungDungList.size();i++){
-            if (checkInstalledApplication(ungDungList.get(i).getName(),this)){
-                mDatabaseHelper.updateApp(1,ungDungList.get(i).getId());
-            }else{
-                mDatabaseHelper.updateApp(0,ungDungList.get(i).getId());
+        List<UngDung> ungDungList = mDatabaseHelper.getLissAppName();
+        for (int i = 0; i < ungDungList.size(); i++) {
+            if (checkInstalledApplication(ungDungList.get(i).getName(), this)) {
+                mDatabaseHelper.updateApp(1, ungDungList.get(i).getId());
+            } else {
+                mDatabaseHelper.updateApp(0, ungDungList.get(i).getId());
             }
         }
 
@@ -219,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
                                             mAnhQuangCao.setBackground(ad);
                                         }
                                     });
-                                  //    Toast.makeText(getApplicationContext(), mDatabaseHelper.getMaxQuangCaoId() + " == max quang cao", Toast.LENGTH_SHORT).show();
+                                    //    Toast.makeText(getApplicationContext(), mDatabaseHelper.getMaxQuangCaoId() + " == max quang cao", Toast.LENGTH_SHORT).show();
 
                                     break;
                                 case "ungdung":
@@ -227,14 +238,21 @@ public class MainActivity extends AppCompatActivity {
                                     mDatabaseHelper.deleteListApp();
                                     for (int j = 0; j < rootApp.length(); j++) {
                                         JSONObject app = rootApp.getJSONObject(j);
-                                        int install = 0;
+                                        int install, update;
+                                        install = update = 0;
                                         if (checkInstalledApplication(app.getString("ten"), MainActivity.this)) {
                                             install = 1;
+                                            if (DuLieu.capNhatVersion(DuLieu.getPackageName(app.getString("ten"), MainActivity.this), app.getInt("version_code"), MainActivity.this)) {
+                                                update = 1;
+                                            } else {
+                                                update = 0;
+                                            }
                                         }
-                                        mDatabaseHelper.insertApp(app.getString("id"), app.getString("ten"),
-                                                install, DuLieu.URL_IMAGE + "/" + app.getString("icon")
+                                        mDatabaseHelper.insertApp(app.getString("id"), app.getString("ten")
+                                                , install, DuLieu.URL_IMAGE + "/" + app.getString("icon")
                                                 , app.getString("luotcai"), app.getString("version")
-                                                , app.getString("des"), DuLieu.URL_FILE + "/" + app.getString("linkcai"));
+                                                , app.getString("des"), DuLieu.URL_FILE + "/" + app.getString("linkcai")
+                                                , app.getString("rating"), app.getString("version_code"),update);
                                     }
                                     mListUngDung.clear();
                                     mListUngDung.addAll(mDatabaseHelper.getListUngDung(mListTheLoai.get(0)));
@@ -251,7 +269,7 @@ public class MainActivity extends AppCompatActivity {
                                         mDatabaseHelper.insertAnhChiTiet(app.getString("id"), app.getString("ungdungid"), DuLieu.URL_IMAGE +
                                                 "/" + app.getString("ten"));
                                     }
-                                    mDatabaseHelper.getListAnhChiTietUngDung(new UngDung("2", "", false, "", new ArrayList<String>(), "", "", "", ""));
+                                    //mDatabaseHelper.getListAnhChiTietUngDung(new UngDung("2", "", false, "", new ArrayList<String>(), "", "", "", "",""));
                                     /*Toast.makeText(getApplicationContext(),mDatabaseHelper.getListAnhChiTietUngDung(new UngDung("2","",false,"",
                                             new ArrayList<String>(),"","","","")).size()+"anh" , Toast.LENGTH_LONG).show();*/
                                     //Toast.makeText(getApplicationContext(), mDatabaseHelper.testAnhChiTiet() + " == max anh chi tiet ", Toast.LENGTH_LONG).show();
@@ -304,7 +322,7 @@ public class MainActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> values = new HashMap<>();
                 values.put("capnhatid", mDatabaseHelper.getIdCapNhat());
-               // values.put("capnhatid", "1");
+                // values.put("capnhatid", "1");
                 return values;
             }
         };
@@ -353,6 +371,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addEvents() {
+        mLayoutCalendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Open a calendar app", Toast.LENGTH_SHORT).show();
+            }
+        });
+        mLayouWeather.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Open a weather app", Toast.LENGTH_SHORT).show();
+            }
+        });
         mLayoutCauHinh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -371,8 +401,6 @@ public class MainActivity extends AppCompatActivity {
                 }*/
             }
         });
-
-
         mLayoutSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -380,29 +408,29 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void launchApp(String packageName) {
+        Intent intent = new Intent();
+        intent.setPackage(packageName);
 
-    /* public void launchApp(String packageName) {
-         Intent intent = new Intent();
-         intent.setPackage(packageName);
+        PackageManager pm = getPackageManager();
+        List<ResolveInfo> resolveInfos = pm.queryIntentActivities(intent, 0);
+        Collections.sort(resolveInfos, new ResolveInfo.DisplayNameComparator(pm));
 
-         PackageManager pm = getPackageManager();
-         List<ResolveInfo> resolveInfos = pm.queryIntentActivities(intent, 0);
-         Collections.sort(resolveInfos, new ResolveInfo.DisplayNameComparator(pm));
+        if (resolveInfos.size() > 0) {
+            ResolveInfo launchable = resolveInfos.get(0);
+            ActivityInfo activity = launchable.activityInfo;
+            ComponentName name = new ComponentName(activity.applicationInfo.packageName,
+                    activity.name);
+            Intent i = new Intent(Intent.ACTION_MAIN);
 
-         if(resolveInfos.size() > 0) {
-             ResolveInfo launchable = resolveInfos.get(0);
-             ActivityInfo activity = launchable.activityInfo;
-             ComponentName name=new ComponentName(activity.applicationInfo.packageName,
-                     activity.name);
-             Intent i=new Intent(Intent.ACTION_MAIN);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                    Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+            i.setComponent(name);
 
-             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-                     Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-             i.setComponent(name);
+            startActivity(i);
+        }
+    }
 
-             startActivity(i);
-         }
-     }*/
     /*public void launchApp(String packageName) {
         Intent intent = new Intent();
         intent.setPackage(packageName);
@@ -487,6 +515,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {
@@ -495,10 +524,11 @@ public class MainActivity extends AppCompatActivity {
                     listMap.get(didindex).setBackgroundResource(R.drawable.none);
                     didindex = main;
                     mRecyclerViewTheLoai.getChildAt(0).callOnClick();
-                } else if( didindex >= main && didindex < main - 1 + mListTheLoai.size()) {
+                } else if (
+                        didindex >= main && didindex < main - 1 + mListTheLoai.size()) {
                     didindex++;
                     mRecyclerViewTheLoai.getChildAt(didindex - main).callOnClick();
-                } else if ( didindex > main - 1 + mListTheLoai.size() && didindex <= main - 4 + mListTheLoai.size() + mListUngDung.size()) {
+                } else if (didindex > main - 1 + mListTheLoai.size() && didindex <= main - 4 + mListTheLoai.size() + mListUngDung.size()) {
                     mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.none);
                     didindex = didindex + 3;
                     mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.border_pick);
@@ -570,7 +600,7 @@ public class MainActivity extends AppCompatActivity {
                     listMap.get(didindex).callOnClick();
                 } else if (didindex >= main + mListTheLoai.size() && didindex < main - 1 + mListTheLoai.size() + mListUngDung.size()) {
                     if (chooseUngDung == true)
-                    mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).callOnClick();
+                        mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).callOnClick();
                 }
                 return true;
             default:
