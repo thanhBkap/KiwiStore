@@ -3,10 +3,12 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view_ung_dung"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
+    android:background="@drawable/none"
     card_view:cardCornerRadius="4dp"
+    card_view:cardBackgroundColor="@android:color/transparent"
     card_view:cardElevation="0dp"
     card_view:contentPadding="5dp">
 
@@ -40,15 +42,15 @@
             android:textSize="12dp" />
 
         <RatingBar
-            style="?android:attr/ratingBarStyleSmall"
-            android:numStars="5"
-            android:rating="3"
             android:id="@+id/rating_app"
-            android:layout_below="@+id/txt_ten"
+            style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
+            android:layout_below="@+id/txt_ten"
             android:layout_marginTop="2dp"
             android:layout_toRightOf="@+id/anh_ung_dung"
+            android:numStars="5"
+            android:rating="3"
             android:text="VTV go for Android TV"
             android:textColor="@color/light_green"
             android:textSize="12dp" />
@@ -57,12 +59,13 @@
             android:id="@+id/txt_installed_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/rating_app"
             android:layout_marginTop="2dp"
             android:layout_toRightOf="@+id/anh_ung_dung"
             android:text="Đã có 45 lượt cài"
             android:textColor="@color/light_green"
-            android:textSize="11dp"
-            android:layout_below="@+id/rating_app"/>
+            android:textSize="11dp" />
+
         <RelativeLayout
             android:id="@+id/layout_cai_dat"
             android:layout_width="wrap_content"

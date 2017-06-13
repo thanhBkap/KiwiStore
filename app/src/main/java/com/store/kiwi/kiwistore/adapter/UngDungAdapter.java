@@ -6,7 +6,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.widget.CardView;
@@ -46,11 +45,12 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
     private TextView mTxtVersion;
     private RatingBar mRatingApp;
     private RelativeLayout mLayouCaiDatUngDung;
+    private List<View> mListMap;
 
     public UngDungAdapter(Context mContext, List<UngDung> mListUngDung, View mUngDungFragment, View mUngDungChiTietFragment,
                           List<String> listAnh, DanhSachAnhUngDungAdapter danhSachAnhUngDungAdapter, TextView txtTenUngDung,
                           TextView txtDacTa, TextView txtLuotCai, ImageView anhIcon, RelativeLayout layouCaiDatUngDung, TextView txtCaiDatUngDung,
-                          TextView txtVersion, RatingBar rating) {
+                          TextView txtVersion, RatingBar rating, List<View> listMap) {
         this.mContext = mContext;
         this.mListUngDung = mListUngDung;
         this.mUngDungFragment = mUngDungFragment;
@@ -65,6 +65,7 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
         mTxtCaiDatUngDung = txtCaiDatUngDung;
         mTxtVersion = txtVersion;
         mRatingApp = rating;
+        mListMap = listMap;
     }
 
     @Override
@@ -93,7 +94,6 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
         holder.mInstalledNum.setText("Đã có " + ungDung.getLuotCai() + " lượt cài");
         holder.mTen.setText(ungDung.getName());
         Glide.with(mContext).load(ungDung.getIcon()).into(holder.mIcon);
-        holder.mCardViewUngDung.setCardBackgroundColor(Color.TRANSPARENT);
     }
 
     @Override
@@ -148,7 +148,12 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
                     if (v.getId() == R.id.layout_cai_dat) {
                         mUngDungFragment.setVisibility(View.GONE);
                         mUngDungChiTietFragment.setVisibility(View.VISIBLE);
-
+                        /*for (int i = (mListMap.size() - getItemCount()); i < mListMap.size(); i++) {
+                            mListMap.remove(i);
+                        }*/
+                        ImageView adImage = (ImageView) mUngDungChiTietFragment.findViewById(R.id.anh_quang_cao);
+                        //mListMap.add(adImage);
+                      //  mListMap.add(mUngDungChiTietFragment.findViewById())
                         mListAnh.clear();
                         mListAnh.addAll(databaseHelper.getListAnhChiTietUngDung(checkedUngDung));
                         mDanhSachAnhUngDungAdapter.notifyDataSetChanged();
