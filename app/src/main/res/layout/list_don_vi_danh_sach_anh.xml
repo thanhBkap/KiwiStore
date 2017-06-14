@@ -8,6 +8,7 @@
     android:paddingBottom="5dp">
 
     <ImageView
+        android:padding="2dp"
         android:id="@+id/anh_chi_tiet_ung_dung"
         android:layout_width="128dp"
         android:layout_height="128dp"
