@@ -20,7 +20,16 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <receiver android:name=".PackageReceiver" android:enabled="true" android:exported="true">
+                <intent-filter>
+                    <action android:name="android.intent.action.PACKAGE_ADDED" />
+                    <action android:name="android.intent.action.PACKAGE_CHANGED" />
+                    <category android:name="android.intent.category.DEFAULT" />
+                    <data android:scheme="package" />
+                </intent-filter>
+            </receiver>
         </activity>
+
     </application>
 
 </manifest>

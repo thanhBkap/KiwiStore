@@ -1,13 +1,17 @@
 package com.store.kiwi.kiwistore.adapter;
 
+import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -46,7 +50,7 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
     private RatingBar mRatingApp;
     private RelativeLayout mLayouCaiDatUngDung;
     private List<View> mListMap;
-
+    private ProgressDialog progressDialog;
     public UngDungAdapter(Context mContext, List<UngDung> mListUngDung, View mUngDungFragment, View mUngDungChiTietFragment,
                           List<String> listAnh, DanhSachAnhUngDungAdapter danhSachAnhUngDungAdapter, TextView txtTenUngDung,
                           TextView txtDacTa, TextView txtLuotCai, ImageView anhIcon, RelativeLayout layouCaiDatUngDung, TextView txtCaiDatUngDung,
@@ -123,6 +127,7 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
             View.OnClickListener listener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     final UngDung checkedUngDung = mListUngDung.get(getPosition());
                     /*if (v.getId() == R.id.layout_go_cai_dat) {
                         String url = checkedUngDung.getLinkCai();
@@ -153,7 +158,7 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
                         }*/
                         ImageView adImage = (ImageView) mUngDungChiTietFragment.findViewById(R.id.anh_quang_cao);
                         //mListMap.add(adImage);
-                      //  mListMap.add(mUngDungChiTietFragment.findViewById())
+                        //  mListMap.add(mUngDungChiTietFragment.findViewById())
                         mListAnh.clear();
                         mListAnh.addAll(databaseHelper.getListAnhChiTietUngDung(checkedUngDung));
                         mDanhSachAnhUngDungAdapter.notifyDataSetChanged();
@@ -198,6 +203,14 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
                                     final Uri uri = Uri.fromFile(file);
 
                                     final String destination = file.getAbsolutePath();
+                                    progressDialog = new ProgressDialog(mContext, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
+                                    progressDialog.setTitle(checkedUngDung.getName());
+                                    progressDialog.setMessage("Ứng dụng đang được tải về ...");
+                                    progressDialog.setIndeterminate(false);
+                                    progressDialog.setMax(100);
+                                    progressDialog.setProgress(10);
+                                    progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                                    progressDialog.show();
 
                                     //set downloadmanager
                                     DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
@@ -206,21 +219,53 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
 
                                     //set destination
                                     request.setDestinationUri(uri);
-
+                                    request.setVisibleInDownloadsUi(true);
+                                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
+                                    request.setShowRunningNotification(true);
                                     // get download service and enqueue file
                                     final DownloadManager manager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
                                     final long downloadId = manager.enqueue(request);
+                                    final Handler handler = new Handler(){
+                                        @Override
+                                        public void handleMessage(Message msg) {
+                                            super.handleMessage(msg);
+                                        }
+                                    };
+                                    final DownloadManager.Query q = new DownloadManager.Query();
+                                    q.setFilterById(downloadId);
+                                    final Thread thread = new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Cursor cursor = manager.query(q);
+                                            cursor.moveToFirst();
+                                            long bytes_downloaded = cursor.getInt(cursor
+                                                    .getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
+                                            long bytes_total = cursor.getInt(cursor
+                                                    .getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
+                                            cursor.close();
+                                            if (bytes_downloaded == bytes_total){
+                                                progressDialog.setProgress(100);
+                                                handler.removeCallbacks(this);
+                                            }else{
+                                                handler.postDelayed(this,200);
+                                                progressDialog.setProgress((int) (bytes_downloaded*100/bytes_total));
+                                            }
+                                        }
+                                    });
+                                    thread.start();
 
                                     //set BroadcastReceiver to install app when .apk is downloaded
                                     BroadcastReceiver onComplete = new BroadcastReceiver() {
                                         public void onReceive(Context ctxt, Intent intent) {
-                                            ProgressDialog progressDialog = new ProgressDialog(mContext);
-                                            progressDialog.setTitle("Đang cài đặt");
-                                            progressDialog.setMessage("Ứng dụng đang được cài đặt ...");
-                                            progressDialog.setIndeterminate(true);
-                                            progressDialog.show();
+                                            progressDialog.setProgress(100);
+                                            Runnable runnable = new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    progressDialog.dismiss();
+                                                }
+                                            };
+                                            handler.postDelayed(runnable,1000);
                                             String apkFileName = unzip(destination);
-                                            progressDialog.dismiss();
                                             DuLieu.installApp(mContext, apkFileName);
                                             mLayouCaiDatUngDung.setClickable(true);
                                             List<UngDung> ungDungList = databaseHelper.getLissAppName();

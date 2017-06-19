@@ -52,6 +52,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         listIcon.put("ic_giaitri", R.drawable.ic_giaitri);
         listIcon.put("ic_giaoduc", R.drawable.ic_giaoduc);
         listIcon.put("ic_trochoi", R.drawable.ic_trochoi);
+        listIcon.put("ic_suckhoe", R.drawable.ic_giaitri);
+        listIcon.put("ic_tienich", R.drawable.ic_giaoduc);
     }
 
     @Override
