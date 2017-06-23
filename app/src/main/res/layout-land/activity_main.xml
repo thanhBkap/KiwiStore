@@ -14,200 +14,226 @@
     <RelativeLayout
         android:id="@+id/layout_header"
         android:layout_width="match_parent"
-        android:layout_height="70dp">
+        android:layout_height="@dimen/_43sdp">
 
         <RelativeLayout
             android:id="@+id/layout_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_width="@dimen/_86sdp"
+            android:layout_height="@dimen/_43sdp"
+            android:paddingLeft="@dimen/_17sdp">
 
             <ImageView
-                android:scaleX="1"
-                android:scaleY="1"
                 android:id="@+id/logo"
-                android:layout_width="99dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/logo_kiwi" />
+                android:src="@drawable/logo_kiwi"
+                android:scaleType="fitXY"/>
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/layout_canh_header"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="14dp"
-            android:layout_toRightOf="@+id/layout_logo"
-            android:paddingBottom="15dp"
-            android:paddingTop="15dp">
+            android:layout_toRightOf="@+id/layout_logo">
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@+id/relay11"
+                android:paddingRight="@dimen/_4sdp"
+                android:paddingLeft="@dimen/_4sdp"
+                android:paddingTop="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_10sdp">
             <RelativeLayout
                 android:id="@+id/layout_search"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@drawable/bo_vien_search"
-                android:paddingLeft="2dp"
-                android:paddingRight="2dp">
-
+                android:paddingLeft="@dimen/_2sdp"
+                android:paddingRight="@dimen/_2sdp">
                 <TextView
                     android:id="@+id/txt_search"
-                    android:layout_width="375dp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="Tưng bừng khuyến mãi đón hè cùng KiwiBox"
-                    android:textAlignment="center"
-                    android:textColor="@color/white" />
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_centerHorizontal="true"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:gravity="center"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text=" Chào mừng hè Kiwi giảm giá đặc biệt 50% cho toàn bộ các box ! Chào mừng hè Kiwi giảm giá đặc biệt 50% cho toàn bộ các box ! Chào mừng hè Kiwi giảm giá đặc biệt 50% cho toàn bộ các box ! Chào mừng hè Kiwi giảm giá đặc biệt 50% cho toàn bộ các box ! "
+                    android:textAllCaps="true"
+                    android:textSize="@dimen/_8sdp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"/>
+
+            </RelativeLayout>
 
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_width="match_parent"
+                android:id="@+id/relay11"
+                android:layout_width="@dimen/_240sdp"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/layout_search"
-                android:gravity="center">
+                android:orientation="horizontal">
 
                 <RelativeLayout
-                    android:id="@+id/layout_calendar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_toLeftOf="@+id/layout_weather">
+                    android:layout_width="@dimen/_105sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/layout2"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:paddingLeft="@dimen/_6sdp"
+                    android:paddingTop="@dimen/_7sdp">
+
+                    <RelativeLayout
+                        android:id="@+id/layout_calendar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="@dimen/_2sdp">
 
                     <ImageView
                         android:id="@+id/anh_lich"
-                        android:layout_width="48dp"
-                        android:layout_height="match_parent"
-                        android:layout_centerVertical="true"
-                        android:scaleX="1"
-                        android:scaleY="1"
-                        android:src="@mipmap/ic_calendar" />
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
+                        android:padding="@dimen/_2sdp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_lich"/>
 
-                    <RelativeLayout
-                        android:id="@+id/layout_ngay"
+                    <TextView
+                        android:id="@+id/txt_ngay_duong"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/anh_lich">
+                        android:layout_toRightOf="@id/anh_lich"
+                        android:padding="@dimen/_2sdp"
+                        android:text="Thứ 7 , 10/6/2017    "
+                        android:textAllCaps="true"
+                        android:textSize="@dimen/_7sdp"
+                        android:textColor="@color/white"/>
 
-                        <TextView
-                            android:id="@+id/txt_ngay_duong"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="THỨ BA, 20/11/2017"
-                            android:textAllCaps="true"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/textTitle" />
-
-                        <TextView
-                            android:id="@+id/txt_ngay_am"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/txt_ngay_duong"
-                            android:layout_marginLeft="5dp"
-                            android:text="20/3 Bính dần"
-                            android:textAllCaps="true"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/textTitle" />
+                    <TextView
+                        android:id="@+id/txt_ngay_am"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/txt_ngay_duong"
+                        android:layout_toRightOf="@id/anh_lich"
+                        android:paddingLeft="@dimen/_2sdp"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="16/5 Đinh dậu "
+                        android:textAllCaps="true"
+                        android:textSize="@dimen/_6sdp"
+                        android:textColor="@color/white"/>
                     </RelativeLayout>
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/layout_weather"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="23dp"
-                    android:layout_toLeftOf="@+id/layout_cau_hinh"
-                    android:scaleX="1">
+                    android:id="@+id/layout2"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/layout3"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:paddingLeft="@dimen/_4sdp"
+                    android:paddingTop="@dimen/_7sdp">
 
+                    <RelativeLayout
+                        android:id="@+id/layout_weather"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="@dimen/_2sdp">
                     <ImageView
                         android:id="@+id/anh_thoi_tiet"
-                        android:layout_width="48dp"
-                        android:layout_height="match_parent"
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
                         android:layout_centerVertical="true"
-                        android:scaleY="1"
-                        android:src="@mipmap/ic_weather" />
+                        android:paddingTop="@dimen/_2sdp"
+                        android:paddingLeft="@dimen/_1sdp"
+                        android:paddingRight="@dimen/_1sdp"
+                        android:paddingBottom="@dimen/_1sdp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_thoitiet"/>
 
-                    <RelativeLayout
-                        android:id="@+id/layout_thoi_tiet"
+                    <TextView
+                        android:id="@+id/txt_tinh"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/anh_thoi_tiet">
+                        android:layout_toRightOf="@+id/anh_thoi_tiet"
+                        android:padding="@dimen/_2sdp"
+                        android:singleLine="true"
+                        android:text="Hà Nôi    "
+                        android:textAllCaps="true"
+                        android:textSize="@dimen/_7sdp"
+                        android:textColor="@color/white"/>
 
-                        <TextView
-                            android:id="@+id/txt_tinh"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="HÀ NỘI"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/textTitle" />
-
-                        <TextView
-                            android:id="@+id/txt_nhiet_do"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/txt_tinh"
-                            android:layout_marginLeft="5dp"
-                            android:text="15"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/textTitle" />
-
+                    <TextView
+                        android:id="@+id/txt_nhiet_do"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt_tinh"
+                        android:layout_toRightOf="@+id/anh_thoi_tiet"
+                        android:paddingLeft="@dimen/_2sdp"
+                        android:singleLine="true"
+                        android:text="28 độ       "
+                        android:textAllCaps="true"
+                        android:textSize="@dimen/_6sdp"
+                        android:textColor="@color/white"/>
                     </RelativeLayout>
                 </RelativeLayout>
 
-
                 <RelativeLayout
-                    android:id="@+id/layout_cau_hinh"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/layout3"
+                    android:layout_width="@dimen/_75sdp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="23dp">
-
-                    <ImageView
-                        android:id="@+id/anh_cau_hinh"
-                        android:layout_width="48dp"
-                        android:layout_height="match_parent"
-                        android:layout_centerVertical="true"
-                        android:scaleX="1"
-                        android:scaleY="1"
-                        android:src="@mipmap/ic_setting" />
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:paddingLeft="@dimen/_3sdp"
+                    android:paddingTop="@dimen/_7sdp">
 
                     <RelativeLayout
-                        android:id="@+id/layout_txt_cau_hinh"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/layout_cau_hinh"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="@dimen/_1sdp">
+                        <ImageView
+                        android:id="@+id/anh_cau_hinh"
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
                         android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/anh_cau_hinh">
+                        android:paddingTop="@dimen/_2sdp"
+                        android:paddingLeft="@dimen/_1sdp"
+                        android:paddingRight="@dimen/_1sdp"
+                        android:paddingBottom="@dimen/_1sdp"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/ic_setting"/>
 
                         <TextView
-                            android:id="@+id/txt_cau_hinh"
+                            android:id="@+id/txt_caidat"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginLeft="5dp"
-                            android:text="CẤU HÌNH"
-                            android:textAlignment="center"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/textTitle" />
+                            android:layout_toRightOf="@+id/anh_cau_hinh"
+                            android:paddingLeft="@dimen/_2sdp"
+                            android:paddingTop="@dimen/_5sdp"
+                            android:singleLine="true"
+                            android:text="Cấu Hình      "
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/_7sdp"
+                            android:textColor="@color/white"/>
 
                         <TextView
-                            android:id="@+id/txt_ten_box"
+                            android:id="@+id/txt_kiwi"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/txt_cau_hinh"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginLeft="5dp"
-                            android:text="KIWIBOX"
-                            android:textAlignment="center"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/textTitle" />
+                            android:layout_below="@+id/txt_caidat"
+                            android:layout_toRightOf="@+id/anh_cau_hinh"
+                            android:singleLine="true"
+                            android:paddingLeft="@dimen/_2sdp"
+                            android:text="KiwiBox       "
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/_6sdp"
+                            android:textColor="@color/white"/>
                     </RelativeLayout>
-
                 </RelativeLayout>
 
             </RelativeLayout>

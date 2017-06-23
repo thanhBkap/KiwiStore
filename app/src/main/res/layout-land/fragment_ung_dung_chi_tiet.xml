@@ -16,9 +16,7 @@
         <RelativeLayout
             android:id="@+id/layout_quangcao"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/border_pick"
-            android:padding="2dp">
+            android:layout_height="wrap_content">
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/anh_quang_cao"
@@ -183,27 +181,20 @@
         <RelativeLayout
             android:id="@+id/layout_lien_quan_tieu_de"
             android:layout_width="match_parent"
-            android:layout_height="32dp"
+            android:layout_height="@dimen/_30sdp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:paddingLeft="4dp">
-
-            <ImageView
-                android:id="@+id/anh_lien_quan"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_centerVertical="true"
-                android:src="@drawable/random" />
+            android:background="@drawable/border_lq"
+            android:padding="@dimen/_4sdp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/anh_lien_quan"
-                android:paddingLeft="4dp"
                 android:text="Ứng dụng liên quan"
                 android:textAllCaps="true"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:gravity="center"/>
+
         </RelativeLayout>
 
 
