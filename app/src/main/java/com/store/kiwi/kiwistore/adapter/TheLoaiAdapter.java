@@ -61,7 +61,6 @@ public class TheLoaiAdapter extends RecyclerView.Adapter<TheLoaiAdapter.ViewHold
         if (theLoai.isChecked()) {
             holder.mCardView.setRadius(2);
             holder.mCardView.setCardBackgroundColor(mContext.getResources().getColor(R.color.light_green));
-            holder.mAnhTheLoai.setImageDrawable(mContext.getResources().getDrawable(theLoai.getIcon()));
             holder.mTxtTenVaSoLuong.setText(theLoai.getTen() + " (" + theLoai.getSoLuong() + ")");
         } else {
             holder.mCardView.setRadius(0);
@@ -79,7 +78,6 @@ public class TheLoaiAdapter extends RecyclerView.Adapter<TheLoaiAdapter.ViewHold
         ImageView mIcon;
         TextView mTenVaSoLuong;
         CardView mCardView;
-        ImageView mAnhTheLoai;
         TextView mTxtTenVaSoLuong;
         DatabaseHelper databaseHelper;
 
@@ -88,7 +86,6 @@ public class TheLoaiAdapter extends RecyclerView.Adapter<TheLoaiAdapter.ViewHold
             mIcon = (ImageView) itemView.findViewById(R.id.anh_the_loai);
             mTenVaSoLuong = (TextView) itemView.findViewById(R.id.txtTenVaSoLuong);
             mCardView = (CardView) itemView.findViewById(R.id.card_view_the_loai);
-            mAnhTheLoai = (ImageView) mFragmentTheLoai.findViewById(R.id.anh_the_loai);
             mTxtTenVaSoLuong = (TextView) mFragmentTheLoai.findViewById(R.id.txt_ten_so_luong_the_loai);
             databaseHelper = new DatabaseHelper(mContext);
             itemView.setOnClickListener(new View.OnClickListener() {

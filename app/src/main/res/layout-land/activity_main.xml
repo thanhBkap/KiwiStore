@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
+    android:background="@drawable/ic_bgmain"
     android:gravity="center"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
@@ -18,12 +18,14 @@
 
         <RelativeLayout
             android:id="@+id/layout_logo"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
             <ImageView
+                android:scaleX="1"
+                android:scaleY="1"
                 android:id="@+id/logo"
-                android:layout_width="80dp"
+                android:layout_width="99dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
@@ -35,6 +37,7 @@
             android:id="@+id/layout_canh_header"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="14dp"
             android:layout_toRightOf="@+id/layout_logo"
             android:paddingBottom="15dp"
             android:paddingTop="15dp">
@@ -44,24 +47,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@drawable/bo_vien_search"
-                android:paddingRight="10dp">
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp">
 
                 <TextView
                     android:id="@+id/txt_search"
-                    android:layout_width="300dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerInParent="true" />
+                    android:layout_width="375dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="Tưng bừng khuyến mãi đón hè cùng KiwiBox"
+                    android:textAlignment="center"
+                    android:textColor="@color/white" />
 
-                <ImageView
-                    android:id="@+id/btn_seach"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/txt_search"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/search" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -80,19 +77,19 @@
 
                     <ImageView
                         android:id="@+id/anh_lich"
-                        android:layout_width="32dp"
+                        android:layout_width="48dp"
                         android:layout_height="match_parent"
                         android:layout_centerVertical="true"
-                        android:scaleX="3"
-                        android:scaleY="3"
-                        android:src="@drawable/calendar" />
+                        android:scaleX="1"
+                        android:scaleY="1"
+                        android:src="@mipmap/ic_calendar" />
 
                     <RelativeLayout
-                        android:layout_toRightOf="@+id/anh_lich"
                         android:id="@+id/layout_ngay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true">
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/anh_lich">
 
                         <TextView
                             android:id="@+id/txt_ngay_duong"
@@ -121,24 +118,24 @@
                     android:id="@+id/layout_weather"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_toLeftOf="@+id/layout_cau_hinh">
+                    android:layout_marginLeft="23dp"
+                    android:layout_toLeftOf="@+id/layout_cau_hinh"
+                    android:scaleX="1">
 
                     <ImageView
                         android:id="@+id/anh_thoi_tiet"
-                        android:layout_width="32dp"
+                        android:layout_width="48dp"
                         android:layout_height="match_parent"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:scaleX="3"
-                        android:scaleY="3"
-                        android:src="@drawable/rain" />
+                        android:scaleY="1"
+                        android:src="@mipmap/ic_weather" />
 
                     <RelativeLayout
-                        android:layout_toRightOf="@+id/anh_thoi_tiet"
                         android:id="@+id/layout_thoi_tiet"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true">
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/anh_thoi_tiet">
 
                         <TextView
                             android:id="@+id/txt_tinh"
@@ -169,16 +166,16 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp">
+                    android:layout_marginLeft="23dp">
 
                     <ImageView
                         android:id="@+id/anh_cau_hinh"
-                        android:layout_width="32dp"
+                        android:layout_width="48dp"
                         android:layout_height="match_parent"
                         android:layout_centerVertical="true"
-                        android:scaleX="3"
-                        android:scaleY="3"
-                        android:src="@drawable/setting" />
+                        android:scaleX="1"
+                        android:scaleY="1"
+                        android:src="@mipmap/ic_setting" />
 
                     <RelativeLayout
                         android:id="@+id/layout_txt_cau_hinh"
@@ -244,7 +241,7 @@
 
         <include layout="@layout/fragment_the_loai" />
 
-        <include layout="@layout/fragment_ung_dung_chi_tiet" />
+        <include layout="@layout/fragment_ung_dung_chi_tiet"/>
 
 
     </RelativeLayout>

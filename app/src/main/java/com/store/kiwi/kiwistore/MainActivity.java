@@ -24,6 +24,8 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
@@ -78,14 +80,13 @@ public class MainActivity extends AppCompatActivity {
     private RelativeLayout mLayoutCauHinh, mLayoutHeader, mLayoutLogo, mLayoutSearch, mLayoutTheLoai,
             mLayoutLienQuan, mLayoutCaiDat, mLayouCaiDatUngDung, mLayoutCalendar, mLayouWeather, mLayoutAd;
     private RatingBar mRating;
-    private ImageView mButtonSearch;
     private ImageView mAnhIcon;
     private int fragmentNum, height, width;
     private RoundedImageView mAnhQuangCao;
     private DatabaseHelper mDatabaseHelper;
     private ProgressDialog dialog;
     private List<View> listMap,listMap2;
-    private int didindex = 0, main = 5,mainflag2 = 2, indexchoose = main;
+    private int didindex = 0, main = 3,mainflag2 = 2, indexchoose = main;
     private boolean chooseUngDung = true;
 
     @Override
@@ -136,7 +137,6 @@ public class MainActivity extends AppCompatActivity {
         mLayouCaiDatUngDung = (RelativeLayout) mUngDungChiTietFragment.findViewById(R.id.layout_cai_dat_ung_dung);
         mLayoutAd = (RelativeLayout) mUngDungChiTietFragment.findViewById(R.id.layout_quangcao);
 
-        mButtonSearch = (ImageView) findViewById(R.id.btn_seach);
         mAnhIcon = (ImageView) mUngDungChiTietFragment.findViewById(R.id.anh_icon);
         mAnhQuangCao = (RoundedImageView) mUngDungChiTietFragment.findViewById(R.id.anh_quang_cao);
         mLayoutLienQuan = (RelativeLayout) mUngDungChiTietFragment.findViewById(R.id.layout_lien_quan);
@@ -159,6 +159,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //addListMapFragMent1();
+        Animation rightToLeft = AnimationUtils.loadAnimation(this, R.anim.text_tran);
+        rightToLeft.setRepeatCount(Animation.INFINITE);
+        rightToLeft.setRepeatMode(Animation.RESTART);
+        mTxtSearch.startAnimation(rightToLeft);
 
         mRecyclerViewAnhUngDung.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mRecyclerViewAnhUngDung.setHasFixedSize(true);
@@ -475,11 +479,9 @@ public class MainActivity extends AppCompatActivity {
         width = displayMetrics.widthPixels;
 
         mLayoutHeader.getLayoutParams().height = height * 7 / 50;
-        mLayoutLogo.getLayoutParams().width = width * 2 / 9;
-        mTxtSearch.getLayoutParams().width = width * 3 / 9;
-        mButtonSearch.getLayoutParams().width = width * 20 / 900;
-        mButtonSearch.getLayoutParams().height = height * 20 / 500;
-        mLayoutTheLoai.getLayoutParams().width = width * 180 / 900;
+     //   mLayoutLogo.getLayoutParams().width = width * 2 / 9;
+        mTxtSearch.getLayoutParams().width = width * 800 / 1920;
+        mLayoutTheLoai.getLayoutParams().width = width * 11 / 48;
         mLayoutLienQuan.getLayoutParams().width = width * 230 / 900;
         mAnhQuangCao.getLayoutParams().height = height * 150 / 500;
 
@@ -508,8 +510,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addListMap() {
-        listMap.add(mTxtSearch);
-        listMap.add(mButtonSearch);
         listMap.add(mLayoutCalendar);
         listMap.add(mLayouWeather);
         listMap.add(mLayoutCauHinh);
@@ -517,7 +517,6 @@ public class MainActivity extends AppCompatActivity {
         listMap2 = new ArrayList<>();
         listMap2.add(mLayoutAd);
         listMap2.add(mLayouCaiDatUngDung);
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)

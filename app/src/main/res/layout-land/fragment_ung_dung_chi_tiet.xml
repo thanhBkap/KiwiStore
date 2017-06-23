@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/layout_quangcao"
-            android:background="@color/light_blue"
+            android:background="@color/white"
             android:padding="8dp">
 
             <RelativeLayout
@@ -59,8 +59,9 @@
                     android:layout_marginTop="2dp"
                     android:layout_toRightOf="@+id/anh_icon"
                     android:text="VTV Go"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
+                    android:textColor="#000"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
 
                 <RatingBar
                     android:id="@+id/rating_app"
@@ -83,7 +84,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_toRightOf="@+id/rating_app"
                     android:text=" Phiên bản 5.6.3"
-                    android:textColor="@color/white"
+                    android:textColor="#000"
                     android:textSize="10dp" />
 
                 <TextView
@@ -94,7 +95,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_toRightOf="@+id/anh_icon"
                     android:text="Ứng dụng được phát triển bởi VTVGo .Gồm 9 kênh VTV : vtv1, vtv2, vtv3, vtv4, vtv5, vtv6, vtv7"
-                    android:textColor="@color/white"
+                    android:textColor="#000"
                     android:textSize="12dp" />
 
                 <TextView
@@ -113,6 +114,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp">
+
                     <RelativeLayout
                         android:id="@+id/layout_cai_dat_ung_dung"
                         android:layout_width="wrap_content"
@@ -141,7 +143,7 @@
                             android:layout_toRightOf="@+id/anh_icon_cai_ung_dung"
                             android:text="Cài ứng dụng"
                             android:textAllCaps="true"
-                            android:textColor="@color/white"
+                            android:textColor="#000"
                             android:textSize="12dp" />
                     </RelativeLayout>
                 </RelativeLayout>
@@ -149,9 +151,10 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/layout_show_info_sub"
                 android:layout_marginTop="20dp"
+                android:background="@color/light_blue"
                 android:paddingRight="5dp">
 
                 <android.support.v7.widget.RecyclerView
@@ -165,7 +168,6 @@
 
 
         </RelativeLayout>
-
 
     </RelativeLayout>
 

@@ -210,6 +210,7 @@ public class DuLieu {
         }
         return kq;
     }
+
     /*public void hanldeDirectory(String dir) {
         File f = new File(this.destination + dir);
         if (!f.isDirectory()) {

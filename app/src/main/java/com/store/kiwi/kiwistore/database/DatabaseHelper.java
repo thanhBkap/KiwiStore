@@ -52,8 +52,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         listIcon.put("ic_giaitri", R.drawable.ic_giaitri);
         listIcon.put("ic_giaoduc", R.drawable.ic_giaoduc);
         listIcon.put("ic_trochoi", R.drawable.ic_trochoi);
-        listIcon.put("ic_suckhoe", R.drawable.ic_giaitri);
-        listIcon.put("ic_tienich", R.drawable.ic_giaoduc);
+        listIcon.put("ic_suckhoe", R.drawable.ic_suckhoe);
+        listIcon.put("ic_tienich", R.drawable.ic_tienich);
     }
 
     @Override
@@ -125,7 +125,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             theLoai = new TheLoai();
             theLoai.setId(cursor.getString(0));
             theLoai.setTen(cursor.getString(1));
-            theLoai.setSoLuong(cursor.getString(2));
+            if(Integer.parseInt(cursor.getString(2))>12){
+                theLoai.setSoLuong("12");
+            }else{
+                theLoai.setSoLuong(cursor.getString(2));
+            }
             theLoai.setIcon(listIcon.get(cursor.getString(3)));
             theLoai.setChecked(true);
             listTheLoai.add(theLoai);
@@ -134,7 +138,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             theLoai = new TheLoai();
             theLoai.setId(cursor.getString(0));
             theLoai.setTen(cursor.getString(1));
-            theLoai.setSoLuong(cursor.getString(2));
+            if(Integer.parseInt(cursor.getString(2))>12){
+                theLoai.setSoLuong("12");
+            }else{
+                theLoai.setSoLuong(cursor.getString(2));
+            }
             theLoai.setIcon(listIcon.get(cursor.getString(3)));
             theLoai.setChecked(false);
             listTheLoai.add(theLoai);
@@ -155,7 +163,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (theLoai.getIcon() == R.drawable.ic_tatca) {
             cursor = mDatabase.rawQuery("SELECT ungdung.id,ungdung.ten,ungdung.installed,ungdung.icon,ungdung.luotcai" +
                     ",ungdung.version,ungdung.des,ungdung.linkcai,ungdung.rating,ungdung.version_code,ungdung.capnhat" +
-                    " FROM ungdung", null);
+                    " FROM ungdung LIMIT 12", null);
         } else {
             cursor = mDatabase.rawQuery("SELECT ungdung.id,ungdung.ten,ungdung.installed,ungdung.icon,ungdung.luotcai," +
                     "ungdung.version,ungdung.des,ungdung.linkcai ,ungdung.rating,ungdung.version_code,ungdung.capnhat FROM ungdung JOIN theloai_ungdung ON ungdung.id=theloai_ungdung.ungdungid WHERE theloai_ungdung.theloaiid=" + maTheLoai, null);

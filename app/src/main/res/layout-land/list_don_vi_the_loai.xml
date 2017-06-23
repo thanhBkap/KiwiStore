@@ -16,20 +16,21 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:paddingBottom="2dp"
-        android:paddingLeft="2dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
         android:paddingRight="2dp"
-        android:paddingTop="2dp">
+        android:paddingTop="5dp">
 
         <ImageView
             android:id="@+id/anh_the_loai"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_centerVertical="true"
-            android:scaleX="1.5"
-            android:scaleY="1.5"
-            android:src="@drawable/ic_trochoi" />
+            android:scaleX="1"
+            android:scaleY="1"
+            android:src="@drawable/ic_trochoi"
+            android:layout_marginRight="15dp"/>
 
         <TextView
             android:id="@+id/txtTenVaSoLuong"
@@ -42,7 +43,7 @@
             android:textAlignment="textStart"
             android:textAllCaps="true"
             android:textColor="@color/white"
-            android:textSize="12dp" />
+            android:textSize="@dimen/categoryList" />
 
     </RelativeLayout>
 
