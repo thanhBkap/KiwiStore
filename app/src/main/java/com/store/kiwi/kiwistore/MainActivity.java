@@ -315,6 +315,12 @@ public class MainActivity extends AppCompatActivity {
                 }
                 dialog.dismiss();
                 mTxtAd.setText(mDatabaseHelper.getLinkTextQuangCao());
+                mListTheLoai.clear();
+                mListTheLoai.addAll(mDatabaseHelper.getListTheLoai());
+                mTheLoaiAdapter.notifyDataSetChanged();
+                mListUngDung.clear();
+                mListUngDung.addAll(mDatabaseHelper.getListUngDung(mListTheLoai.get(0)));
+                mUngDungAdapter.notifyDataSetChanged();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -326,7 +332,6 @@ public class MainActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> values = new HashMap<>();
                 values.put("capnhatid", mDatabaseHelper.getIdCapNhat());
-                // values.put("capnhatid", "1");
                 return values;
             }
         };
@@ -404,11 +409,6 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, packageName, Toast.LENGTH_SHORT).show();
                     openAppByLabelName(packageName);
                 }*/
-            }
-        });
-        mLayoutSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
             }
         });
     }
