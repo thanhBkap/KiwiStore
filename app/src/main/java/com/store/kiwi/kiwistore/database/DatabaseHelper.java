@@ -304,7 +304,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         closeDatabase();
         return nd;
     }
-
+    public String getLinkTextQuangCao() {
+        String nd = "";
+        openDatabase();
+        Cursor cursor;
+        cursor = mDatabase.rawQuery("SELECT noidung FROM quangcao WHERE loaiquangcao = 3 ORDER BY id DESC", null);
+        if (cursor.moveToFirst()) {
+            nd = cursor.getString(0);
+        }
+        cursor.close();
+        closeDatabase();
+        return nd;
+    }
     public void insertQuangCao(String id, String noiDung, String loaiQuangCaoId) {
         ContentValues values = new ContentValues();
         values.put("id", Integer.parseInt(id));

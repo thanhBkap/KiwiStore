@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
     private UngDungAdapter mUngDungAdapter;
     private View mUngDungFragment, mUngDungChiTietFragment;
     private Map<String, String> today;
-    private TextView mNgayDuongTxt, mNgayAmTxt, mTxtSearch, mTxtTinh, mTxtNhietDo, mTxtTenUngDung, mTxtDacTa, mTxtLuotCai, mTxtCaiDatUngDung, mTxtVersion;
+    private TextView mNgayDuongTxt, mNgayAmTxt, mTxtTinh, mTxtNhietDo, mTxtTenUngDung, mTxtDacTa, mTxtLuotCai, mTxtCaiDatUngDung, mTxtVersion, mTxtAd;
     private RelativeLayout mLayoutCauHinh, mLayoutHeader, mLayoutLogo, mLayoutSearch, mLayoutTheLoai,
             mLayoutLienQuan, mLayoutCaiDat, mLayouCaiDatUngDung, mLayoutCalendar, mLayouWeather, mLayoutAd;
     private RatingBar mRating;
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
         mNgayDuongTxt = (TextView) findViewById(R.id.txt_ngay_duong);
         mNgayAmTxt = (TextView) findViewById(R.id.txt_ngay_am);
-        mTxtSearch = (TextView) findViewById(R.id.txt_search);
+        mTxtAd = (TextView) findViewById(R.id.txt_ad);
         mTxtTinh = (TextView) findViewById(R.id.txt_tinh);
         mTxtNhietDo = (TextView) findViewById(R.id.txt_nhiet_do);
         mTxtTenUngDung = (TextView) mUngDungChiTietFragment.findViewById(R.id.txt_ten);
@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //addListMapFragMent1();
-        mTxtSearch.setSelected(true);
+        mTxtAd.setSelected(true);
 
         mRecyclerViewAnhUngDung.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mRecyclerViewAnhUngDung.setHasFixedSize(true);
@@ -314,6 +314,7 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 dialog.dismiss();
+                mTxtAd.setText(mDatabaseHelper.getLinkTextQuangCao());
             }
         }, new Response.ErrorListener() {
             @Override
@@ -371,6 +372,7 @@ public class MainActivity extends AppCompatActivity {
         });
         requestQueue.add(stringRequest);
         mTxtTinh.setText(thoiTiet.getTen());
+        mTxtAd.setText(mDatabaseHelper.getLinkTextQuangCao());
     }
 
     private void addEvents() {
@@ -475,7 +477,7 @@ public class MainActivity extends AppCompatActivity {
 
         mLayoutHeader.getLayoutParams().height = height * 7 / 50;
      //   mLayoutLogo.getLayoutParams().width = width * 2 / 9;
-        mTxtSearch.getLayoutParams().width = width * 800 / 1920;
+        mTxtAd.getLayoutParams().width = width * 800 / 1920;
         mLayoutTheLoai.getLayoutParams().width = width * 11 / 48;
         mLayoutLienQuan.getLayoutParams().width = width * 230 / 900;
         mAnhQuangCao.getLayoutParams().height = height * 150 / 500;
@@ -483,7 +485,6 @@ public class MainActivity extends AppCompatActivity {
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         layoutParams.setMargins(0, 0, 0, height * 20 / 500);
         mUngDungChiTietFragment.setLayoutParams(layoutParams);
-
     }
 
     public boolean haveStoragePermission() {
