@@ -108,9 +108,10 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/anh_lich"
                         android:padding="@dimen/_2sdp"
-                        android:text="Thứ 7 , 10/6/2017    "
+                        android:text="Thứ 7 , 10/6/2017 "
                         android:textAllCaps="true"
                         android:textSize="@dimen/_7sdp"
+                        android:singleLine="true"
                         android:textColor="@color/white"/>
 
                     <TextView
@@ -162,7 +163,7 @@
                         android:layout_toRightOf="@+id/anh_thoi_tiet"
                         android:padding="@dimen/_2sdp"
                         android:singleLine="true"
-                        android:text="Hà Nôi    "
+                        android:text="Hà Nôi"
                         android:textAllCaps="true"
                         android:textSize="@dimen/_7sdp"
                         android:textColor="@color/white"/>

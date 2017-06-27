@@ -126,12 +126,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             theLoai = new TheLoai();
             theLoai.setId(cursor.getString(0));
             theLoai.setTen(cursor.getString(1));
-            if(Integer.parseInt(cursor.getString(2))>12){
+            /*if(Integer.parseInt(cursor.getString(2))>12){
                 theLoai.setSoLuong("12");
             }else{
                 theLoai.setSoLuong(cursor.getString(2));
-            }
-            theLoai.setIcon(listIcon.get(cursor.getString(3)));
+            }*/
+            theLoai.setSoLuong("12");
+            theLoai.setIcon(cursor.getString(3));
             theLoai.setChecked(true);
             listTheLoai.add(theLoai);
         }
@@ -144,7 +145,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }else{
                 theLoai.setSoLuong(cursor.getString(2));
             }
-            theLoai.setIcon(listIcon.get(cursor.getString(3)));
+            theLoai.setIcon(cursor.getString(3));
             theLoai.setChecked(false);
             listTheLoai.add(theLoai);
         }
@@ -161,7 +162,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         openDatabase();
         listAnh = new ArrayList<>();
         Cursor cursor;
-        if (theLoai.getIcon() == R.drawable.ic_tatca) {
+        if (theLoai.getId().equals("1")) {
             cursor = mDatabase.rawQuery("SELECT ungdung.id,ungdung.ten,ungdung.installed,ungdung.icon,ungdung.luotcai" +
                     ",ungdung.version,ungdung.des,ungdung.linkcai,ungdung.rating,ungdung.version_code,ungdung.capnhat" +
                     " FROM ungdung LIMIT 12", null);

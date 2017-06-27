@@ -8,17 +8,17 @@ public class TheLoai {
     private String id;
     private String ten;
     private String soLuong;
-    private int icon;
-    private  boolean checked;
+    private String icon;
+    private boolean checked;
 
     public TheLoai() {
     }
 
-    public TheLoai(String ten, String soLuong, int icon, String id, boolean checked) {
+    public TheLoai(String id, String ten, String soLuong, String icon, boolean checked) {
+        this.id = id;
         this.ten = ten;
         this.soLuong = soLuong;
         this.icon = icon;
-        this.id = id;
         this.checked = checked;
     }
 
@@ -46,11 +46,11 @@ public class TheLoai {
         this.soLuong = soLuong;
     }
 
-    public int getIcon() {
+    public String getIcon() {
         return icon;
     }
 
-    public void setIcon(int icon) {
+    public void setIcon(String icon) {
         this.icon = icon;
     }
 

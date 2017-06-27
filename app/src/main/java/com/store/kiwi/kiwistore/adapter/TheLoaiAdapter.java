@@ -2,7 +2,6 @@ package com.store.kiwi.kiwistore.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +14,7 @@ import com.store.kiwi.kiwistore.R;
 import com.store.kiwi.kiwistore.database.DatabaseHelper;
 import com.store.kiwi.kiwistore.model.TheLoai;
 import com.store.kiwi.kiwistore.model.UngDung;
+import com.store.kiwi.kiwistore.xuly.ImageEdit;
 
 import java.util.List;
 
@@ -53,8 +53,9 @@ public class TheLoaiAdapter extends RecyclerView.Adapter<TheLoaiAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         TheLoai theLoai = mListTheLoai.get(position);
-        Drawable icon = mContext.getResources().getDrawable(theLoai.getIcon());
-        holder.mIcon.setImageDrawable(icon);
+       // Drawable icon = mContext.getResources().getDrawable(theLoai.getIcon());
+       // holder.mIcon.setImageDrawable(icon);
+       holder.mIcon.setImageBitmap(ImageEdit.decodeBase64(theLoai.getIcon()));
         holder.mTenVaSoLuong.setText(theLoai.getTen() + " (" + theLoai.getSoLuong() + ")");
         holder.mCardView.setCardElevation(0);
 
