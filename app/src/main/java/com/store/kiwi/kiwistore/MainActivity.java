@@ -19,7 +19,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -482,17 +481,12 @@ public class MainActivity extends AppCompatActivity {
                 // failure message
             }*/
     private void setWidthAnhHeight() {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        height = displayMetrics.heightPixels;
-        width = displayMetrics.widthPixels;
-
-        mLayoutHeader.getLayoutParams().height = height * 7 / 50;
-     //   mLayoutLogo.getLayoutParams().width = width * 2 / 9;
-        mTxtAd.getLayoutParams().width = width * 800 / 1920;
-        mLayoutTheLoai.getLayoutParams().width = width * 11 / 48;
-        mLayoutLienQuan.getLayoutParams().width = width * 230 / 900;
-        mAnhQuangCao.getLayoutParams().height = height * 150 / 500;
+//        mLayoutHeader.getLayoutParams().height = height * 7 / 50;
+//     //   mLayoutLogo.getLayoutParams().width = width * 2 / 9;
+//        mTxtAd.getLayoutParams().width = width * 800 / 1920;
+//        mLayoutTheLoai.getLayoutParams().width = width * 11 / 48;
+//        mLayoutLienQuan.getLayoutParams().width = width * 230 / 900;
+//        mAnhQuangCao.getLayoutParams().height = height * 150 / 500;
 
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         layoutParams.setMargins(0, 0, 0, height * 20 / 500);

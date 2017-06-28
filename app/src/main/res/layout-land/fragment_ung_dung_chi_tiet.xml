@@ -89,7 +89,8 @@
                     android:layout_toRightOf="@+id/layout_logo_cai_dat"
                     android:text="Ứng dụng được phát triển bởi VTVGo .Gồm 9 kênh VTV : vtv1, vtv2, vtv3, vtv4, vtv5, vtv6, vtv7"
                     android:textColor="#000"
-                    android:textSize="12dp" />
+                    android:textSize="@dimen/_4sdp"
+                    android:maxHeight="@dimen/_20sdp"/>
                 <RatingBar
                     android:id="@+id/rating_app"
                     style="?android:attr/ratingBarStyleSmall"
@@ -114,16 +115,26 @@
                     android:textColor="#000"
                     android:textSize="10dp" />
 
+                <ImageView
+                    android:id="@+id/logo_people"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_12sdp"
+                    android:layout_alignParentBottom="true"
+                    android:src="@drawable/ic_people"
+                    android:layout_marginBottom="@dimen/_6sdp"
+                    android:layout_toRightOf="@+id/layout_logo_cai_dat"/>
+
                 <TextView
                     android:id="@+id/txt_luot_cai"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="10dp"
-                    android:layout_toRightOf="@+id/layout_logo_cai_dat"
+                    android:layout_marginBottom="@dimen/_6sdp"
+                    android:textStyle="bold"
+                    android:layout_toRightOf="@+id/logo_people"
                     android:text="Có 1,500 kiwier cài đặt ứng dụng này"
                     android:textColor="@color/light_green_v3"
-                    android:textSize="12dp" />
+                    android:textSize="@dimen/_6sdp" />
 
                 <RelativeLayout
                     android:id="@+id/layout_pickcaidat"
@@ -139,28 +150,23 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginBottom="5dp"
                         android:background="@drawable/bo_vien_cai_dat"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="8dp">
-
-                        <ImageView
-                            android:id="@+id/anh_icon_cai_ung_dung"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_centerVertical="true"
-                            android:scaleX="0.5"
-                            android:scaleY="0.5"
-                            android:src="@drawable/down" />
+                        >
 
                         <TextView
                             android:id="@+id/txt_cai_dat_ung_dung"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:layout_toRightOf="@+id/anh_icon_cai_ung_dung"
                             android:text="Cài ứng dụng"
                             android:textAllCaps="true"
-                            android:textColor="#000"
-                            android:textSize="12dp" />
+                            android:textStyle="bold"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_7sdp"
+                            android:paddingRight="@dimen/_5sdp"
+                            android:paddingLeft="@dimen/_5sdp"
+                            android:paddingTop="@dimen/_3sdp"
+                            android:paddingBottom="@dimen/_3sdp"
+                            android:gravity="center"/>
                     </RelativeLayout>
                 </RelativeLayout>
             </RelativeLayout>
@@ -170,7 +176,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/layout_show_info_sub"
                 android:layout_marginTop="20dp"
-                android:background="@color/light_blue"
+                android:background="@color/colorcatenone"
                 android:paddingRight="5dp">
 
                 <android.support.v7.widget.RecyclerView
@@ -178,8 +184,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true">
-
                 </android.support.v7.widget.RecyclerView>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_minus"
+                    android:layout_alignParentLeft="true"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_plus"
+                    android:layout_alignParentRight="true"/>
             </RelativeLayout>
 
 
@@ -189,7 +206,7 @@
 
     <RelativeLayout
         android:id="@+id/layout_lien_quan"
-        android:layout_width="250dp"
+        android:layout_width="@dimen/_140sdp"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
@@ -204,7 +221,6 @@
             android:layout_alignParentTop="true"
             android:background="@drawable/border_lq"
             android:padding="@dimen/_4sdp">
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -212,7 +228,6 @@
                 android:text="Ứng dụng liên quan"
                 android:textAllCaps="true"
                 android:textColor="@color/white" />
-
         </RelativeLayout>
 
 
@@ -221,7 +236,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/layout_lien_quan_tieu_de">
-
         </android.support.v7.widget.RecyclerView>
     </RelativeLayout>
 
