@@ -43,32 +43,61 @@
                 android:layout_width="match_parent"
                 android:layout_height="128dp">
 
-                <ImageView
-                    android:id="@+id/anh_icon"
+                <RelativeLayout
+                    android:id="@+id/layout_logo_cai_dat"
                     android:layout_width="128dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_vtv" />
+                    android:layout_height="128dp"
+                    android:layout_marginRight="10dp">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        app:riv_corner_radius="5dp"
+                        app:riv_mutate_background="true"
+                        android:id="@+id/anh_icon"
+                        app:riv_border_width="1dp"
+                        app:riv_border_color="@color/white"
+                        android:layout_width="128dp"
+                        android:layout_height="128dp"
+                        android:src="@drawable/ic_vtv" />
+
+                    <ImageView
+                        android:id="@+id/img_checked"
+                        android:src="@mipmap/ic_checked"
+                        android:layout_width="@dimen/_35sdp"
+                        android:layout_height="@dimen/_35sdp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true" />
+                </RelativeLayout>
+
 
                 <TextView
                     android:id="@+id/txt_ten"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:layout_toRightOf="@+id/anh_icon"
+                    android:layout_toRightOf="@+id/layout_logo_cai_dat"
                     android:text="VTV Go"
                     android:textColor="#000"
                     android:textSize="18dp"
                     android:textStyle="bold" />
 
+                <TextView
+                    android:id="@+id/txt_dac_ta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_ten"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@+id/layout_logo_cai_dat"
+                    android:text="Ứng dụng được phát triển bởi VTVGo .Gồm 9 kênh VTV : vtv1, vtv2, vtv3, vtv4, vtv5, vtv6, vtv7"
+                    android:textColor="#000"
+                    android:textSize="12dp" />
                 <RatingBar
                     android:id="@+id/rating_app"
                     style="?android:attr/ratingBarStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:layout_below="@+id/txt_ten"
+                    android:layout_below="@+id/txt_dac_ta"
                     android:layout_marginTop="2dp"
-                    android:layout_toRightOf="@+id/anh_icon"
+                    android:layout_toRightOf="@+id/layout_logo_cai_dat"
                     android:numStars="5"
                     android:rating="3"
                     android:text="VTV go for Android TV"
@@ -78,7 +107,7 @@
                     android:id="@+id/txt_version"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/txt_ten"
+                    android:layout_below="@+id/txt_dac_ta"
                     android:layout_marginTop="5dp"
                     android:layout_toRightOf="@+id/rating_app"
                     android:text=" Phiên bản 5.6.3"
@@ -86,24 +115,13 @@
                     android:textSize="10dp" />
 
                 <TextView
-                    android:id="@+id/txt_dac_ta"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/txt_version"
-                    android:layout_marginTop="5dp"
-                    android:layout_toRightOf="@+id/anh_icon"
-                    android:text="Ứng dụng được phát triển bởi VTVGo .Gồm 9 kênh VTV : vtv1, vtv2, vtv3, vtv4, vtv5, vtv6, vtv7"
-                    android:textColor="#000"
-                    android:textSize="12dp" />
-
-                <TextView
                     android:id="@+id/txt_luot_cai"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="10dp"
-                    android:layout_toRightOf="@+id/anh_icon"
-                    android:text="(1,500 kiwier cài đặt ứng dụng này)"
+                    android:layout_toRightOf="@+id/layout_logo_cai_dat"
+                    android:text="Có 1,500 kiwier cài đặt ứng dụng này"
                     android:textColor="@color/light_green_v3"
                     android:textSize="12dp" />
 
@@ -190,10 +208,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="Ứng dụng liên quan"
                 android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:gravity="center"/>
+                android:textColor="@color/white" />
 
         </RelativeLayout>
 

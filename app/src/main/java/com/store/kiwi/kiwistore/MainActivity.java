@@ -196,11 +196,11 @@ public class MainActivity extends AppCompatActivity {
         dialog.setMessage("Vui lòng đợi ứng dụng tải dữ liệu");
 
         List<UngDung> ungDungList = mDatabaseHelper.getLissAppName();
-        for (int i = 0; i < ungDungList.size(); i++) {
-            if (checkInstalledApplication(ungDungList.get(i).getName(), this)) {
-                mDatabaseHelper.updateApp(1, ungDungList.get(i).getId());
+        for (int j = 0; j < ungDungList.size(); j++) {
+            if (checkInstalledApplication(ungDungList.get(j).getName(), this)) {
+                mDatabaseHelper.updateApp(1, ungDungList.get(j).getId());
             } else {
-                mDatabaseHelper.updateApp(0, ungDungList.get(i).getId());
+                mDatabaseHelper.updateApp(0, ungDungList.get(j).getId());
             }
         }
 
@@ -321,6 +321,9 @@ public class MainActivity extends AppCompatActivity {
                 mListUngDung.clear();
                 mListUngDung.addAll(mDatabaseHelper.getListUngDung(mListTheLoai.get(0)));
                 mUngDungAdapter.notifyDataSetChanged();
+                mRecyclerViewUngDung.getChildAt(4).callOnClick();
+                Toast.makeText(MainActivity.this,"sl"+mRecyclerViewUngDung.getChildCount(),Toast.LENGTH_SHORT).show();
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -378,12 +381,21 @@ public class MainActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
         mTxtTinh.setText(thoiTiet.getTen());
         mTxtAd.setText(mDatabaseHelper.getLinkTextQuangCao());
+        Intent i = getIntent();
+        if (i.hasExtra("idApp")){
+            String data = i.getStringExtra("idApp");
+            // Toast.makeText(this,data+" id app"+mListUngDung.size(),Toast.LENGTH_SHORT).show();
+       //     mRecyclerViewUngDung.getChildAt(4).callOnClick();
+        }
+
     }
 
     private void addEvents() {
         mLayoutCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(MainActivity.this,"sl"+mRecyclerViewUngDung.getChildCount(),Toast.LENGTH_SHORT).show();
+
                 Toast.makeText(getApplicationContext(), "Open a calendar app", Toast.LENGTH_SHORT).show();
             }
         });
