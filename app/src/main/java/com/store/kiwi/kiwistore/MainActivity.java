@@ -361,7 +361,7 @@ public class MainActivity extends AppCompatActivity {
                             thoiTiet = listThoiTiet.getJSONObject(currentPos);
                             String nhietDo = thoiTiet.getJSONObject("main").getString("temp");
                             String trangThai = thoiTiet.getJSONArray("weather").getJSONObject(0).getString("main");
-                            mTxtNhietDo.setText(Math.round(Double.parseDouble(nhietDo)) + " °C");
+                            mTxtNhietDo.setText(Math.round(Double.parseDouble(nhietDo)) + " ° C");
                             break;
                         }
                     }
