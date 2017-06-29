@@ -236,16 +236,15 @@
 
     <RelativeLayout
         android:id="@+id/layout_the_loai"
-        android:layout_width="@dimen/_110sdp"
+        android:layout_width="@dimen/_150sdp"
         android:layout_height="match_parent"
         android:layout_below="@+id/layout_header"
-        android:layout_marginRight="20dp">
+        android:layout_marginRight="@dimen/_9sdp">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/list_the_loai"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
         </android.support.v7.widget.RecyclerView>
 
     </RelativeLayout>
@@ -256,11 +255,9 @@
         android:layout_below="@+id/layout_header"
         android:layout_toRightOf="@+id/layout_the_loai">
 
-
         <include layout="@layout/fragment_the_loai" />
 
         <include layout="@layout/fragment_ung_dung_chi_tiet"/>
-
 
     </RelativeLayout>
 </RelativeLayout>

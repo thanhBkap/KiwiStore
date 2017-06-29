@@ -51,10 +51,12 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
     private RelativeLayout mLayouCaiDatUngDung;
     private List<View> mListMap;
     private ProgressDialog progressDialog;
+    private ImageView mImageChecked;
+
     public UngDungAdapter(Context mContext, List<UngDung> mListUngDung, View mUngDungFragment, View mUngDungChiTietFragment,
                           List<String> listAnh, DanhSachAnhUngDungAdapter danhSachAnhUngDungAdapter, TextView txtTenUngDung,
                           TextView txtDacTa, TextView txtLuotCai, ImageView anhIcon, RelativeLayout layouCaiDatUngDung, TextView txtCaiDatUngDung,
-                          TextView txtVersion, RatingBar rating, List<View> listMap) {
+                          TextView txtVersion, RatingBar rating, List<View> listMap, ImageView imageChecked) {
         this.mContext = mContext;
         this.mListUngDung = mListUngDung;
         this.mUngDungFragment = mUngDungFragment;
@@ -70,6 +72,7 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
         mTxtVersion = txtVersion;
         mRatingApp = rating;
         mListMap = listMap;
+        mImageChecked = imageChecked;
     }
 
     @Override
@@ -84,18 +87,17 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         UngDung ungDung = mListUngDung.get(position);
         if (ungDung.isInstalled()) {
-            holder.mCaiDat.setText("đã cài đặt");
-            holder.mChecked.setImageDrawable(mContext.getResources().getDrawable(R.drawable.check));
+            holder.mCaiDat.setText("Ứng dụng đã được cài đặt");
+            holder.mCaiDat.setTextColor(mContext.getResources().getColor(R.color.light_green));
+            holder.mChecked.setImageResource(R.mipmap.ic_checked);
             //mLayouCaiDatUngDung.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bo_vien_cai_dat));
-            holder.mLayoutCaiDat.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bo_vien_cai_dat));
         } else {
-            holder.mCaiDat.setText("chưa cài đặt");
-            holder.mChecked.setImageDrawable(mContext.getResources().getDrawable(R.drawable.check));
+            holder.mCaiDat.setText("Chưa cài ứng dụng");
+            holder.mChecked.setImageResource(R.mipmap.ic_nonchecked);
+            holder.mCaiDat.setTextColor(mContext.getResources().getColor(R.color.orange));
             //mLayouCaiDatUngDung.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bo_vien_go_cai_dat));
-            holder.mLayoutCaiDat.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bo_vien_go_cai_dat));
         }
-        holder.mRating.setRating(Float.parseFloat(ungDung.getRating()));
-        holder.mInstalledNum.setText("Đã có " + ungDung.getLuotCai() + " lượt cài");
+        holder.mVersionName.setText("Ver: " + ungDung.getVersion());
         holder.mTen.setText(ungDung.getName());
         Glide.with(mContext).load(ungDung.getIcon()).into(holder.mIcon);
     }
@@ -107,21 +109,16 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView mIcon, mChecked;
-        TextView mTen, mCaiDat, mInstalledNum;
-        RelativeLayout mLayoutCaiDat,mLayoutCaiDatUngDung;
+        TextView mTen, mCaiDat, mVersionName;
         CardView mCardViewUngDung;
-        RatingBar mRating;
-
 
         public ViewHolder(View itemView) {
             super(itemView);
             mIcon = (ImageView) itemView.findViewById(R.id.anh_ung_dung);
-            mChecked = (ImageView) itemView.findViewById(R.id.anh_checked);
+            mChecked = (ImageView) itemView.findViewById(R.id.img_checked);
             mTen = (TextView) itemView.findViewById(R.id.txt_ten);
             mCaiDat = (TextView) itemView.findViewById(R.id.txt_cai_dat);
-            mInstalledNum = (TextView) itemView.findViewById(R.id.txt_installed_num);
-            mRating = (RatingBar) itemView.findViewById(R.id.rating_app);
-            mLayoutCaiDat = (RelativeLayout) itemView.findViewById(R.id.layout_cai_dat);
+            mVersionName = (TextView) itemView.findViewById(R.id.txt_version);
             mCardViewUngDung = (CardView) itemView.findViewById(R.id.card_view_ung_dung);
             final DatabaseHelper databaseHelper = new DatabaseHelper(mContext);
             View.OnClickListener listener = new View.OnClickListener() {
@@ -150,7 +147,6 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
                         //DuLieu.uninstallApp(DuLieu.getPackageName(mListUngDung.get(getPosition()).getName(),mContext), mContext);
 
                     } else*/
-                    if (v.getId() == R.id.layout_cai_dat) {
                         mUngDungFragment.setVisibility(View.GONE);
                         mUngDungChiTietFragment.setVisibility(View.VISIBLE);
                         /*for (int i = (mListMap.size() - getItemCount()); i < mListMap.size(); i++) {
@@ -166,20 +162,24 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
                         Glide.with(mContext).load(checkedUngDung.getIcon()).into(mAnhIcon);
                         mTxtTenUngDung.setText(checkedUngDung.getName());
                         mRatingApp.setRating(Float.parseFloat(checkedUngDung.getRating()));
-                        mTxtVersion.setText(" Phiên bản " + checkedUngDung.getVersion());
+                        mTxtVersion.setText(" Phiên bản: " + checkedUngDung.getVersion());
                         mTxtDacTa.setText(checkedUngDung.getDes());
                         mTxtLuotCai.setText("Đã có " + checkedUngDung.getLuotCai() + " lượt cài");
                         if (checkedUngDung.isInstalled() && checkedUngDung.getUpdate().equals("0")) {
                             mTxtCaiDatUngDung.setText("Đã cài đặt");
-                            mLayouCaiDatUngDung.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bo_vien_go_cai_dat));
+                            mLayouCaiDatUngDung.setBackgroundDrawable(
+                                    mContext.getResources().getDrawable(R.drawable.bo_vien_cai_dat));
                             mLayouCaiDatUngDung.setClickable(false);
+                            mImageChecked.setBackgroundResource(R.mipmap.ic_checked);
                         } else {
                             mLayouCaiDatUngDung.setClickable(true);
                             if (checkedUngDung.isInstalled()) {
                                 mTxtCaiDatUngDung.setText("Cập nhật");
-                                mLayouCaiDatUngDung.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bo_vien_cap_nhat));
+                                mImageChecked.setBackgroundResource(R.mipmap.ic_checked);
+                                mLayouCaiDatUngDung.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bo_vien_cai_dat));
                             } else {
                                 mTxtCaiDatUngDung.setText("Cài ứng dụng");
+                                mImageChecked.setBackgroundResource(R.mipmap.ic_nonchecked);
                                 mLayouCaiDatUngDung.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bo_vien_cai_dat));
                             }
                             //mLayouCaiDatUngDung.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bo_vien_cai_dat));
@@ -227,7 +227,7 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
                                     // get download service and enqueue file
                                     final DownloadManager manager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
                                     final long downloadId = manager.enqueue(request);
-                                    final Handler handler = new Handler(){
+                                    final Handler handler = new Handler() {
                                         @Override
                                         public void handleMessage(Message msg) {
                                             super.handleMessage(msg);
@@ -245,12 +245,12 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
                                             long bytes_total = cursor.getInt(cursor
                                                     .getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
                                             cursor.close();
-                                            if (bytes_downloaded == bytes_total){
+                                            if (bytes_downloaded == bytes_total) {
                                                 progressDialog.setProgress(100);
                                                 handler.removeCallbacks(this);
-                                            }else{
-                                                handler.postDelayed(this,200);
-                                                progressDialog.setProgress((int) (bytes_downloaded*100/bytes_total));
+                                            } else {
+                                                handler.postDelayed(this, 200);
+                                                progressDialog.setProgress((int) (bytes_downloaded * 100 / bytes_total));
                                             }
                                         }
                                     });
@@ -266,7 +266,7 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
                                                     progressDialog.dismiss();
                                                 }
                                             };
-                                            handler.postDelayed(runnable,1000);
+                                            handler.postDelayed(runnable, 1000);
                                             String apkFileName = unzip(destination);
                                             DuLieu.installApp(mContext, apkFileName);
                                             mLayouCaiDatUngDung.setClickable(true);
@@ -334,17 +334,17 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
                         } else {
 
                         }*/
-                    }
 
                 }
             };
-            itemView.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(listener);
+            /*itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mLayoutCaiDat.callOnClick();
+                    Toast.makeText(mContext,"ok",Toast.LENGTH_SHORT).show();
                 }
-            });
-            mLayoutCaiDat.setOnClickListener(listener);
+            });*/
+           // mCaiDat.setOnClickListener(listener);
         }
     }
 }

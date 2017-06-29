@@ -4,7 +4,7 @@
     android:id="@+id/chi_tiet_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="20dp"
+    android:layout_marginBottom="@dimen/_12sdp"
     tools:context="com.store.kiwi.kiwistore.TheLoaiFragment">
 
     <RelativeLayout
@@ -21,12 +21,12 @@
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/anh_quang_cao"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="@dimen/_85sdp"
                 android:background="@drawable/ad"
                 app:riv_border_color="@color/light_blue"
                 app:riv_border_width="0.1dp"
-                app:riv_corner_radius_top_left="5dp"
-                app:riv_corner_radius_top_right="5dp"
+                app:riv_corner_radius_top_left="@dimen/_2sdp"
+                app:riv_corner_radius_top_right="@dimen/_2sdp"
                 app:riv_mutate_background="true" />
         </RelativeLayout>
 
@@ -36,34 +36,33 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/layout_quangcao"
             android:background="@color/white"
-            android:padding="8dp">
+            android:padding="@dimen/_4sdp">
 
             <RelativeLayout
                 android:id="@+id/layout_show_info_sub"
                 android:layout_width="match_parent"
-                android:layout_height="128dp">
+                android:layout_height="@dimen/_70sdp">
 
                 <RelativeLayout
                     android:id="@+id/layout_logo_cai_dat"
-                    android:layout_width="128dp"
-                    android:layout_height="128dp"
+                    android:layout_width="@dimen/_70sdp"
+                    android:layout_height="@dimen/_70sdp"
                     android:layout_marginRight="10dp">
 
                     <com.makeramen.roundedimageview.RoundedImageView
-                        app:riv_corner_radius="5dp"
-                        app:riv_mutate_background="true"
                         android:id="@+id/anh_icon"
-                        app:riv_border_width="1dp"
+                        android:layout_width="@dimen/_70sdp"
+                        android:layout_height="@dimen/_70sdp"
+                        android:src="@drawable/ic_vtv"
                         app:riv_border_color="@color/white"
-                        android:layout_width="128dp"
-                        android:layout_height="128dp"
-                        android:src="@drawable/ic_vtv" />
+                        app:riv_border_width="@dimen/_1sdp"
+                        app:riv_corner_radius="@dimen/_2sdp"
+                        app:riv_mutate_background="true" />
 
                     <ImageView
                         android:id="@+id/img_checked"
-                        android:src="@mipmap/ic_checked"
-                        android:layout_width="@dimen/_35sdp"
-                        android:layout_height="@dimen/_35sdp"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentRight="true" />
                 </RelativeLayout>
@@ -73,11 +72,11 @@
                     android:id="@+id/txt_ten"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="@dimen/_1sdp"
                     android:layout_toRightOf="@+id/layout_logo_cai_dat"
                     android:text="VTV Go"
                     android:textColor="#000"
-                    android:textSize="18dp"
+                    android:textSize="@dimen/_12sdp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -85,44 +84,59 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txt_ten"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="@dimen/_2sdp"
                     android:layout_toRightOf="@+id/layout_logo_cai_dat"
+                    android:maxHeight="@dimen/_20sdp"
+                    android:maxLength="100"
                     android:text="Ứng dụng được phát triển bởi VTVGo .Gồm 9 kênh VTV : vtv1, vtv2, vtv3, vtv4, vtv5, vtv6, vtv7"
                     android:textColor="#000"
-                    android:textSize="@dimen/_4sdp"
-                    android:maxHeight="@dimen/_20sdp"/>
+                    android:textSize="@dimen/_7sdp" />
+
+                <TextView
+                    android:id="@+id/txt_version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_dac_ta"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_toRightOf="@+id/layout_logo_cai_dat"
+                    android:text=" Phiên bản: 5.6.3"
+                    android:textColor="#000"
+                    android:textSize="@dimen/_6sdp" />
+
+                <TextView
+                    android:textSize="@dimen/_6sdp"
+                    android:id="@+id/txt_vote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_dac_ta"
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_marginRight="@dimen/_3sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_toRightOf="@+id/txt_version"
+                    android:text="Đánh giá:"
+                    android:textColor="#000" />
+
                 <RatingBar
                     android:id="@+id/rating_app"
                     style="?android:attr/ratingBarStyleSmall"
                     android:layout_width="wrap_content"
-                    android:layout_height="20dp"
+                    android:layout_height="@dimen/_10sdp"
                     android:layout_below="@+id/txt_dac_ta"
-                    android:layout_marginTop="2dp"
-                    android:layout_toRightOf="@+id/layout_logo_cai_dat"
+                    android:layout_marginTop="@dimen/_1sdp"
+                    android:layout_toRightOf="@+id/txt_vote"
                     android:numStars="5"
                     android:rating="3"
-                    android:text="VTV go for Android TV"
-                    android:textColor="@color/light_green" />
-
-                <TextView
-                    android:id="@+id/txt_version"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/txt_dac_ta"
-                    android:layout_marginTop="5dp"
-                    android:layout_toRightOf="@+id/rating_app"
-                    android:text=" Phiên bản 5.6.3"
-                    android:textColor="#000"
-                    android:textSize="10dp" />
+                    android:progressTint="@color/yellow"
+                    android:text="VTV go for Android TV" />
 
                 <ImageView
                     android:id="@+id/logo_people"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_12sdp"
                     android:layout_alignParentBottom="true"
-                    android:src="@drawable/ic_people"
                     android:layout_marginBottom="@dimen/_6sdp"
-                    android:layout_toRightOf="@+id/layout_logo_cai_dat"/>
+                    android:layout_toRightOf="@+id/layout_logo_cai_dat"
+                    android:src="@drawable/ic_people" />
 
                 <TextView
                     android:id="@+id/txt_luot_cai"
@@ -130,44 +144,43 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="@dimen/_6sdp"
-                    android:textStyle="bold"
                     android:layout_toRightOf="@+id/logo_people"
                     android:text="Có 1,500 kiwier cài đặt ứng dụng này"
                     android:textColor="@color/light_green_v3"
-                    android:textSize="@dimen/_6sdp" />
+                    android:textSize="@dimen/_6sdp"
+                    android:textStyle="bold" />
 
                 <RelativeLayout
                     android:id="@+id/layout_pickcaidat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="5dp">
+                    android:padding="@dimen/_2sdp">
 
-                        <RelativeLayout
-                            android:id="@+id/layout_cai_dat_ung_dung"
+                    <RelativeLayout
+                        android:id="@+id/layout_cai_dat_ung_dung"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="@dimen/_2sdp"
+                        android:background="@drawable/bo_vien_cap_nhat">
+
+                        <TextView
+                            android:id="@+id/txt_cai_dat_ung_dung"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginBottom="5dp"
-                            android:background="@drawable/bo_vien_cap_nhat"
-                            >
-
-                            <TextView
-                                android:id="@+id/txt_cai_dat_ung_dung"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:text="Cài ứng dụng"
-                                android:textAllCaps="true"
-                                android:textStyle="bold"
-                                android:textColor="@color/white"
-                                android:textSize="@dimen/_7sdp"
-                                android:paddingRight="@dimen/_5sdp"
-                                android:paddingLeft="@dimen/_5sdp"
-                                android:paddingTop="@dimen/_3sdp"
-                                android:paddingBottom="@dimen/_3sdp"
-                                android:gravity="center"/>
-                        </RelativeLayout>
+                            android:layout_centerVertical="true"
+                            android:gravity="center"
+                            android:paddingBottom="@dimen/_3sdp"
+                            android:paddingLeft="@dimen/_5sdp"
+                            android:paddingRight="@dimen/_5sdp"
+                            android:paddingTop="@dimen/_3sdp"
+                            android:text="Cài ứng dụng"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_7sdp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -175,28 +188,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/layout_show_info_sub"
-                android:layout_marginTop="20dp"
-                android:background="@color/colorcatenone"
-                android:paddingRight="5dp">
+                android:layout_marginTop="@dimen/_10sdp"
+                android:paddingRight="@dimen/_2sdp">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/list_anh_ung_dung"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true">
-                </android.support.v7.widget.RecyclerView>
+                    android:layout_centerVertical="true"
+                    android:background="@color/colorcatenone"></android.support.v7.widget.RecyclerView>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_minus"
-                    android:layout_alignParentLeft="true"/>
+                    android:layout_alignParentLeft="true"
+                    android:src="@drawable/ic_minus" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_plus"
-                    android:layout_alignParentRight="true"/>
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_plus" />
             </RelativeLayout>
 
 
@@ -211,7 +223,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_below="@+id/layout_the_loai"
-        android:paddingLeft="16dp">
+        android:paddingLeft="@dimen/_8sdp">
 
         <RelativeLayout
             android:id="@+id/layout_lien_quan_tieu_de"
@@ -221,6 +233,7 @@
             android:layout_alignParentTop="true"
             android:background="@drawable/border_lq"
             android:padding="@dimen/_4sdp">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -235,8 +248,7 @@
             android:id="@+id/list_ung_dung_lien_quan"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/layout_lien_quan_tieu_de">
-        </android.support.v7.widget.RecyclerView>
+            android:layout_below="@+id/layout_lien_quan_tieu_de"></android.support.v7.widget.RecyclerView>
     </RelativeLayout>
 
 </RelativeLayout>

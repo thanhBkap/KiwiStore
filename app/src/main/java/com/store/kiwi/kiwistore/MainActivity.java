@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
     private RelativeLayout mLayoutCauHinh, mLayoutHeader, mLayoutLogo, mLayoutSearch, mLayoutTheLoai,
             mLayoutLienQuan, mLayoutCaiDat, mLayouCaiDatUngDung, mLayoutCalendar, mLayouWeather, mLayoutAd;
     private RatingBar mRating;
-    private ImageView mAnhIcon;
+    private ImageView mAnhIcon, mImageChecked;
     private int fragmentNum, height, width;
     private RoundedImageView mAnhQuangCao;
     private DatabaseHelper mDatabaseHelper;
@@ -143,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
         mLayoutAd = (RelativeLayout) mUngDungChiTietFragment.findViewById(R.id.layout_quangcao);
 
         mAnhIcon = (ImageView) mUngDungChiTietFragment.findViewById(R.id.anh_icon);
+        mImageChecked=(ImageView) mUngDungChiTietFragment.findViewById(R.id.img_checked);
         mAnhQuangCao = (RoundedImageView) mUngDungChiTietFragment.findViewById(R.id.anh_quang_cao);
         mLayoutLienQuan = (RelativeLayout) mUngDungChiTietFragment.findViewById(R.id.layout_lien_quan);
         //mLayoutCaiDat = (RelativeLayout) mUngDungChiTietFragment.findViewById(R.id.layout_cai_dat_ung_dung);
@@ -177,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
         mUngDungAdapter = new UngDungAdapter(this, mListUngDung, mUngDungFragment,
                 mUngDungChiTietFragment, mListAnh, mDanhSachAnhAdapter, mTxtTenUngDung,
                 mTxtDacTa, mTxtLuotCai, mAnhIcon, mLayouCaiDatUngDung, mTxtCaiDatUngDung,
-                mTxtVersion, mRating, listMap);
+                mTxtVersion, mRating, listMap,mImageChecked);
         mRecyclerViewUngDung.setAdapter(mUngDungAdapter);
 
         mRecyclerViewUngDungLienQuan.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
