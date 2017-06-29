@@ -337,12 +337,12 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         }
                     }
-                   // Toast.makeText(MainActivity.this, data + " id app = " + index, Toast.LENGTH_SHORT).show();
-                    try{
+                    // Toast.makeText(MainActivity.this, data + " id app = " + index, Toast.LENGTH_SHORT).show();
+                    try {
                         mRecyclerViewUngDung.getChildAt(index).callOnClick();
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         mRecyclerViewUngDung.getChildAt(1).callOnClick();
-                        Log.d("Exception",e.getMessage());
+                        Log.d("Exception", e.getMessage());
                     }
                 }
                 //  mRecyclerViewUngDung.getChildAt(4).callOnClick();
