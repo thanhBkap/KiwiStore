@@ -5,52 +5,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ic_bgmain"
-    android:gravity="center"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:paddingTop="10dp"
     tools:context="com.store.kiwi.kiwistore.MainActivity">
 
     <RelativeLayout
         android:id="@+id/layout_header"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_43sdp">
+        android:layout_height="@dimen/_43sdp"
+        android:layout_alignParentTop="true">
 
         <RelativeLayout
             android:id="@+id/layout_logo"
             android:layout_width="@dimen/_86sdp"
-            android:layout_height="@dimen/_43sdp"
+            android:layout_height="fill_parent"
             android:paddingLeft="@dimen/_17sdp">
 
             <ImageView
                 android:id="@+id/logo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/logo_kiwi"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitXY"
+                android:src="@drawable/logo_kiwi" />
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/layout_canh_header"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_toRightOf="@+id/layout_logo">
+            android:id="@+id/relay12"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_toLeftOf="@+id/relay11"
+            android:layout_toRightOf="@+id/layout_logo"
+            android:paddingBottom="@dimen/_8sdp"
+            android:paddingLeft="@dimen/_4sdp"
+            android:paddingRight="@dimen/_6sdp"
+            android:paddingTop="@dimen/_8sdp">
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_toLeftOf="@+id/relay11"
-                android:paddingRight="@dimen/_4sdp"
-                android:paddingLeft="@dimen/_4sdp"
-                android:paddingTop="@dimen/_10sdp"
-                android:paddingBottom="@dimen/_10sdp">
-            <RelativeLayout
-                android:id="@+id/layout_search"
+                android:id="@+id/relay121"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@drawable/bo_vien_search"
-                android:paddingLeft="@dimen/_2sdp"
-                android:paddingRight="@dimen/_2sdp">
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_text"
+                android:paddingLeft="@dimen/_4sdp"
+                android:paddingRight="@dimen/_4sdp">
+
                 <TextView
                     android:id="@+id/txt_ad"
                     android:layout_width="fill_parent"
@@ -68,14 +63,12 @@
                     android:textSize="@dimen/_8sdp"
                     android:textStyle="bold"
                     android:textColor="@color/white"/>
-
             </RelativeLayout>
+        </RelativeLayout>
 
-            </RelativeLayout>
-
-            <RelativeLayout
+        <RelativeLayout
                 android:id="@+id/relay11"
-                android:layout_width="@dimen/_240sdp"
+                android:layout_width="@dimen/_260sdp"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:orientation="horizontal">
@@ -125,14 +118,14 @@
                         android:singleLine="true"
                         android:text="16/5 Đinh dậu "
                         android:textAllCaps="true"
-                        android:textSize="@dimen/_6sdp"
+                        android:textSize="@dimen/_5sdp"
                         android:textColor="@color/white"/>
                     </RelativeLayout>
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/layout2"
-                    android:layout_width="@dimen/_60sdp"
+                    android:layout_width="@dimen/_70sdp"
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/layout3"
                     android:paddingBottom="@dimen/_5sdp"
@@ -141,7 +134,7 @@
 
                     <RelativeLayout
                         android:id="@+id/layout_weather"
-                        android:layout_width="match_parent"
+                        android:layout_width="@dimen/_70sdp"
                         android:layout_height="match_parent"
                         android:padding="@dimen/_2sdp">
                     <ImageView
@@ -165,7 +158,7 @@
                         android:singleLine="true"
                         android:text="Hà Nôi"
                         android:textAllCaps="true"
-                        android:textSize="@dimen/_7sdp"
+                        android:textSize="@dimen/_6sdp"
                         android:textColor="@color/white"/>
 
                     <TextView
@@ -178,7 +171,7 @@
                         android:singleLine="true"
                         android:text="28 độ       "
                         android:textAllCaps="true"
-                        android:textSize="@dimen/_6sdp"
+                        android:textSize="@dimen/_5sdp"
                         android:textColor="@color/white"/>
                     </RelativeLayout>
                 </RelativeLayout>
@@ -219,7 +212,7 @@
                             android:singleLine="true"
                             android:text="Cấu Hình      "
                             android:textAllCaps="true"
-                            android:textSize="@dimen/_7sdp"
+                            android:textSize="@dimen/_6sdp"
                             android:textColor="@color/white"/>
 
                         <TextView
@@ -232,20 +225,18 @@
                             android:paddingLeft="@dimen/_2sdp"
                             android:text="KiwiBox       "
                             android:textAllCaps="true"
-                            android:textSize="@dimen/_6sdp"
+                            android:textSize="@dimen/_5sdp"
                             android:textColor="@color/white"/>
                     </RelativeLayout>
                 </RelativeLayout>
 
             </RelativeLayout>
-        </RelativeLayout>
-
 
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/layout_the_loai"
-        android:layout_width="180dp"
+        android:layout_width="@dimen/_110sdp"
         android:layout_height="match_parent"
         android:layout_below="@+id/layout_header"
         android:layout_marginRight="20dp">

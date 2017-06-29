@@ -34,6 +34,10 @@ public class DanhSachAnhUngDungAdapter extends RecyclerView.Adapter<DanhSachAnhU
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Glide.with(mContext).load(mListAnh.get(position)).into(holder.mAnhChiTiet);
+        if (position == 2) {
+            //holder.mAnhChiTiet.setScaleX(2);
+            //holder.mAnhChiTiet.setScaleY(2);
+        }
     }
 
     @Override

@@ -108,7 +108,7 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView mIcon, mChecked;
         TextView mTen, mCaiDat, mInstalledNum;
-        RelativeLayout mLayoutCaiDat;
+        RelativeLayout mLayoutCaiDat,mLayoutCaiDatUngDung;
         CardView mCardViewUngDung;
         RatingBar mRating;
 
@@ -177,10 +177,12 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
                             mLayouCaiDatUngDung.setClickable(true);
                             if (checkedUngDung.isInstalled()) {
                                 mTxtCaiDatUngDung.setText("Cập nhật");
+                                mLayouCaiDatUngDung.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bo_vien_cap_nhat));
                             } else {
                                 mTxtCaiDatUngDung.setText("Cài ứng dụng");
+                                mLayouCaiDatUngDung.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bo_vien_cai_dat));
                             }
-                            mLayouCaiDatUngDung.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bo_vien_cai_dat));
+                            //mLayouCaiDatUngDung.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bo_vien_cai_dat));
                             mLayouCaiDatUngDung.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {

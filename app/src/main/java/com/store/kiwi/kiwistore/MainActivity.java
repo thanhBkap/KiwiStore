@@ -348,6 +348,7 @@ public class MainActivity extends AppCompatActivity {
                 //  mRecyclerViewUngDung.getChildAt(4).callOnClick();
                 //   Toast.makeText(MainActivity.this,"sl"+mRecyclerViewUngDung.getChildCount(),Toast.LENGTH_SHORT).show();
 
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -388,7 +389,7 @@ public class MainActivity extends AppCompatActivity {
                             thoiTiet = listThoiTiet.getJSONObject(currentPos);
                             String nhietDo = thoiTiet.getJSONObject("main").getString("temp");
                             String trangThai = thoiTiet.getJSONArray("weather").getJSONObject(0).getString("main");
-                            mTxtNhietDo.setText(Math.round(Double.parseDouble(nhietDo)) + " °C");
+                            mTxtNhietDo.setText(Math.round(Double.parseDouble(nhietDo)) + " ° C");
                             break;
                         }
                     }
@@ -565,11 +566,12 @@ public class MainActivity extends AppCompatActivity {
                     didindex = 0;
                     listMap2.get(0).setBackgroundResource(R.drawable.bo_vien_cai_dat);
                     listMap.get(didindex).setBackgroundResource(R.drawable.border_pick);
+
                 } else if (didindex >= main + mListTheLoai.size() + mListUngDung.size() + mainflag2
                         && didindex < main + mListTheLoai.size() + mListUngDung.size() + mainflag2 + mListAnh.size()) {
                     mRecyclerViewAnhUngDung.getChildAt(didindex - main - mListTheLoai.size() - mListUngDung.size() - mainflag2).setBackgroundResource(R.drawable.none);
                     didindex = main + mListTheLoai.size() + mListUngDung.size();
-                    listMap2.get(0).setBackgroundResource(R.drawable.border_pick);
+                    listMap2.get(0).setBackgroundResource(R.drawable.bo_vien_cap_nhat);
                 } else if (didindex >= main + mListTheLoai.size() + mListUngDung.size() + mainflag2 + mListAnh.size()
                         && didindex < main + mListTheLoai.size() + mListUngDung.size() + mainflag2 + mListAnh.size() + 4) {
                     mRecyclerViewUngDungLienQuan.getChildAt(didindex - main - mListTheLoai.size() - mListUngDung.size() - mainflag2 - mListAnh.size()).setBackgroundResource(R.drawable.none);
@@ -611,9 +613,9 @@ public class MainActivity extends AppCompatActivity {
                     mRecyclerViewUngDungLienQuan.getChildAt(didindex - main - mListTheLoai.size() - mListUngDung.size() - mainflag2 - mListAnh.size()).setBackgroundResource(R.drawable.border_pick);
                 } else if (didindex >= main + mListTheLoai.size() + mListUngDung.size()
                         && didindex < main + mListTheLoai.size() + mListUngDung.size() + mainflag2) {
-                    listMap2.get(didindex - main - mListTheLoai.size() - mListUngDung.size()).setBackgroundResource(R.drawable.none);
+                    listMap2.get(0).setBackgroundResource(R.drawable.bo_vien_cai_dat);
                     didindex++;
-                    listMap2.get(didindex - main - mListTheLoai.size() - mListUngDung.size()).setBackgroundResource(R.drawable.border_pick);
+                    listMap2.get(0).setBackgroundResource(R.drawable.bo_vien_cap_nhat);
                 }
                 break;
 
@@ -672,7 +674,7 @@ public class MainActivity extends AppCompatActivity {
                 } else if (didindex == main + mListTheLoai.size() + mListUngDung.size() + mainflag2 + mListAnh.size()) {
                     mRecyclerViewUngDungLienQuan.getChildAt(didindex - main - mListTheLoai.size() - mListUngDung.size() - mainflag2 - mListAnh.size()).setBackgroundResource(R.drawable.none);
                     didindex = main + mListTheLoai.size() + mListUngDung.size();
-                    listMap2.get(0).setBackgroundResource(R.drawable.border_pick);
+                    listMap2.get(0).setBackgroundResource(R.drawable.bo_vien_cap_nhat);
                 } else if (didindex >= main && didindex < main + mListTheLoai.size()) {
                     didindex = main - 1;
                     listMap.get(didindex).setBackgroundResource(R.drawable.border_pick);
@@ -680,7 +682,7 @@ public class MainActivity extends AppCompatActivity {
                         && didindex <= main + mListTheLoai.size() + mListUngDung.size() + mainflag2 + mListAnh.size() + 3) {
                     mRecyclerViewUngDungLienQuan.getChildAt(didindex - main - mListTheLoai.size() - mListUngDung.size() - mainflag2 - mListAnh.size()).setBackgroundResource(R.drawable.none);
                     didindex = main + mListTheLoai.size() + mListUngDung.size();
-                    listMap2.get(0).setBackgroundResource(R.drawable.border_pick);
+                    listMap2.get(0).setBackgroundResource(R.drawable.bo_vien_cap_nhat);
                 }
                 break;
 
@@ -699,7 +701,7 @@ public class MainActivity extends AppCompatActivity {
                     mRecyclerViewUngDungLienQuan.getChildAt(didindex - main - mListTheLoai.size() - mListUngDung.size() - mListAnh.size() - mainflag2).setBackgroundResource(R.drawable.none);
                     mRecyclerViewUngDungLienQuan.getChildAt(didindex - main - mListTheLoai.size() - mListUngDung.size() - mListAnh.size() - mainflag2).callOnClick();
                     didindex = main + mListTheLoai.size() + mListUngDung.size();
-                    listMap2.get(0).setBackgroundResource(R.drawable.border_pick);
+                    listMap2.get(0).setBackgroundResource(R.drawable.bo_vien_cap_nhat);
                 }
                 break;
             default:
