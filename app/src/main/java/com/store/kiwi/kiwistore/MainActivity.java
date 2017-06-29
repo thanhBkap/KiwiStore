@@ -83,9 +83,11 @@ public class MainActivity extends AppCompatActivity {
     private RoundedImageView mAnhQuangCao;
     private DatabaseHelper mDatabaseHelper;
     private ProgressDialog dialog;
-    private List<View> listMap,listMap2;
-    private int didindex = 0, main = 3,mainflag2 = 1, indexchoose = main;
+    private List<View> listMap, listMap2;
+    private int didindex = 0, main = 3, mainflag2 = 1, indexchoose = main;
     private boolean chooseUngDung = true;
+    private Intent mIntentGetData;
+    private String mIdCapNhat = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +100,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addControls() {
+        mIntentGetData = getIntent();
+       /* if (mIntentGetData.hasExtra("idApp")) {
+            String data = mIntentGetData.getStringExtra("idApp");
+            Toast.makeText(MainActivity.this, data + " id app = ", Toast.LENGTH_SHORT).show();
+        }*/
         SharedPreferences sharedPreferences = getSharedPreferences("thoitiet", MODE_PRIVATE);
         String idThoiTiet = sharedPreferences.getString("idthoitiet", "24");
 
@@ -111,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         mListAnh = new ArrayList<>();
         mListTheLoai = mDatabaseHelper.getListTheLoai();
         mListUngDung = mDatabaseHelper.getListUngDung(mListTheLoai.get(0));
-
+        mIdCapNhat = mDatabaseHelper.getIdCapNhat();
         mUngDungFragment = findViewById(R.id.list_ung_dung_fragment);
         mUngDungChiTietFragment = findViewById(R.id.chi_tiet_fragment);
 
@@ -321,8 +328,25 @@ public class MainActivity extends AppCompatActivity {
                 mListUngDung.clear();
                 mListUngDung.addAll(mDatabaseHelper.getListUngDung(mListTheLoai.get(0)));
                 mUngDungAdapter.notifyDataSetChanged();
-                mRecyclerViewUngDung.getChildAt(4).callOnClick();
-                Toast.makeText(MainActivity.this,"sl"+mRecyclerViewUngDung.getChildCount(),Toast.LENGTH_SHORT).show();
+                if (mIntentGetData.hasExtra("idApp")) {
+                    String data = mIntentGetData.getStringExtra("idApp");
+                    int index = 1;
+                    for (int i = 0; i < mListUngDung.size(); i++) {
+                        if (mListUngDung.get(i).getId().equals(data)) {
+                            index = i;
+                            break;
+                        }
+                    }
+                   // Toast.makeText(MainActivity.this, data + " id app = " + index, Toast.LENGTH_SHORT).show();
+                    try{
+                        mRecyclerViewUngDung.getChildAt(index).callOnClick();
+                    }catch (Exception e){
+                        mRecyclerViewUngDung.getChildAt(1).callOnClick();
+                        Log.d("Exception",e.getMessage());
+                    }
+                }
+                //  mRecyclerViewUngDung.getChildAt(4).callOnClick();
+                //   Toast.makeText(MainActivity.this,"sl"+mRecyclerViewUngDung.getChildCount(),Toast.LENGTH_SHORT).show();
 
             }
         }, new Response.ErrorListener() {
@@ -334,7 +358,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> values = new HashMap<>();
-                values.put("capnhatid", mDatabaseHelper.getIdCapNhat());
+                values.put("capnhatid", mIdCapNhat);
                 return values;
             }
         };
@@ -381,12 +405,7 @@ public class MainActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
         mTxtTinh.setText(thoiTiet.getTen());
         mTxtAd.setText(mDatabaseHelper.getLinkTextQuangCao());
-        Intent i = getIntent();
-        if (i.hasExtra("idApp")){
-            String data = i.getStringExtra("idApp");
-            // Toast.makeText(this,data+" id app"+mListUngDung.size(),Toast.LENGTH_SHORT).show();
-       //     mRecyclerViewUngDung.getChildAt(4).callOnClick();
-        }
+
 
     }
 
@@ -394,7 +413,7 @@ public class MainActivity extends AppCompatActivity {
         mLayoutCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this,"sl"+mRecyclerViewUngDung.getChildCount(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "sl" + mRecyclerViewUngDung.getChildCount(), Toast.LENGTH_SHORT).show();
 
                 Toast.makeText(getApplicationContext(), "Open a calendar app", Toast.LENGTH_SHORT).show();
             }
@@ -488,7 +507,7 @@ public class MainActivity extends AppCompatActivity {
         width = displayMetrics.widthPixels;
 
         mLayoutHeader.getLayoutParams().height = height * 7 / 50;
-     //   mLayoutLogo.getLayoutParams().width = width * 2 / 9;
+        //   mLayoutLogo.getLayoutParams().width = width * 2 / 9;
         mTxtAd.getLayoutParams().width = width * 800 / 1920;
         mLayoutTheLoai.getLayoutParams().width = width * 11 / 48;
         mLayoutLienQuan.getLayoutParams().width = width * 230 / 900;
@@ -542,11 +561,11 @@ public class MainActivity extends AppCompatActivity {
                     mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.none);
                     didindex = didindex - 3;
                     mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.border_pick);
-                } else if ( didindex == main + mListTheLoai.size() + mListUngDung.size()) {
+                } else if (didindex == main + mListTheLoai.size() + mListUngDung.size()) {
                     didindex = 0;
                     listMap2.get(0).setBackgroundResource(R.drawable.bo_vien_cai_dat);
                     listMap.get(didindex).setBackgroundResource(R.drawable.border_pick);
-                }  else if (didindex >= main + mListTheLoai.size() + mListUngDung.size() + mainflag2
+                } else if (didindex >= main + mListTheLoai.size() + mListUngDung.size() + mainflag2
                         && didindex < main + mListTheLoai.size() + mListUngDung.size() + mainflag2 + mListAnh.size()) {
                     mRecyclerViewAnhUngDung.getChildAt(didindex - main - mListTheLoai.size() - mListUngDung.size() - mainflag2).setBackgroundResource(R.drawable.none);
                     didindex = main + mListTheLoai.size() + mListUngDung.size();
@@ -611,7 +630,7 @@ public class MainActivity extends AppCompatActivity {
                     mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.none);
                     didindex++;
                     mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.border_pick);
-                }  else if (didindex == main + mListTheLoai.size() + mListUngDung.size()) {
+                } else if (didindex == main + mListTheLoai.size() + mListUngDung.size()) {
                     listMap2.get(0).setBackgroundResource(R.drawable.bo_vien_cai_dat);
                     didindex = main + mListTheLoai.size() + mListUngDung.size() + mainflag2 + mListAnh.size();
                     mRecyclerViewUngDungLienQuan.getChildAt(0).setBackgroundResource(R.drawable.border_pick);
@@ -632,7 +651,7 @@ public class MainActivity extends AppCompatActivity {
                     didindex--;
                     listMap.get(didindex).setBackgroundResource(R.drawable.border_pick);
                 } else if (didindex > main + mListTheLoai.size()
-                    && didindex < main + mListTheLoai.size() + mListUngDung.size()) {
+                        && didindex < main + mListTheLoai.size() + mListUngDung.size()) {
                     mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.none);
                     didindex--;
                     mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.border_pick);
@@ -684,7 +703,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             default:
-                return super.onKeyDown(keyCode,event);
+                return super.onKeyDown(keyCode, event);
         }
         return super.onKeyDown(keyCode, event);
     }
