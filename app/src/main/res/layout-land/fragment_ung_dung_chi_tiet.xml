@@ -23,8 +23,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_85sdp"
                 android:background="@drawable/ad"
-                app:riv_border_color="@color/light_blue"
-                app:riv_border_width="0.1dp"
                 app:riv_corner_radius_top_left="@dimen/_2sdp"
                 app:riv_corner_radius_top_right="@dimen/_2sdp"
                 app:riv_mutate_background="true" />
@@ -67,7 +65,6 @@
                         android:layout_alignParentRight="true" />
                 </RelativeLayout>
 
-
                 <TextView
                     android:id="@+id/txt_ten"
                     android:layout_width="match_parent"
@@ -104,7 +101,6 @@
                     android:textSize="@dimen/_6sdp" />
 
                 <TextView
-                    android:textSize="@dimen/_6sdp"
                     android:id="@+id/txt_vote"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -114,7 +110,8 @@
                     android:layout_marginTop="@dimen/_2sdp"
                     android:layout_toRightOf="@+id/txt_version"
                     android:text="Đánh giá:"
-                    android:textColor="#000" />
+                    android:textColor="#000"
+                    android:textSize="@dimen/_6sdp" />
 
                 <RatingBar
                     android:id="@+id/rating_app"
@@ -125,8 +122,8 @@
                     android:layout_marginTop="@dimen/_1sdp"
                     android:layout_toRightOf="@+id/txt_vote"
                     android:numStars="5"
-                    android:rating="3"
                     android:progressTint="@color/yellow"
+                    android:rating="3"
                     android:text="VTV go for Android TV" />
 
                 <ImageView
@@ -248,7 +245,9 @@
             android:id="@+id/list_ung_dung_lien_quan"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/layout_lien_quan_tieu_de"></android.support.v7.widget.RecyclerView>
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"></android.support.v7.widget.RecyclerView>
     </RelativeLayout>
 
 </RelativeLayout>

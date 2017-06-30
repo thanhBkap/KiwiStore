@@ -60,32 +60,32 @@
                     android:singleLine="true"
                     android:text=" Chào mừng hè Kiwi giảm giá đặc biệt 50% cho toàn bộ các box ! Chào mừng hè Kiwi giảm giá đặc biệt 50% cho toàn bộ các box ! Chào mừng hè Kiwi giảm giá đặc biệt 50% cho toàn bộ các box ! Chào mừng hè Kiwi giảm giá đặc biệt 50% cho toàn bộ các box ! "
                     android:textAllCaps="true"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_8sdp"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"/>
+                    android:textStyle="bold" />
             </RelativeLayout>
         </RelativeLayout>
 
         <RelativeLayout
-                android:id="@+id/relay11"
-                android:layout_width="@dimen/_260sdp"
+            android:id="@+id/relay11"
+            android:layout_width="@dimen/_260sdp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="@dimen/_105sdp"
                 android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:orientation="horizontal">
+                android:layout_toLeftOf="@+id/layout2"
+                android:paddingBottom="@dimen/_5sdp"
+                android:paddingLeft="@dimen/_6sdp"
+                android:paddingTop="@dimen/_7sdp">
 
                 <RelativeLayout
-                    android:layout_width="@dimen/_105sdp"
-                    android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/layout2"
-                    android:paddingBottom="@dimen/_5sdp"
-                    android:paddingLeft="@dimen/_6sdp"
-                    android:paddingTop="@dimen/_7sdp">
-
-                    <RelativeLayout
-                        android:id="@+id/layout_calendar"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="@dimen/_2sdp">
+                    android:id="@+id/layout_calendar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/_2sdp">
 
                     <ImageView
                         android:id="@+id/anh_lich"
@@ -93,19 +93,20 @@
                         android:layout_height="@dimen/_24sdp"
                         android:padding="@dimen/_2sdp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/ic_lich"/>
+                        android:src="@drawable/ic_lich" />
 
                     <TextView
                         android:id="@+id/txt_ngay_duong"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_3sdp"
                         android:layout_toRightOf="@id/anh_lich"
                         android:padding="@dimen/_2sdp"
+                        android:singleLine="true"
                         android:text="Thứ 7 , 10/6/2017 "
                         android:textAllCaps="true"
-                        android:textSize="@dimen/_7sdp"
-                        android:singleLine="true"
-                        android:textColor="@color/white"/>
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_6sdp" />
 
                     <TextView
                         android:id="@+id/txt_ngay_am"
@@ -113,53 +114,55 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/txt_ngay_duong"
                         android:layout_toRightOf="@id/anh_lich"
-                        android:paddingLeft="@dimen/_2sdp"
                         android:gravity="center"
+                        android:paddingLeft="@dimen/_2sdp"
                         android:singleLine="true"
                         android:text="16/5 Đinh dậu "
                         android:textAllCaps="true"
-                        android:textSize="@dimen/_5sdp"
-                        android:textColor="@color/white"/>
-                    </RelativeLayout>
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_5sdp" />
                 </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout2"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/layout3"
+                android:paddingBottom="@dimen/_5sdp"
+                android:paddingLeft="@dimen/_4sdp"
+                android:paddingTop="@dimen/_7sdp">
 
                 <RelativeLayout
-                    android:id="@+id/layout2"
+                    android:id="@+id/layout_weather"
                     android:layout_width="@dimen/_70sdp"
-                    android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/layout3"
-                    android:paddingBottom="@dimen/_5sdp"
-                    android:paddingLeft="@dimen/_4sdp"
-                    android:paddingTop="@dimen/_7sdp">
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/_2sdp">
 
-                    <RelativeLayout
-                        android:id="@+id/layout_weather"
-                        android:layout_width="@dimen/_70sdp"
-                        android:layout_height="match_parent"
-                        android:padding="@dimen/_2sdp">
                     <ImageView
                         android:id="@+id/anh_thoi_tiet"
                         android:layout_width="@dimen/_24sdp"
                         android:layout_height="@dimen/_24sdp"
                         android:layout_centerVertical="true"
-                        android:paddingTop="@dimen/_2sdp"
+                        android:paddingBottom="@dimen/_1sdp"
                         android:paddingLeft="@dimen/_1sdp"
                         android:paddingRight="@dimen/_1sdp"
-                        android:paddingBottom="@dimen/_1sdp"
+                        android:paddingTop="@dimen/_2sdp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/ic_thoitiet"/>
+                        android:src="@drawable/ic_thoitiet" />
 
                     <TextView
                         android:id="@+id/txt_tinh"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_3sdp"
                         android:layout_toRightOf="@+id/anh_thoi_tiet"
                         android:padding="@dimen/_2sdp"
                         android:singleLine="true"
                         android:text="Hà Nôi"
                         android:textAllCaps="true"
-                        android:textSize="@dimen/_6sdp"
-                        android:textColor="@color/white"/>
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_6sdp" />
 
                     <TextView
                         android:id="@+id/txt_nhiet_do"
@@ -171,66 +174,67 @@
                         android:singleLine="true"
                         android:text="28 độ       "
                         android:textAllCaps="true"
-                        android:textSize="@dimen/_5sdp"
-                        android:textColor="@color/white"/>
-                    </RelativeLayout>
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_5sdp" />
                 </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout3"
+                android:layout_width="@dimen/_75sdp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:paddingBottom="@dimen/_5sdp"
+                android:paddingLeft="@dimen/_3sdp"
+                android:paddingTop="@dimen/_7sdp">
 
                 <RelativeLayout
-                    android:id="@+id/layout3"
-                    android:layout_width="@dimen/_75sdp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:paddingBottom="@dimen/_5sdp"
-                    android:paddingLeft="@dimen/_3sdp"
-                    android:paddingTop="@dimen/_7sdp">
+                    android:id="@+id/layout_cau_hinh"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/_2sdp">
 
-                    <RelativeLayout
-                        android:id="@+id/layout_cau_hinh"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="@dimen/_1sdp">
-                        <ImageView
+                    <ImageView
                         android:id="@+id/anh_cau_hinh"
                         android:layout_width="@dimen/_24sdp"
                         android:layout_height="@dimen/_24sdp"
                         android:layout_centerVertical="true"
-                        android:paddingTop="@dimen/_2sdp"
+                        android:paddingBottom="@dimen/_1sdp"
                         android:paddingLeft="@dimen/_1sdp"
                         android:paddingRight="@dimen/_1sdp"
-                        android:paddingBottom="@dimen/_1sdp"
+                        android:paddingTop="@dimen/_2sdp"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/ic_setting"/>
+                        android:src="@mipmap/ic_setting" />
 
-                        <TextView
-                            android:id="@+id/txt_caidat"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_toRightOf="@+id/anh_cau_hinh"
-                            android:paddingLeft="@dimen/_2sdp"
-                            android:paddingTop="@dimen/_5sdp"
-                            android:singleLine="true"
-                            android:text="Cấu Hình      "
-                            android:textAllCaps="true"
-                            android:textSize="@dimen/_6sdp"
-                            android:textColor="@color/white"/>
+                    <TextView
+                        android:id="@+id/txt_caidat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:layout_toRightOf="@+id/anh_cau_hinh"
+                        android:padding="@dimen/_2sdp"
+                        android:singleLine="true"
+                        android:text="Cấu Hình      "
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_6sdp" />
 
-                        <TextView
-                            android:id="@+id/txt_kiwi"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/txt_caidat"
-                            android:layout_toRightOf="@+id/anh_cau_hinh"
-                            android:singleLine="true"
-                            android:paddingLeft="@dimen/_2sdp"
-                            android:text="KiwiBox       "
-                            android:textAllCaps="true"
-                            android:textSize="@dimen/_5sdp"
-                            android:textColor="@color/white"/>
-                    </RelativeLayout>
+                    <TextView
+                        android:id="@+id/txt_kiwi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt_caidat"
+                        android:layout_toRightOf="@+id/anh_cau_hinh"
+                        android:paddingLeft="@dimen/_2sdp"
+                        android:singleLine="true"
+                        android:text="KiwiBox       "
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_5sdp" />
                 </RelativeLayout>
-
             </RelativeLayout>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
@@ -239,13 +243,16 @@
         android:layout_width="@dimen/_150sdp"
         android:layout_height="match_parent"
         android:layout_below="@+id/layout_header"
-        android:layout_marginRight="@dimen/_9sdp">
+        android:layout_marginRight="@dimen/_9sdp"
+        android:paddingLeft="@dimen/_17sdp">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/list_the_loai"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </android.support.v7.widget.RecyclerView>
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"></android.support.v7.widget.RecyclerView>
 
     </RelativeLayout>
 
@@ -257,7 +264,7 @@
 
         <include layout="@layout/fragment_the_loai" />
 
-        <include layout="@layout/fragment_ung_dung_chi_tiet"/>
+        <include layout="@layout/fragment_ung_dung_chi_tiet" />
 
     </RelativeLayout>
 </RelativeLayout>
