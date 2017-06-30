@@ -43,10 +43,6 @@ public class DecompressFast {
                     while ((read = zin.read(buffer)) != -1) {
                         bufout.write(buffer, 0, read);
                     }
-
-
-
-
                     bufout.close();
 
                     zin.closeEntry();
