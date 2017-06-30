@@ -39,7 +39,7 @@
             android:textAlignment="textStart"
             android:textAllCaps="true"
             android:textColor="@color/white"
-            android:textSize="12dp" />
+            android:textSize="12sp" />
 
     </RelativeLayout>
 

@@ -43,7 +43,7 @@
             android:textAlignment="textStart"
             android:textAllCaps="true"
             android:textColor="@color/white"
-            android:textSize="@dimen/categoryList" />
+            android:textSize="12sp" />
 
     </RelativeLayout>
 
