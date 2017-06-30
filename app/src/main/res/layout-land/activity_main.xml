@@ -11,7 +11,9 @@
         android:id="@+id/layout_header"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_43sdp"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:paddingBottom="@dimen/_3sdp"
+        android:paddingTop="@dimen/_3sdp">
 
         <RelativeLayout
             android:id="@+id/layout_logo"
