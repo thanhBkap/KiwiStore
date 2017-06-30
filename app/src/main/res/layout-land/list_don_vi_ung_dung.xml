@@ -89,7 +89,7 @@
             android:layout_centerVertical="true"
             android:layout_marginBottom="@dimen/_5sdp"
             android:layout_toRightOf="@+id/layout_logo"
-            android:minWidth="120dp"
+            android:minWidth="@dimen/_60sdp"
             android:text="Chưa cài ứng dụng"
             android:textColor="@color/orange"
             android:textSize="@dimen/_5sdp"

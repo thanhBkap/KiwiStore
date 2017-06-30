@@ -19,11 +19,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
@@ -153,7 +151,6 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerViewAnhUngDung = (RecyclerView) mUngDungChiTietFragment.findViewById(R.id.list_anh_ung_dung);
         mRecyclerViewUngDungLienQuan = (RecyclerView) mUngDungChiTietFragment.findViewById(R.id.list_ung_dung_lien_quan);
 
-        setWidthAnhHeight();
         //hiển thị fragment 1 - frament ứng dụng
         fragmentNum = 1;
         // load quảng cáo
@@ -415,15 +412,14 @@ public class MainActivity extends AppCompatActivity {
         mLayoutCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "sl" + mRecyclerViewUngDung.getChildCount(), Toast.LENGTH_SHORT).show();
-
-                Toast.makeText(getApplicationContext(), "Open a calendar app", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(MainActivity.this, "sl" + mRecyclerViewUngDung.getChildCount(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), mNgayDuongTxt.getText().toString()+"\n"+mNgayAmTxt.getText().toString(), Toast.LENGTH_SHORT).show();
             }
         });
         mLayouWeather.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Open a weather app", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), mTxtTinh.getText().toString()+" "+mTxtNhietDo.getText().toString(), Toast.LENGTH_SHORT).show();
             }
         });
         mLayoutCauHinh.setOnClickListener(new View.OnClickListener() {
@@ -502,23 +498,6 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 // failure message
             }*/
-    private void setWidthAnhHeight() {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        height = displayMetrics.heightPixels;
-        width = displayMetrics.widthPixels;
-
-        mLayoutHeader.getLayoutParams().height = height * 7 / 50;
-        //   mLayoutLogo.getLayoutParams().width = width * 2 / 9;
-        mTxtAd.getLayoutParams().width = width * 800 / 1920;
-        mLayoutTheLoai.getLayoutParams().width = width * 11 / 48;
-        mLayoutLienQuan.getLayoutParams().width = width * 230 / 900;
-        mAnhQuangCao.getLayoutParams().height = height * 150 / 500;
-
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        layoutParams.setMargins(0, 0, 0, height * 20 / 500);
-        mUngDungChiTietFragment.setLayoutParams(layoutParams);
-    }
 
     public boolean haveStoragePermission() {
         if (Build.VERSION.SDK_INT >= 23) {
@@ -703,6 +682,8 @@ public class MainActivity extends AppCompatActivity {
                     mRecyclerViewUngDungLienQuan.getChildAt(didindex - main - mListTheLoai.size() - mListUngDung.size() - mListAnh.size() - mainflag2).callOnClick();
                     didindex = main + mListTheLoai.size() + mListUngDung.size();
                     listMap2.get(0).setBackgroundResource(R.drawable.bo_vien_cap_nhat);
+                }else if(didindex<main && didindex>=0){
+                    listMap.get(didindex).callOnClick();
                 }
                 break;
             default:
