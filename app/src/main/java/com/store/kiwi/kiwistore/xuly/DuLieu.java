@@ -153,10 +153,7 @@ public class DuLieu {
     }
 
     public static String getFileZipName(String url) {
-        String zipName = "";
-        int i = url.lastIndexOf('/');
-        zipName = url.substring(i + 1, url.length());
-        return zipName;
+        return url.substring(url.lastIndexOf('/') + 1, url.length());
     }
 
     public static boolean compareDate(String checkDate, String currentDate) {
@@ -166,34 +163,23 @@ public class DuLieu {
         String date2 = splitDateTime(currentDate, 1)[0];
         String time2 = splitDateTime(currentDate, 1)[1];
 
-        String year1 = splitDateTime(date1, 2)[0];
-        String year2 = splitDateTime(date2, 2)[0];
-        if (Integer.parseInt(year1) < Integer.parseInt(year2)) {
+
+        if (Integer.parseInt(splitDateTime(date1, 2)[0]) < Integer.parseInt(splitDateTime(date2, 2)[0])) {
             return true;
         }
-        String month1 = splitDateTime(date1, 2)[1];
-        String month2 = splitDateTime(date2, 2)[1];
-        if (Integer.parseInt(month1) < Integer.parseInt(month2)) {
+        if (Integer.parseInt(splitDateTime(date1, 2)[1]) < Integer.parseInt(splitDateTime(date2, 2)[1])) {
             return true;
         }
-        String day1 = splitDateTime(date1, 2)[2];
-        String day2 = splitDateTime(date2, 2)[2];
-        if (Integer.parseInt(day1) < Integer.parseInt(day2)) {
+        if (Integer.parseInt(splitDateTime(date1, 2)[2]) < Integer.parseInt(splitDateTime(date2, 2)[2])) {
             return true;
         }
-        String hour1 = splitDateTime(time1, 3)[0];
-        String hour2 = splitDateTime(time2, 3)[0];
-        if (Integer.parseInt(hour1) < Integer.parseInt(hour2)) {
+        if (Integer.parseInt(splitDateTime(time1, 3)[0]) < Integer.parseInt(splitDateTime(time2, 3)[0])) {
             return true;
         }
-        String minute1 = splitDateTime(time1, 3)[1];
-        String minute2 = splitDateTime(time2, 3)[1];
-        if (Integer.parseInt(minute1) < Integer.parseInt(minute2)) {
+        if (Integer.parseInt(splitDateTime(time1, 3)[1]) < Integer.parseInt(splitDateTime(time2, 3)[1])) {
             return true;
         }
-        String second1 = splitDateTime(time1, 3)[2];
-        String second2 = splitDateTime(time2, 3)[2];
-        if (Integer.parseInt(second1) <= Integer.parseInt(second2)) {
+        if (Integer.parseInt(splitDateTime(time1, 3)[2]) <= Integer.parseInt(splitDateTime(time2, 3)[2])) {
             return true;
         }
         return false;
