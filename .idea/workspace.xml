@@ -9,42 +9,14 @@
       </config>
     </shared>
   </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="e67fdb61-561a-4406-b6a6-ca0614abddb7" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/dictionaries/admin.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/background-web.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/ic_calendar-web.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/ic_checked-web.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/ic_nonchecked-web.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/ic_setting-web.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/ic_store-web.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/ic_truyenhinh-web.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/ic_weather-web.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/animated_vector_drawable_25_3_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/animated_vector_drawable_25_3_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_25_3_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_25_3_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/cardview_v7_21_0_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/cardview_v7_21_0_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/constraint_layout_1_0_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/constraint_layout_1_0_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/espresso_core_2_2_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/espresso_core_2_2_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/espresso_idling_resource_2_2_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/espresso_idling_resource_2_2_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/exposed_instrumentation_api_publish_0_5.xml" afterPath="$PROJECT_DIR$/.idea/libraries/exposed_instrumentation_api_publish_0_5.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/recyclerview_v7_21_0_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/recyclerview_v7_21_0_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/roundedimageview_2_3_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/roundedimageview_2_3_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/rules_0_5.xml" afterPath="$PROJECT_DIR$/.idea/libraries/rules_0_5.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/runner_0_5.xml" afterPath="$PROJECT_DIR$/.idea/libraries/runner_0_5.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/sdp_android_1_0_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/sdp_android_1_0_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_annotations_25_3_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_annotations_25_3_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_compat_25_3_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_compat_25_3_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_core_ui_25_3_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_core_ui_25_3_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_core_utils_25_3_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_core_utils_25_3_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_fragment_25_3_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_fragment_25_3_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_media_compat_25_3_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_media_compat_25_3_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_25_3_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_25_3_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_vector_drawable_25_3_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_vector_drawable_25_3_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/volley_1_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/volley_1_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_the_loai.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_the_loai.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/list_don_vi_the_loai.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/list_don_vi_the_loai.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/store/kiwi/kiwistore/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/store/kiwi/kiwistore/MainActivity.java" />
     </list>
     <ignored path="KiwiStore.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -79,8 +51,8 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/store/kiwi/kiwistore/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1728">
-              <caret line="683" column="25" selection-start-line="683" selection-start-column="25" selection-end-line="683" selection-end-column="25" />
+            <state relative-caret-position="193">
+              <caret line="566" column="17" selection-start-line="566" selection-start-column="17" selection-end-line="566" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -1979,10 +1951,10 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/store/kiwi/kiwistore/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/list_don_vi_the_loai.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_the_loai.xml" />
         <option value="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout/fragment_the_loai.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/store/kiwi/kiwistore/MainActivity.java" />
       </list>
     </option>
   </component>
@@ -2439,7 +2411,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="2" y="31" width="1373" height="678" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32821497" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2447,7 +2419,7 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.6641075" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2894,8 +2866,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/store/kiwi/kiwistore/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1728">
-          <caret line="683" column="25" selection-start-line="683" selection-start-column="25" selection-end-line="683" selection-end-column="25" />
+        <state relative-caret-position="193">
+          <caret line="566" column="17" selection-start-line="566" selection-start-column="17" selection-end-line="566" selection-end-column="17" />
           <folding />
         </state>
       </provider>
