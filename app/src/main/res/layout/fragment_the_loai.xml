@@ -10,10 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_35sdp"
         android:background="@drawable/title_bar"
-        android:paddingBottom="@dimen/_1sdp"
-        android:paddingLeft="@dimen/_1sdp"
-        android:paddingRight="@dimen/_1sdp"
-        android:paddingTop="@dimen/_1sdp">
+        android:padding="@dimen/_2sdp">
 
         <TextView
             android:id="@+id/txt_ten_so_luong_the_loai"
