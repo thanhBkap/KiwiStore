@@ -61,7 +61,7 @@ import java.util.Map;
 
 import static com.store.kiwi.kiwistore.xuly.DuLieu.checkInstalledApplication;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     public final static String APIKEY = "1fd660e2a27afad8b71405f654997a62";
     private List<TheLoai> mListTheLoai;
     private RecyclerView mRecyclerViewTheLoai, mRecyclerViewUngDung, mRecyclerViewUngDungLienQuan, mRecyclerViewAnhUngDung;
@@ -76,21 +76,27 @@ public class MainActivity extends AppCompatActivity {
     private RelativeLayout mLayoutCauHinh, mLayoutHeader, mLayoutLogo, mLayoutSearch, mLayoutTheLoai,
             mLayoutLienQuan, mLayoutCaiDat, mLayouCaiDatUngDung, mLayoutCalendar, mLayouWeather, mLayoutAd;
     private RatingBar mRating;
-    private ImageView mAnhIcon, mImageChecked;
+    private ImageView mAnhIcon, mImageChecked,mLogo;
     private int fragmentNum, height, width;
     private RoundedImageView mAnhQuangCao;
     private DatabaseHelper mDatabaseHelper;
     private ProgressDialog dialog;
     private List<View> listMap, listMap2;
-    private int didindex = 0, main = 3, mainflag2 = 1, indexchoose = main;
+    private int didindex = 0, main = 4, mainflag2 = 1, indexchoose = main;
     private boolean chooseUngDung = true;
     private Intent mIntentGetData;
     private String mIdCapNhat = "0";
+    public static final int REQUEST_PERMISSION = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            checkPermission();
+        }
+
         addControls();
         addEvents();
         addListMap();
@@ -141,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
         mLayoutAd = (RelativeLayout) mUngDungChiTietFragment.findViewById(R.id.layout_quangcao);
 
         mAnhIcon = (ImageView) mUngDungChiTietFragment.findViewById(R.id.anh_icon);
+        mLogo    = (ImageView) findViewById(R.id.logo);
         mImageChecked=(ImageView) mUngDungChiTietFragment.findViewById(R.id.img_checked);
         mAnhQuangCao = (RoundedImageView) mUngDungChiTietFragment.findViewById(R.id.anh_quang_cao);
         mLayoutLienQuan = (RelativeLayout) mUngDungChiTietFragment.findViewById(R.id.layout_lien_quan);
@@ -404,8 +411,7 @@ public class MainActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
         mTxtTinh.setText(thoiTiet.getTen());
         mTxtAd.setText(mDatabaseHelper.getLinkTextQuangCao());
-
-
+        mLogo.setOnClickListener(this);
     }
 
     private void addEvents() {
@@ -518,6 +524,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addListMap() {
+        listMap.add(mLogo);
         listMap.add(mLayoutCalendar);
         listMap.add(mLayouWeather);
         listMap.add(mLayoutCauHinh);
@@ -531,7 +538,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_DPAD_UP:
-                if (didindex > main && didindex <= main + mListTheLoai.size()) {
+                if (didindex > main && didindex < main + mListTheLoai.size()) {
                     didindex--;
                     mRecyclerViewTheLoai.getChildAt(didindex - main).callOnClick();
                 } else if (didindex == main) {
@@ -579,11 +586,13 @@ public class MainActivity extends AppCompatActivity {
                     mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.none);
                     didindex = didindex + 3;
                     mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.border_pick);
-                } else if (didindex == main + mListTheLoai.size() + mListUngDung.size()) {
-                    listMap2.get(0).setBackgroundResource(R.drawable.bo_vien_cai_dat);
-                    didindex++;
-                    mRecyclerViewAnhUngDung.getChildAt(didindex - main - mListTheLoai.size() - mListUngDung.size() - mainflag2).setBackgroundResource(R.drawable.border_pick);
-                } else if (didindex >= main + mListTheLoai.size() + mListUngDung.size() + mainflag2 + mListAnh.size()
+                }
+//                else if (didindex == main + mListTheLoai.size() + mListUngDung.size()) {
+//                    listMap2.get(0).setBackgroundResource(R.drawable.bo_vien_cai_dat);
+//                    didindex++;
+//                    mRecyclerViewAnhUngDung.getChildAt(didindex - main - mListTheLoai.size() - mListUngDung.size() - mainflag2).setBackgroundResource(R.drawable.border_pick);
+//                }
+                else if (didindex >= main + mListTheLoai.size() + mListUngDung.size() + mainflag2 + mListAnh.size()
                         && didindex <= main + mListTheLoai.size() + mListUngDung.size() + mainflag2 + mListAnh.size() + 3) {
                     mRecyclerViewUngDungLienQuan.getChildAt(didindex - main - mListTheLoai.size() - mListUngDung.size() - mainflag2 - mListAnh.size()).setBackgroundResource(R.drawable.none);
                     if (didindex == main + mListTheLoai.size() + mListUngDung.size() + mainflag2 + mListAnh.size() + 3) {
@@ -591,7 +600,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     didindex++;
                     mRecyclerViewUngDungLienQuan.getChildAt(didindex - main - mListTheLoai.size() - mListUngDung.size() - mainflag2 - mListAnh.size()).setBackgroundResource(R.drawable.border_pick);
-                } else if (didindex >= main + mListTheLoai.size() + mListUngDung.size()
+                } else if (didindex > main + mListTheLoai.size() + mListUngDung.size()
                         && didindex < main + mListTheLoai.size() + mListUngDung.size() + mainflag2) {
                     listMap2.get(0).setBackgroundResource(R.drawable.bo_vien_cai_dat);
                     didindex++;
@@ -616,15 +625,16 @@ public class MainActivity extends AppCompatActivity {
                     listMap2.get(0).setBackgroundResource(R.drawable.bo_vien_cai_dat);
                     didindex = main + mListTheLoai.size() + mListUngDung.size() + mainflag2 + mListAnh.size();
                     mRecyclerViewUngDungLienQuan.getChildAt(0).setBackgroundResource(R.drawable.border_pick);
-                } else if (didindex >= main + mListTheLoai.size() + mListUngDung.size() + mainflag2
-                        && didindex <= main - 1 + mListTheLoai.size() + mListUngDung.size() + mainflag2 + mListAnh.size()) {
-                    mRecyclerViewAnhUngDung.getChildAt(didindex - main - mListTheLoai.size() - mListUngDung.size() - mainflag2).setBackgroundResource(R.drawable.none);
-                    if (didindex == main - 1 + mListTheLoai.size() + mListUngDung.size() + mainflag2 + mListAnh.size()) {
-                        didindex = main - 1 + mListTheLoai.size() + mListUngDung.size() + mainflag2;
-                    }
-                    didindex++;
-                    mRecyclerViewAnhUngDung.getChildAt(didindex - main - mListTheLoai.size() - mListUngDung.size() - mainflag2).setBackgroundResource(R.drawable.border_pick);
                 }
+//                else if (didindex >= main + mListTheLoai.size() + mListUngDung.size() + mainflag2
+//                        && didindex <= main - 1 + mListTheLoai.size() + mListUngDung.size() + mainflag2 + mListAnh.size()) {
+//                    mRecyclerViewAnhUngDung.getChildAt(didindex - main - mListTheLoai.size() - mListUngDung.size() - mainflag2).setBackgroundResource(R.drawable.none);
+//                    if (didindex == main - 1 + mListTheLoai.size() + mListUngDung.size() + mainflag2 + mListAnh.size()) {
+//                        didindex = main - 1 + mListTheLoai.size() + mListUngDung.size() + mainflag2;
+//                    }
+//                    didindex++;
+//                    mRecyclerViewAnhUngDung.getChildAt(didindex - main - mListTheLoai.size() - mListUngDung.size() - mainflag2).setBackgroundResource(R.drawable.border_pick);
+//                }
                 break;
 
             case KeyEvent.KEYCODE_DPAD_LEFT:
@@ -640,15 +650,18 @@ public class MainActivity extends AppCompatActivity {
                 } else if (didindex == main + mListTheLoai.size() + mListUngDung.size()) {
                     didindex = indexchoose;
                     mRecyclerViewTheLoai.getChildAt(didindex - main).callOnClick();
-                } else if (didindex >= main + mListTheLoai.size() + mListUngDung.size() + mainflag2
-                        && didindex < main + mListTheLoai.size() + mListUngDung.size() + mainflag2 + mListAnh.size()) {
-                    mRecyclerViewAnhUngDung.getChildAt(didindex - main - mListTheLoai.size() - mListUngDung.size() - mainflag2).setBackgroundResource(R.drawable.none);
-                    if (didindex == main + mListTheLoai.size() + mListUngDung.size() + mainflag2) {
-                        didindex = main + mListTheLoai.size() + mListUngDung.size() + mainflag2 + mListAnh.size();
-                    }
-                    didindex--;
-                    mRecyclerViewAnhUngDung.getChildAt(didindex - main - mListTheLoai.size() - mListUngDung.size() - mainflag2).setBackgroundResource(R.drawable.border_pick);
-                } else if (didindex == main + mListTheLoai.size()) {
+                }
+//                else if (didindex >= main + mListTheLoai.size() + mListUngDung.size() + mainflag2
+//                        && didindex < main + mListTheLoai.size() + mListUngDung.size() + mainflag2 + mListAnh.size()) {
+//                    mRecyclerViewAnhUngDung.getChildAt(didindex - main - mListTheLoai.size() - mListUngDung.size() - mainflag2).setBackgroundResource(R.drawable.none);
+//                    if (didindex == main + mListTheLoai.size() + mListUngDung.size() + mainflag2) {
+//                        didindex = main + mListTheLoai.size() + mListUngDung.size() + mainflag2 + mListAnh.size();
+//                    }
+//                    didindex--;
+//                    mRecyclerViewAnhUngDung.getChildAt(didindex - main - mListTheLoai.size() - mListUngDung.size() - mainflag2).setBackgroundResource(R.drawable.border_pick);
+//                }
+                else if (didindex == main + mListTheLoai.size()) {
+                    mRecyclerViewUngDung.getChildAt(0).setBackgroundResource(R.drawable.none);
                     didindex = indexchoose;
                     mRecyclerViewTheLoai.getChildAt(didindex - main).callOnClick();
                 } else if (didindex == main + mListTheLoai.size() + mListUngDung.size() + mainflag2 + mListAnh.size()) {
@@ -671,6 +684,7 @@ public class MainActivity extends AppCompatActivity {
             case KeyEvent.KEYCODE_NUMPAD_ENTER:
                 if (didindex >= main + mListTheLoai.size()
                         && didindex < main + mListTheLoai.size() + mListUngDung.size()) {
+                    mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.none);
                     mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).callOnClick();
                     didindex = main + mListTheLoai.size() + mListUngDung.size();
                 } else if (didindex >= main + mListTheLoai.size() + mListUngDung.size()
@@ -691,5 +705,24 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.logo:
+                launchApp("com.att.kiwilauncher");
+                break;
+        }
+    }
+
+    private void checkPermission() {
+        ActivityCompat.requestPermissions(this, new String[]{
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                android.Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.ACCESS_WIFI_STATE,
+        }, REQUEST_PERMISSION);
+    }
+
 }
 
