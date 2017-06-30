@@ -17,10 +17,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:paddingBottom="2dp"
-        android:paddingLeft="2dp"
-        android:paddingRight="2dp"
-        android:paddingTop="2dp">
+        android:padding="@dimen/_2sdp">
 
         <ImageView
             android:id="@+id/anh_the_loai"
