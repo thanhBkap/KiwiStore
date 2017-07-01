@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Intent mIntentGetData;
     private String mIdCapNhat = "0";
     public static final int REQUEST_PERMISSION = 100;
-    int scroll = 0;
+    int scroll = 0,scroll1 = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -347,6 +347,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     try {
                         mRecyclerViewUngDung.getChildAt(index).callOnClick();
                         didindex = main + mListTheLoai.size() + mListUngDung.size();
+                        mLogo.setBackgroundResource(R.drawable.none);
                     } catch (Exception e) {
                         mRecyclerViewUngDung.getChildAt(1).callOnClick();
                         Log.d("Exception", e.getMessage());
@@ -543,12 +544,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (didindex > main && didindex < main + mListTheLoai.size()) {
                     didindex--;
                     mRecyclerViewTheLoai.getChildAt(didindex - main).callOnClick();
+                    scroll = 0;
                 } else if (didindex == main) {
                     didindex--;
                     listMap.get(didindex).setBackgroundResource(R.drawable.border_pick);
                 } else if (didindex > main + mListTheLoai.size() + 2
                         && didindex < main + mListTheLoai.size() + mListUngDung.size()) {
                     scroll--;
+                    scrollApp(scroll);
                     mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.none);
                     didindex = didindex - 3;
                     mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.border_pick);
@@ -586,6 +589,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     listMap.get(didindex).setBackgroundResource(R.drawable.none);
                     didindex = indexchoose;
                     mRecyclerViewTheLoai.getChildAt(didindex - main).callOnClick();
+                    scroll = 0;
                 } else if (didindex >= main && didindex < main + mListTheLoai.size()) {
                     if (didindex == main - 1 + mListTheLoai.size()) {
                         didindex = main - 1;
@@ -595,6 +599,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else if (didindex >= main + mListTheLoai.size()
                         && didindex < main + mListTheLoai.size() + mListUngDung.size() - 3) {
                     scroll++;
+                    scrollApp(scroll);
                     mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.none);
                     didindex = didindex + 3;
                     mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.border_pick);
@@ -642,8 +647,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else if (didindex >= main + mListTheLoai.size() && didindex < main - 1 + mListTheLoai.size() + mListUngDung.size()) {
                     mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.none);
                     didindex++;
-                    if (didindex % 3 == 0) {
+                    if ((didindex - main - mListTheLoai.size()) % 3 == 0) {
                         scroll++;
+                        scrollApp(scroll);
                     }
                     mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.border_pick);
                 } else if (didindex == main + mListTheLoai.size() + mListUngDung.size()) {
@@ -678,6 +684,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else if (didindex > main + mListTheLoai.size()
                         && didindex < main + mListTheLoai.size() + mListUngDung.size()) {
                     mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.none);
+                    if ((didindex - main - mListTheLoai.size())%3 == 0) {
+                        scroll--;
+                        scrollApp(scroll);
+                    }
                     didindex--;
                     mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.border_pick);
                 } else if (didindex == main + mListTheLoai.size() + mListUngDung.size()) {
@@ -763,6 +773,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 android.Manifest.permission.READ_PHONE_STATE,
                 Manifest.permission.ACCESS_WIFI_STATE,
         }, REQUEST_PERMISSION);
+    }
+
+    public void scrollApp(int i) {
+        mRecyclerViewUngDung.scrollToPosition(i*12);
     }
 
 }
