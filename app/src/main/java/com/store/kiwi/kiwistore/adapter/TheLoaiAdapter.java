@@ -104,13 +104,11 @@ public class TheLoaiAdapter extends RecyclerView.Adapter<TheLoaiAdapter.ViewHold
                     theLoaiHienTai.setChecked(true);
                     mListUngDung.clear();
                     mListUngDung.addAll(databaseHelper.getListUngDung(theLoaiHienTai));
-
                     mUngDungAdapter.notifyDataSetChanged();
                     notifyDataSetChanged();
                 }
             });
         }
-
     }
 }
 

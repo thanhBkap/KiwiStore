@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TheLoaiAdapter mTheLoaiAdapter;
     private DanhSachAnhUngDungAdapter mDanhSachAnhAdapter;
     private List<UngDung> mListUngDung;
+    private List<UngDung> ungDungList;
     private List<String> mListAnh;
     private UngDungAdapter mUngDungAdapter;
     private View mUngDungFragment, mUngDungChiTietFragment;
@@ -102,6 +103,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addEvents();
         addListMap();
         listMap.get(didindex).setBackgroundResource(R.drawable.border_pick);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateApp();
+
     }
 
     private void addControls() {
@@ -208,15 +216,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dialog.setTitle("Đang tải");
         dialog.setMessage("Vui lòng đợi ứng dụng tải dữ liệu");
 
-        List<UngDung> ungDungList = mDatabaseHelper.getLissAppName();
-        for (int j = 0; j < ungDungList.size(); j++) {
-            if (checkInstalledApplication(ungDungList.get(j).getName(), this)) {
-                mDatabaseHelper.updateApp(1, ungDungList.get(j).getId());
-            } else {
-                mDatabaseHelper.updateApp(0, ungDungList.get(j).getId());
-            }
-        }
-
+        ungDungList = mDatabaseHelper.getLissAppName();
+        updateApp();
         String url2 = DuLieu.URL + "/first_request_store.php";
         StringRequest stringRequest2 = new StringRequest(Request.Method.POST, url2, new Response.Listener<String>() {
             @Override
@@ -355,8 +356,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 //  mRecyclerViewUngDung.getChildAt(4).callOnClick();
                 //   Toast.makeText(MainActivity.this,"sl"+mRecyclerViewUngDung.getChildCount(),Toast.LENGTH_SHORT).show();
-
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -415,6 +414,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTxtTinh.setText(thoiTiet.getTen());
         mTxtAd.setText(mDatabaseHelper.getLinkTextQuangCao());
         mLogo.setOnClickListener(this);
+    }
+
+    private void updateApp() {
+        for (int j = 0; j < ungDungList.size(); j++) {
+            if (checkInstalledApplication(ungDungList.get(j).getName(), this)) {
+                mDatabaseHelper.updateApp(1, ungDungList.get(j).getId());
+            } else {
+                mDatabaseHelper.updateApp(0, ungDungList.get(j).getId());
+            }
+        }
     }
 
     private void addEvents() {
@@ -602,7 +611,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     scrollApp(scroll);
                     mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.none);
                     didindex = didindex + 3;
-                    mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.border_pick);
+                        mRecyclerViewUngDung.getChildAt(didindex - main - mListTheLoai.size()).setBackgroundResource(R.drawable.border_pick);
                 }
 //                else if (didindex == main + mListTheLoai.size() + mListUngDung.size()) {
 //                    listMap2.get(0).setBackgroundResource(R.drawable.bo_vien_cai_dat);

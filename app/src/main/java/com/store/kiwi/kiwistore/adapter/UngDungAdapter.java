@@ -112,7 +112,7 @@ public class UngDungAdapter extends RecyclerView.Adapter<UngDungAdapter.ViewHold
         TextView mTen, mCaiDat, mVersionName;
         CardView mCardViewUngDung;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(final View itemView) {
             super(itemView);
             mIcon = (ImageView) itemView.findViewById(R.id.anh_ung_dung);
             mChecked = (ImageView) itemView.findViewById(R.id.img_checked);
